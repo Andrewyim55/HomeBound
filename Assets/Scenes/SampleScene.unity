@@ -494,7 +494,7 @@ GameObject:
   - component: {fileID: 1467352027}
   - component: {fileID: 1467352026}
   m_Layer: 0
-  m_Name: heart_01
+  m_Name: heartPowerUp
   m_TagString: Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -509,9 +509,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1467352025}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bda3846a3c3d4446852c43951a3653c, type: 3}
+  m_Script: {fileID: 11500000, guid: 67f60354d4585454cb006b06d6af16ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  type: 0
 --- !u!61 &1467352027
 BoxCollider2D:
   m_ObjectHideFlags: 0
