@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using UnityEditor;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -21,6 +23,17 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float bulletDmg;
     [SerializeField] private float fireForce;
     [SerializeField] private float moveSpeed;
+    [SerializeField] private float packUp;
+
+
+    private float fireTime;
+    private bool isShooting;
+    private float packingUp;
+
+    private void Start()
+    {
+        fireTime = timeTillFire;
+    }
 
     private void OnDrawGizmosSelected()
     {
@@ -33,22 +46,37 @@ public class Enemy : MonoBehaviour
         RotateTowardsTarget();
         if (!CheckInRange())
         {
-            // Move Towards Target
-            Vector2 direction = (target.position - transform.position).normalized;
-            rb.velocity = direction * moveSpeed;
+            if(isShooting)
+            {
+                packingUp += Time.deltaTime;
+                if(packingUp >= packUp)
+                {
+                    isShooting = false;
+                    fireTime = timeTillFire;
+                    packingUp = 0;
+                }
+            }
+            else
+            {
+                // Move Towards Target
+                Vector2 direction = (target.position - transform.position).normalized;
+                rb.velocity = direction * moveSpeed;
+            }
         }
         else
         {
-            rb.velocity = Vector2.zero; 
+            isShooting = true;
+            rb.velocity = Vector2.zero;
             // If target in range shoot instead
-            timeTillFire += Time.deltaTime;
-            if (timeTillFire >= 1f / firingRate)
+            fireTime += Time.deltaTime;
+            if (fireTime >= 1f / firingRate)
             {
                 Fire();
                 timeTillFire = 0f;
             }
         }
     }
+
     private void RotateTowardsTarget()
     {
         float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg + -90f;
