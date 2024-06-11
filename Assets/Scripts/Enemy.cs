@@ -36,7 +36,6 @@ public class Enemy : MonoBehaviour
             // Move Towards Target
             Vector2 direction = (target.position - transform.position).normalized;
             rb.velocity = direction * moveSpeed;
-            Debug.Log("Moving");
         }
         else
         {
