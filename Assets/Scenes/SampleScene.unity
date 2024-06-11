@@ -1853,23 +1853,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3896123445108331219, guid: f50ad013fc26ba844a305f90d9254bde,
         type: 3}
-      propertyPath: rb
-      value: 
-      objectReference: {fileID: 453456103, guid: f50ad013fc26ba844a305f90d9254bde,
-        type: 3}
-    - target: {fileID: 3896123445108331219, guid: f50ad013fc26ba844a305f90d9254bde,
-        type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 554360649}
     - target: {fileID: 3896123445108331219, guid: f50ad013fc26ba844a305f90d9254bde,
         type: 3}
-      propertyPath: firingRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3896123445108331219, guid: f50ad013fc26ba844a305f90d9254bde,
-        type: 3}
-      propertyPath: timeTillFire
+      propertyPath: moveSpeed
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3896123445108331230, guid: f50ad013fc26ba844a305f90d9254bde,

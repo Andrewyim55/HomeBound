@@ -10,8 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private float bulletDmg;
-    [SerializeField] private float fireForce;
+    [SerializeField] private Rigidbody2D rb;
 
     [Header("Attributes")]
     [SerializeField] private float health;
@@ -19,6 +18,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float attackRange;
     [SerializeField] private float firingRate;
     [SerializeField] private float timeTillFire;
+    [SerializeField] private float bulletDmg;
+    [SerializeField] private float fireForce;
+    [SerializeField] private float moveSpeed;
 
     private void OnDrawGizmosSelected()
     {
@@ -32,7 +34,9 @@ public class Enemy : MonoBehaviour
         if (!CheckInRange())
         {
             // Move Towards Target
-            
+            Vector2 direction = (target.position - transform.position).normalized;
+            rb.velocity = direction * moveSpeed;
+            Debug.Log("Moving");
         }
         else
         {

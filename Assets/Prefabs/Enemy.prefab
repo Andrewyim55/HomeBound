@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3896123445108331217}
   - component: {fileID: 3896123445108331219}
   - component: {fileID: 3896123445108331218}
+  - component: {fileID: 453456103}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -100,13 +101,15 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4251451353765411853, guid: 3eb9490e723fc1f4bb73115eabedb11b,
     type: 3}
   firePoint: {fileID: 2972681379272477775}
-  bulletDmg: 1
-  fireForce: 10
+  rb: {fileID: 453456103}
   health: 5
   dmg: 1
   attackRange: 2
   firingRate: 1
   timeTillFire: 1
+  bulletDmg: 1
+  fireForce: 5
+  moveSpeed: 1
 --- !u!61 &3896123445108331218
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -133,6 +136,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &453456103
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3896123445108331230}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &7638512672785201116
 GameObject:
   m_ObjectHideFlags: 0
