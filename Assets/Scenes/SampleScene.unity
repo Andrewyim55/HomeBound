@@ -1853,11 +1853,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3896123445108331219, guid: f50ad013fc26ba844a305f90d9254bde,
         type: 3}
-      propertyPath: packUp
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3896123445108331219, guid: f50ad013fc26ba844a305f90d9254bde,
-        type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 554360649}
