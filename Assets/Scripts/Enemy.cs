@@ -39,6 +39,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            rb.velocity = Vector2.zero; 
             // If target in range shoot instead
             timeTillFire += Time.deltaTime;
             if (timeTillFire >= 1f / firingRate)
