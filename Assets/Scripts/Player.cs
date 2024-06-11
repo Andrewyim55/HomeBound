@@ -36,10 +36,13 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        // Moving of player
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-        Vector2 aimDir = mousePos - rb.position;
-        float aimAngle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg - 90f;
-        rb.rotation = aimAngle;
+        
+        // Rotation of weapon
+        Vector2 aimDir = (mousePos - rb.position).normalized;
+        float aimAngle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
+        weapon.transform.parent.transform.eulerAngles = new Vector3(0,0,aimAngle);
     }
 
     public void TakeDmg(float _dmg)
