@@ -72,7 +72,7 @@ public class Enemy : MonoBehaviour
             if (fireTime >= 1f / firingRate)
             {
                 Fire();
-                timeTillFire = 0f;
+                fireTime = 0f;
             }
         }
     }
