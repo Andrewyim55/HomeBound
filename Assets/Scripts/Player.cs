@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Weapon weapon;
+    [SerializeField] private Image healthBarImage;
 
     [Header("Attributes")]
     [SerializeField] private float health;
@@ -45,6 +47,7 @@ public class Player : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             weapon.Fire();
+            TakeDmg(1f);
         }
 
         if(Input.GetButtonDown("Jump") && canDash)
@@ -71,6 +74,12 @@ public class Player : MonoBehaviour
     public void TakeDmg(float _dmg)
     {
         health -= _dmg;
+        UpdateHealthBar();
+    }
+    private void UpdateHealthBar()
+    {
+        float fillAmount = health / 10;
+        healthBarImage.fillAmount = fillAmount;
     }
 
     private IEnumerator Dash()
