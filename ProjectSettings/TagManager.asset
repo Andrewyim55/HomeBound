@@ -14,11 +14,11 @@ TagManager:
   - UI
   - 
   - 
+  - Top
+  - Middle
   - Background
   - floor
-  - wall
-  - 
-  - 
+  - walls
   - 
   - 
   - 
@@ -39,8 +39,20 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Background
+  - name: Floor
     uniqueID: 3818788897
+    locked: 0
+  - name: Sub Floor
+    uniqueID: 1478279301
+    locked: 0
+  - name: Walls
+    uniqueID: 2507432811
+    locked: 0
+  - name: Accessory
+    uniqueID: 425376137
+    locked: 0
+  - name: UI Layer
+    uniqueID: 36598297
     locked: 0
   - name: Default
     uniqueID: 0
