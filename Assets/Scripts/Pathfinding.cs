@@ -5,25 +5,206 @@ using System.Net;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
 public class Pathfinding : MonoBehaviour
 {
     private List<Tilemap> tilemaps;
-    // Create double array to store the data of the grids
-    private Node[,] grid;
-
     private List<Node> openList;
-    private List<Node> closeList;
+    private List<Node> closedList;
+    public Grid<Node> grid;
+
     public float nodeSize = 1f;
 
-    private int rows;
-    private int columns;
-
-    // Start is called before the first frame update
     void Start()
     {
         tilemaps = new List<Tilemap>();
         tilemaps.AddRange(GetComponentsInChildren<Tilemap>());
+
+        // Determine the size of the grid
+        BoundsInt combinedBounds = GetCombinedTilemapBounds(tilemaps);
+        int rows = combinedBounds.size.x;
+        int columns = combinedBounds.size.y;
+
+        // Initialize the grid
+        grid = new Grid<Node>(rows, columns, nodeSize, combinedBounds.min, (Grid<Node> g, int x, int y) => new Node(g, x, y));
+
+        // Populate the grid with node types
+        for (int x = 0; x < rows; x++)
+        {
+            for (int y = 0; y < columns; y++)
+            {
+                Node.NodeType nodeType = GetNodeType(tilemaps, new Vector3Int(x + combinedBounds.xMin, y + combinedBounds.yMin, 0));
+                grid.GetGridObject(x, y).nodeType = nodeType;
+            }
+        }
     }
 
-    
+    private BoundsInt GetCombinedTilemapBounds(List<Tilemap> tilemaps)
+    {
+        if (tilemaps.Count == 0)
+            return new BoundsInt();
+
+        BoundsInt combinedBounds = tilemaps[0].cellBounds;
+
+        foreach (Tilemap tilemap in tilemaps)
+        {
+            BoundsInt bounds = tilemap.cellBounds;
+            combinedBounds.xMin = Mathf.Min(combinedBounds.xMin, bounds.xMin);
+            combinedBounds.yMin = Mathf.Min(combinedBounds.yMin, bounds.yMin);
+            combinedBounds.xMax = Mathf.Max(combinedBounds.xMax, bounds.xMax);
+            combinedBounds.yMax = Mathf.Max(combinedBounds.yMax, bounds.yMax);
+        }
+
+        return combinedBounds;
+    }
+
+    private Node.NodeType GetNodeType(List<Tilemap> tilemaps, Vector3Int cellPosition)
+    {
+        foreach (Tilemap tilemap in tilemaps)
+        {
+            TileBase tile = tilemap.GetTile(cellPosition);
+            if (tile != null)
+            {
+                // Determine node type based on tilemap or tile properties
+                // For now, assuming FLOOR for any tile found, otherwise NONE
+                return Node.NodeType.FLOOR;
+            }
+        }
+
+        return Node.NodeType.NONE;
+    }
+
+    public List<Node> FindPath(int startX, int startY, int endX, int endY)
+    {
+        Node startNode = grid.GetGridObject(startX, startY);
+        Node endNode = grid.GetGridObject(endX, endY);
+
+        openList = new List<Node> { startNode };
+        closedList = new List<Node>();
+
+        for (int x = 0; x < grid.GetWidth(); x++)
+        {
+            for (int y = 0; y < grid.GetHeight(); y++)
+            {
+                Node node = grid.GetGridObject(x, y);
+                node.gCost = int.MaxValue;
+                node.CalculateFCost();
+                node.cameFromNode = null;
+            }
+        }
+
+        startNode.gCost = 0;
+        startNode.hCost = CalculateDistanceCost(startNode, endNode);
+        startNode.CalculateFCost();
+
+        while (openList.Count > 0)
+        {
+            Node currentNode = GetLowestFCostNode(openList);
+            if (currentNode == endNode)
+            {
+                // Reached the end node
+                return CalculatePath(endNode);
+            }
+
+            openList.Remove(currentNode);
+            closedList.Add(currentNode);
+
+            foreach (Node neighborNode in GetNeighborList(currentNode))
+            {
+                if (closedList.Contains(neighborNode)) continue;
+                if (neighborNode.nodeType == Node.NodeType.WALL)
+                {
+                    closedList.Add(neighborNode);
+                    continue;
+                }
+
+                int tentativeGCost = currentNode.gCost + CalculateDistanceCost(currentNode, neighborNode);
+                if (tentativeGCost < neighborNode.gCost)
+                {
+                    neighborNode.cameFromNode = currentNode;
+                    neighborNode.gCost = tentativeGCost;
+                    neighborNode.hCost = CalculateDistanceCost(neighborNode, endNode);
+                    neighborNode.CalculateFCost();
+
+                    if (!openList.Contains(neighborNode))
+                    {
+                        openList.Add(neighborNode);
+                    }
+                }
+            }
+        }
+
+        // Out of nodes on the openList
+        return null;
+    }
+
+    private int CalculateDistanceCost(Node a, Node b)
+    {
+        int xDistance = Mathf.Abs(a.x - b.x);
+        int yDistance = Mathf.Abs(a.y - b.y);
+        int remaining = Mathf.Abs(xDistance - yDistance);
+        return 14 * Mathf.Min(xDistance, yDistance) + 10 * remaining;
+    }
+
+    private Node GetLowestFCostNode(List<Node> nodeList)
+    {
+        Node lowestFCostNode = nodeList[0];
+        for (int i = 1; i < nodeList.Count; i++)
+        {
+            if (nodeList[i].fCost < lowestFCostNode.fCost)
+            {
+                lowestFCostNode = nodeList[i];
+            }
+        }
+        return lowestFCostNode;
+    }
+
+    private List<Node> GetNeighborList(Node currentNode)
+    {
+        List<Node> neighborList = new List<Node>();
+
+        if (currentNode.x - 1 >= 0)
+        {
+            // Left
+            neighborList.Add(grid.GetGridObject(currentNode.x - 1, currentNode.y));
+            // Left Down
+            if (currentNode.y - 1 >= 0) neighborList.Add(grid.GetGridObject(currentNode.x - 1, currentNode.y - 1));
+            // Left Up
+            if (currentNode.y + 1 < grid.GetHeight()) neighborList.Add(grid.GetGridObject(currentNode.x - 1, currentNode.y + 1));
+        }
+        if (currentNode.x + 1 < grid.GetWidth())
+        {
+            // Right
+            neighborList.Add(grid.GetGridObject(currentNode.x + 1, currentNode.y));
+            // Right Down
+            if (currentNode.y - 1 >= 0) neighborList.Add(grid.GetGridObject(currentNode.x + 1, currentNode.y - 1));
+            // Right Up
+            if (currentNode.y + 1 < grid.GetHeight()) neighborList.Add(grid.GetGridObject(currentNode.x + 1, currentNode.y + 1));
+        }
+        if (currentNode.y - 1 >= 0)
+        {
+            // Down
+            neighborList.Add(grid.GetGridObject(currentNode.x, currentNode.y - 1));
+        }
+        if (currentNode.y + 1 < grid.GetHeight())
+        {
+            // Up
+            neighborList.Add(grid.GetGridObject(currentNode.x, currentNode.y + 1));
+        }
+
+        return neighborList;
+    }
+
+    private List<Node> CalculatePath(Node endNode)
+    {
+        List<Node> path = new List<Node>();
+        Node currentNode = endNode;
+        while (currentNode != null)
+        {
+            path.Add(currentNode);
+            currentNode = currentNode.cameFromNode;
+        }
+        path.Reverse();
+        return path;
+    }
 }

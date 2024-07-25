@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour
     private float fireTime;
     private bool isShooting;
     private float packingUp;
-    private List<Transform> path;
+    private List<Node> path;
     private int pathIndex;
 
     private float pathUpdateTimer;
@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         fireTime = timeTillFire;
-        path = new List<Transform>();
+        path = new List<Node>();
         UpdatePath(); // Initial path update
     }
 
@@ -98,10 +98,10 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        Vector2 direction = (path[pathIndex].position - transform.position).normalized;
+        Vector3 direction = (path[pathIndex].GetPosition() - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
 
-        if (Vector2.Distance(transform.position, path[pathIndex].position) < 0.1f)
+        if (Vector3.Distance(transform.position, path[pathIndex].GetPosition()) < 0.1f)
         {
             pathIndex++;
         }
@@ -111,7 +111,11 @@ public class Enemy : MonoBehaviour
     {
         if (pathfinding != null && target != null)
         {
-            //path = pathfinding.FindPath(transform, target);
+            Debug.Log(pathfinding);
+            Node startNode = pathfinding.grid.GetGridObject(transform.position);
+            Node endNode = pathfinding.grid.GetGridObject(target.position);
+
+            path = pathfinding.FindPath(startNode.x, startNode.y, endNode.x, endNode.y);
             pathIndex = 0;
         }
     }
