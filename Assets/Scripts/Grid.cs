@@ -41,7 +41,7 @@ public class Grid<TGridObject>
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
                 Vector3 worldPosition = GetWorldPosition(x, y);
-                CreateWorldText(gridArray[x, y]?.ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * 0.5f, 5, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center, 0);
+                //CreateWorldText(gridArray[x, y]?.ToString(), null, GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * 0.5f, 5, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center, 0);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
                 Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
             }
