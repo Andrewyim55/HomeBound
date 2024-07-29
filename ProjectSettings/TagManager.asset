@@ -14,11 +14,11 @@ TagManager:
   - UI
   - 
   - 
-  - Top
-  - Middle
-  - Background
+  - player
   - floor
   - walls
+  - enemy
+  - 
   - 
   - 
   - 

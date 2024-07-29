@@ -39,14 +39,24 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         fireTime = timeTillFire;
-        path = new List<Node>();
-        UpdatePath(); // Initial path update
+        pathfinding = FindObjectOfType<Pathfinding>();
+        UpdatePath();
     }
 
     private void OnDrawGizmosSelected()
     {
         Handles.color = Color.red;
         Handles.DrawWireDisc(transform.position, transform.forward, attackRange);
+
+        // Draw the path
+        if (path != null && path.Count > 0)
+        {
+            Gizmos.color = Color.red;
+            for (int i = 0; i < path.Count - 1; i++)
+            {
+                Gizmos.DrawLine(path[i].GetPosition() , path[i + 1].GetPosition());
+            }
+        }
     }
 
     private void Update()
@@ -79,6 +89,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
+            path = null;
             isShooting = true;
             rb.velocity = Vector2.zero;
             // If target in range, shoot instead
@@ -98,6 +109,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
+        Vector3 pathPosition = path[pathIndex].GetPosition();
         Vector3 direction = (path[pathIndex].GetPosition() - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
 
@@ -111,12 +123,10 @@ public class Enemy : MonoBehaviour
     {
         if (pathfinding != null && target != null)
         {
-            Debug.Log(pathfinding);
             Node startNode = pathfinding.grid.GetGridObject(transform.position);
             Node endNode = pathfinding.grid.GetGridObject(target.position);
-
             path = pathfinding.FindPath(startNode.x, startNode.y, endNode.x, endNode.y);
-            pathIndex = 0;
+            pathIndex = 1;
         }
     }
 

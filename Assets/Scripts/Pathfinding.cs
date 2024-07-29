@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Runtime.InteropServices;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,7 +17,17 @@ public class Pathfinding : MonoBehaviour
 
     public float nodeSize = 1f;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+        InitializeGrid();
+    }
+
     void Start()
+    {
+        
+    }
+    public void InitializeGrid()
     {
         tilemaps = new List<Tilemap>();
         tilemaps.AddRange(GetComponentsInChildren<Tilemap>());
@@ -35,10 +47,40 @@ public class Pathfinding : MonoBehaviour
             {
                 Node.NodeType nodeType = GetNodeType(tilemaps, new Vector3Int(x + combinedBounds.xMin, y + combinedBounds.yMin, 0));
                 grid.GetGridObject(x, y).nodeType = nodeType;
+                
+            }
+        }
+
+
+    }
+    private void OnDrawGizmos()
+    {
+        if (grid != null)
+        {
+            for (int x = 0; x < grid.GetWidth(); x++)
+            {
+                for (int y = 0; y < grid.GetHeight(); y++)
+                {
+                    Vector3 pos = grid.GetGridObject(x, y).GetPosition();
+                    Gizmos.color = GetColorForNodeType(grid.GetGridObject(x, y).nodeType);
+                    Gizmos.DrawCube(grid.GetGridObject(x, y).GetPosition(), Vector3.one * 0.1f); // Slightly smaller cube for better visualization
+                }
             }
         }
     }
 
+    private Color GetColorForNodeType(Node.NodeType nodeType)
+    {
+        switch (nodeType)
+        {
+            case Node.NodeType.FLOOR:
+                return Color.green;
+            case Node.NodeType.WALL:
+                return Color.red;
+            default:
+                return Color.gray;
+        }
+    }
     private BoundsInt GetCombinedTilemapBounds(List<Tilemap> tilemaps)
     {
         if (tilemaps.Count == 0)
@@ -65,12 +107,18 @@ public class Pathfinding : MonoBehaviour
             TileBase tile = tilemap.GetTile(cellPosition);
             if (tile != null)
             {
-                // Determine node type based on tilemap or tile properties
-                // For now, assuming FLOOR for any tile found, otherwise NONE
-                return Node.NodeType.FLOOR;
+                // Sort the nodetype by the sorting layer
+                int layer = tilemap.gameObject.layer;
+                if (layer == 9)
+                {
+                    return Node.NodeType.FLOOR;
+                }
+                else if (layer == 10)
+                {
+                    return Node.NodeType.WALL;
+                }
             }
         }
-
         return Node.NodeType.NONE;
     }
 
@@ -138,7 +186,7 @@ public class Pathfinding : MonoBehaviour
         return null;
     }
 
-    private int CalculateDistanceCost(Node a, Node b)
+private int CalculateDistanceCost(Node a, Node b)
     {
         int xDistance = Mathf.Abs(a.x - b.x);
         int yDistance = Mathf.Abs(a.y - b.y);
