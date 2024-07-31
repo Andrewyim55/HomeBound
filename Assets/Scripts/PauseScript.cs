@@ -2,13 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PauseScript : MonoBehaviour
 {
     public GameObject pauseMenuUI;
 
     private bool isPaused = false;
-
+    void Awake()
+    {
+        if (FindObjectOfType<EventSystem>() == null)
+        {
+            GameObject eventSystem = new GameObject("EventSystem");
+            eventSystem.AddComponent<EventSystem>();
+            eventSystem.AddComponent<StandaloneInputModule>();
+        }
+    }
     private void Start()
     {
         if (SceneTracker.previousScene == "Settings")
