@@ -22,11 +22,16 @@ public class Player : MonoBehaviour
     private Vector2 mousePos;
     private bool canDash;
     private bool isDashing;
+    private SkillCD skillCD;
 
     void Start()
     {
         canDash = true;
         isDashing = false;
+        if (skillCD == null)
+        {
+            skillCD = GetComponent<SkillCD>();
+        }
     }
     private void Update()
     {
@@ -38,19 +43,19 @@ public class Player : MonoBehaviour
         // Animation to be done
 
         // If player is dashing player is not able to do other actions
-        if(isDashing)
+        if (isDashing)
         {
             return;
         }
 
         // Attacking
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             weapon.Fire();
             TakeDmg(1f);
         }
 
-        if(Input.GetButtonDown("Jump") && canDash)
+        if (Input.GetButtonDown("Jump") && canDash)
         {
             StartCoroutine(Dash());
         }
@@ -64,11 +69,11 @@ public class Player : MonoBehaviour
 
         // Moving of player
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-        
+
         // Rotation of weapon
         Vector2 aimDir = (mousePos - rb.position).normalized;
         float aimAngle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
-        weapon.transform.parent.transform.eulerAngles = new Vector3(0,0,aimAngle);
+        weapon.transform.parent.transform.eulerAngles = new Vector3(0, 0, aimAngle);
     }
 
     public void TakeDmg(float _dmg)
@@ -81,7 +86,6 @@ public class Player : MonoBehaviour
         float fillAmount = health / 10;
         healthBarImage.fillAmount = fillAmount;
     }
-
     private IEnumerator Dash()
     {
         Debug.Log("dash");
@@ -92,6 +96,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(dashingTime);
         tr.emitting = false;
         isDashing = false;
+        skillCD.dashCooldown(dashingCooldown);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
     }
