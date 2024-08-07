@@ -62,11 +62,11 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
-        if(health <= 0)
+        if (health <= 0)
         {
             Time.timeScale = 0f;
             deathScreenUI.SetActive(true);
-}
+        }
     }
     private void FixedUpdate()
     {

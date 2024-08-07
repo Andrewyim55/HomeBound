@@ -16,12 +16,6 @@ public class DeathScreen : MonoBehaviour
             eventSystem.AddComponent<StandaloneInputModule>();
         }
     }
-
-    private void Start()
-    {
-        
-    }
-
     public void NewGame()
     {
         print("New Game");
@@ -32,5 +26,6 @@ public class DeathScreen : MonoBehaviour
     public void QuitGame()
     {
         SceneManager.LoadScene("Main Menu");
+
     }
 }
