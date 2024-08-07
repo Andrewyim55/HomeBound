@@ -23,11 +23,14 @@ public class Player : MonoBehaviour
     private bool canDash;
     private bool isDashing;
     private SkillCD skillCD;
+    public GameObject deathScreenUI;
 
     void Start()
     {
         canDash = true;
         isDashing = false;
+        Time.timeScale = 1f;
+        deathScreenUI.SetActive(false);
         if (skillCD == null)
         {
             skillCD = GetComponent<SkillCD>();
@@ -59,6 +62,11 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
+        if(health <= 0)
+        {
+            Time.timeScale = 0f;
+            deathScreenUI.SetActive(true);
+}
     }
     private void FixedUpdate()
     {
