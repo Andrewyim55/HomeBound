@@ -22,6 +22,7 @@ public class Grid<TGridObject>
 
     public Grid(int width, int height, float cellSize, Vector3 originPosition, Func<Grid<TGridObject>, int , int, TGridObject> createGridObject)
     {
+        // size of the grid
         this.width = width;
         this.height = height;
         this.cellSize = cellSize;
@@ -33,6 +34,7 @@ public class Grid<TGridObject>
         {
             for (int y = 0; y < gridArray.GetLength(1); y++)
             {
+                // create the node for the grid
                 gridArray[x, y] = createGridObject(this, x , y);
             }
         }
@@ -49,6 +51,7 @@ public class Grid<TGridObject>
         }
         //Debug.DrawLine(GetWorldPosition(0, height), GetWorldPosition(width, height), Color.white, 100f);
         //Debug.DrawLine(GetWorldPosition(width, 0), GetWorldPosition(width, height), Color.white, 100f);
+        // Grid origin position
         this.originPosition = originPosition;
     }
     public float GetCellSize()

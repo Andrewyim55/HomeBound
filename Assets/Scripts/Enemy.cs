@@ -121,22 +121,42 @@ public class Enemy : MonoBehaviour
 
     private void UpdatePath()
     {
+        // update the path to the player
         if (pathfinding != null && target != null)
         {
             Node startNode = pathfinding.grid.GetGridObject(transform.position);
             Node endNode = pathfinding.grid.GetGridObject(target.position);
             path = pathfinding.FindPath(startNode.x, startNode.y, endNode.x, endNode.y);
             pathIndex = 1;
+            // update the target so that the enemy will look at where it is going to next
         }
     }
 
     private void RotateTowardsTarget()
     {
-        if (target == null) return;
+        if (target == null)
+            return;
 
-        float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg + -90f;
-        Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 100 * Time.deltaTime);
+        // If not in range of target look at where it is going 
+        if (!CheckInRange())
+        {
+            if (path == null)
+                return;
+            Vector3 nextNodePosition = path[pathIndex].GetPosition();
+            Vector3 direction = (nextNodePosition - transform.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + -90f;
+            Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+            Debug.Log(angle);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 100 * Time.deltaTime);
+        }
+        else
+        {
+            // If in range of the target look at the target
+            float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg + -90f;
+            Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+            Debug.Log(angle);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 100 * Time.deltaTime);
+        }
     }
 
     private void Fire()
@@ -150,7 +170,8 @@ public class Enemy : MonoBehaviour
 
     private bool CheckInRange()
     {
-        if (target == null) return false;
+        if (target == null) 
+            return false;
         return Vector2.Distance(target.position, transform.position) <= attackRange;
     }
 

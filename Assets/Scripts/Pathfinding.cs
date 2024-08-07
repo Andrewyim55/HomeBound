@@ -15,7 +15,7 @@ public class Pathfinding : MonoBehaviour
     private List<Node> closedList;
     public Grid<Node> grid;
 
-    public float nodeSize = 1f;
+    public float nodeSize;
 
     private void Awake()
     {
@@ -27,15 +27,15 @@ public class Pathfinding : MonoBehaviour
     {
         
     }
-    public void InitializeGrid()
+    private void InitializeGrid()
     {
         tilemaps = new List<Tilemap>();
         tilemaps.AddRange(GetComponentsInChildren<Tilemap>());
 
         // Determine the size of the grid
         BoundsInt combinedBounds = GetCombinedTilemapBounds(tilemaps);
-        int rows = combinedBounds.size.x;
-        int columns = combinedBounds.size.y;
+        int rows = Mathf.CeilToInt(combinedBounds.size.x / nodeSize);
+        int columns = Mathf.CeilToInt(combinedBounds.size.y / nodeSize);
 
         // Initialize the grid
         grid = new Grid<Node>(rows, columns, nodeSize, combinedBounds.min, (Grid<Node> g, int x, int y) => new Node(g, x, y));
@@ -45,14 +45,13 @@ public class Pathfinding : MonoBehaviour
         {
             for (int y = 0; y < columns; y++)
             {
-                Node.NodeType nodeType = GetNodeType(tilemaps, new Vector3Int(x + combinedBounds.xMin, y + combinedBounds.yMin, 0));
+                Vector3Int cellPosition = new Vector3Int(Mathf.FloorToInt(x * nodeSize) + combinedBounds.xMin, Mathf.FloorToInt(y * nodeSize) + combinedBounds.yMin, 0);
+                Node.NodeType nodeType = GetNodeType(tilemaps, cellPosition);
                 grid.GetGridObject(x, y).nodeType = nodeType;
-                
             }
         }
-
-
     }
+
     private void OnDrawGizmos()
     {
         if (grid != null)
@@ -61,9 +60,9 @@ public class Pathfinding : MonoBehaviour
             {
                 for (int y = 0; y < grid.GetHeight(); y++)
                 {
-                    Vector3 pos = grid.GetGridObject(x, y).GetPosition();
-                    Gizmos.color = GetColorForNodeType(grid.GetGridObject(x, y).nodeType);
-                    Gizmos.DrawCube(grid.GetGridObject(x, y).GetPosition(), Vector3.one * 0.1f); // Slightly smaller cube for better visualization
+                    Node node = grid.GetGridObject(x, y);
+                    Gizmos.color = GetColorForNodeType(node.nodeType);
+                    Gizmos.DrawCube(new Vector3(node.GetPosition().x + nodeSize / 2 , node.GetPosition().y + nodeSize / 2), Vector3.one * (grid.GetCellSize() * 0.4f));
                 }
             }
         }
