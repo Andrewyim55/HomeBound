@@ -146,7 +146,6 @@ public class Enemy : MonoBehaviour
             Vector3 direction = (nextNodePosition - transform.position).normalized;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + -90f;
             Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-            Debug.Log(angle);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 100 * Time.deltaTime);
         }
         else
@@ -154,7 +153,6 @@ public class Enemy : MonoBehaviour
             // If in range of the target look at the target
             float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg + -90f;
             Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-            Debug.Log(angle);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 100 * Time.deltaTime);
         }
     }

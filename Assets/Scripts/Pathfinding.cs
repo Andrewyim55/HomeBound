@@ -101,23 +101,36 @@ public class Pathfinding : MonoBehaviour
 
     private Node.NodeType GetNodeType(List<Tilemap> tilemaps, Vector3Int cellPosition)
     {
+        bool isWall = false;
+        bool isFloor = false;
+
         foreach (Tilemap tilemap in tilemaps)
         {
             TileBase tile = tilemap.GetTile(cellPosition);
             if (tile != null)
             {
-                // Sort the nodetype by the sorting layer
+                // Determine node type by the layer
                 int layer = tilemap.gameObject.layer;
-                if (layer == 9)
+                if (layer == 10) // Assuming 10 is WALL layer
                 {
-                    return Node.NodeType.FLOOR;
+                    isWall = true;
                 }
-                else if (layer == 10)
+                else if (layer == 9) // Assuming 9 is FLOOR layer
                 {
-                    return Node.NodeType.WALL;
+                    isFloor = true;
                 }
             }
         }
+
+        if (isWall)
+        {
+            return Node.NodeType.WALL;
+        }
+        else if (isFloor)
+        {
+            return Node.NodeType.FLOOR;
+        }
+
         return Node.NodeType.NONE;
     }
 
