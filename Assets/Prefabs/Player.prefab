@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 3226799406029820636}
   - component: {fileID: -909547474545351095}
   - component: {fileID: 1877021430325382192}
-  m_Layer: 0
+  - component: {fileID: 1481590819}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 3226799406029820639}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.11604, y: 0.11604, z: 0.11604}
   m_Children:
   - {fileID: 549139595266549418}
   m_Father: {fileID: 0}
@@ -72,11 +73,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1787534485
+  m_SortingLayer: -3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3204480812468917802, guid: 728132b5fbccf7a4ba0edc82390279e3,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 074410ea65a7b9342822a5f132fcec55, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,8 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 3226799406029820636}
-  weapon: {fileID: 1796958353797680236}
-  health: 0
+  weapon: {fileID: 511941486}
+  healthBarImage: {fileID: 0}
+  health: 10
   moveSpeed: 1
   dashingPower: 1
   dashingTime: 0.2
@@ -141,18 +142,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.048812702, y: -0.21287763}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2, y: 0.8}
+    oldSize: {x: 4.66, y: 5.35}
     newSize: {x: 1.2, y: 0.8}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2023746, y: 0.39186442}
+  m_Size: {x: 4.66, y: 5.35}
   m_EdgeRadius: 0
 --- !u!96 &1877021430325382192
 TrailRenderer:
@@ -191,8 +192,8 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 36598297
+  m_SortingLayer: -1
   m_SortingOrder: 0
   m_Time: 0.5
   m_Parameters:
@@ -260,6 +261,19 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 0
+--- !u!114 &1481590819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3226799406029820639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d6ebb9895113bb499ad029a20418b03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CooldownImage: {fileID: 0}
 --- !u!1 &6771885206455721829
 GameObject:
   m_ObjectHideFlags: 0
@@ -270,8 +284,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3320966844445688161}
   - component: {fileID: 8932680670312269458}
-  - component: {fileID: 1796958353797680236}
-  m_Layer: 0
+  - component: {fileID: 511941486}
+  m_Layer: 8
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -286,8 +300,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6771885206455721829}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0975, y: 0, z: 0}
-  m_LocalScale: {x: 0.19359374, y: 0.058437504, z: 1}
+  m_LocalPosition: {x: 0.966, y: 0, z: 0}
+  m_LocalScale: {x: 2.0983624, y: 0.6334041, z: 10.839}
   m_Children:
   - {fileID: 5642048664886434711}
   m_Father: {fileID: 549139595266549418}
@@ -343,7 +357,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1796958353797680236
+--- !u!114 &511941486
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -352,14 +366,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 6771885206455721829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36456510e6cccea4b956a0e0d44ca2b2, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ef68d061645caa4cb884b1815e0c5b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4251451353765411853, guid: 3eb9490e723fc1f4bb73115eabedb11b,
     type: 3}
   firePoint: {fileID: 5642048664886434711}
-  fireForce: 20
+  fireForce: 5
   bulletDmg: 1
+  magazineSize: 12
+  reloadSpeed: 5
+  fireRate: 1
+  numPellets: 10
+  coneSize: 60
 --- !u!1 &7166145281187384128
 GameObject:
   m_ObjectHideFlags: 0
@@ -369,7 +388,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5642048664886434711}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -399,7 +418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 549139595266549418}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AimArm
   m_TagString: Untagged
   m_Icon: {fileID: 0}

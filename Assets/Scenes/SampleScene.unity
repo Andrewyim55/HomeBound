@@ -11325,6 +11325,21 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 5.35
       objectReference: {fileID: 0}
+    - target: {fileID: 1796958353797680236, guid: 158916433150f5949a4c112a216095f1,
+        type: 3}
+      propertyPath: fireRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796958353797680236, guid: 158916433150f5949a4c112a216095f1,
+        type: 3}
+      propertyPath: reloadSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1796958353797680236, guid: 158916433150f5949a4c112a216095f1,
+        type: 3}
+      propertyPath: magazineSize
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1877021430325382192, guid: 158916433150f5949a4c112a216095f1,
         type: 3}
       propertyPath: m_SortingLayer
@@ -11506,7 +11521,8 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1796958353797680236, guid: 158916433150f5949a4c112a216095f1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 158916433150f5949a4c112a216095f1, type: 3}
 --- !u!1 &1467352025
 GameObject:

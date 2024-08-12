@@ -55,6 +55,11 @@ public class Player : MonoBehaviour
             TakeDmg(1f);
         }
 
+        if(Input.GetButtonDown("Reload"))
+        {
+            weapon.Reload();
+        }
+
         if (Input.GetButtonDown("Jump") && canDash)
         {
             StartCoroutine(Dash());

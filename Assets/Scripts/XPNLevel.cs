@@ -23,7 +23,7 @@ public class XPNLevel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             gainXP(10);
-            print(currentXP);
+            //print(currentXP);
         }
     }
     public void gainXP(float experience)
