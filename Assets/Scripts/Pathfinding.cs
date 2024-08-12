@@ -111,11 +111,12 @@ public class Pathfinding : MonoBehaviour
             {
                 // Determine node type by the layer
                 int layer = tilemap.gameObject.layer;
-                if (layer == 10) // Assuming 10 is WALL layer
+                // The number is the layer number set in unity
+                if (layer == 10)
                 {
                     isWall = true;
                 }
-                else if (layer == 9) // Assuming 9 is FLOOR layer
+                else if (layer == 9)
                 {
                     isFloor = true;
                 }
