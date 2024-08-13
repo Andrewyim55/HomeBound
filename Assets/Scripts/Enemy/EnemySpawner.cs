@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
-{   
+{
+    [Header("References")]
+    [SerializeField] private Pathfinding pathFinding;
+
     [Header("Enemy Prefabs")]
     [SerializeField] private GameObject meleeEnemyPrefab;
     [SerializeField] private GameObject rangedEnemyPrefab;
@@ -22,7 +25,7 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = FindObjectOfType<Player>().transform;
         StartCoroutine(SpawnEnemyRoutine());
     }
 
@@ -41,6 +44,15 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject enemyToSpawn = ChooseEnemyType();
         Vector3 spawnPosition = GetSpawnPosition();
+        Debug.Log(enemyToSpawn);
+        Debug.Log(spawnPosition);
+        Node spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+        Debug.Log("x: " + spawnNode.x + "y: " + spawnNode.y);
+        while (spawnNode == null || spawnNode.nodeType != Node.NodeType.FLOOR)
+        {
+            spawnPosition = GetSpawnPosition();
+            spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+        }
         Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
     }
 
@@ -65,7 +77,7 @@ public class EnemySpawner : MonoBehaviour
     {
         float spawnDistance = Random.Range(spawnDistanceMin, spawnDistanceMax);
         float spawnAngle = Random.Range(0f, 360f);
-        Vector3 spawnDirection = new Vector3(Mathf.Cos(spawnAngle), 0, Mathf.Sin(spawnAngle)).normalized;
+        Vector3 spawnDirection = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0).normalized;
         Vector3 spawnPosition = playerTransform.position + spawnDirection * spawnDistance;
         return spawnPosition;
     }

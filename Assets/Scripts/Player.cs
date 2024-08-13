@@ -93,7 +93,6 @@ public class Player : MonoBehaviour
     }
     private IEnumerator Dash()
     {
-        Debug.Log("dash");
         canDash = false;
         isDashing = true;
         rb.MovePosition(rb.position + (movement * dashingPower));

@@ -24,7 +24,7 @@ public class SkillCD : MonoBehaviour
 
     public void dashCooldown(float time)
     {
-        print("Meow");
+        //print("Meow");
         elapsedTime = 0f;
         CDtime = time;
     }

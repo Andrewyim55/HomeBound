@@ -20029,7 +20029,7 @@ PrefabInstance:
     - target: {fileID: 304904337929355502, guid: 198023f496e6a434487dd82635b1701e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 198023f496e6a434487dd82635b1701e, type: 3}
@@ -20441,6 +20441,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1921280276}
+  - component: {fileID: 1921280277}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: Untagged
@@ -20462,6 +20463,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1921280277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921280275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c4bfe2c25c8c045a6d6e0e6b60729e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathFinding: {fileID: 231699193}
+  meleeEnemyPrefab: {fileID: 4060631292738436701, guid: 214961e346c18cc4d97b9e646cde615d,
+    type: 3}
+  rangedEnemyPrefab: {fileID: 5166914298691396457, guid: 4075a87906154f841b8f093258c04440,
+    type: 3}
+  spawnInterval: 5
+  spawnDistanceMin: 5
+  spawnDistanceMax: 10
+  meleeSpawnFactor: 10
+  rangedSpawnFactor: 10
 --- !u!1 &2051523094
 GameObject:
   m_ObjectHideFlags: 0
@@ -20754,11 +20777,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MeleeEnemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 4060631292738436701, guid: 214961e346c18cc4d97b9e646cde615d,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 214961e346c18cc4d97b9e646cde615d, type: 3}
