@@ -20,7 +20,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float dmg;
     [SerializeField] protected float attackRange;
     [SerializeField] protected float moveSpeed;
-    [SerializeField] protected float spawnWeight;
+    [SerializeField] protected int spawnWeight;
 
     // As each node in the path is at the bottom left of each tile, we can add it by half the cellsize in x and y to get the middle point
     protected List<Node> path;
@@ -139,6 +139,11 @@ public abstract class Enemy : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public int GetSpawnWeight()
+    {
+        return spawnWeight;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

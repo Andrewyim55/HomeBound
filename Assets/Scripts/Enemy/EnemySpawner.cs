@@ -11,16 +11,22 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<GameObject> enemyPrefab;
 
     [Header("Attributes")]
-    [SerializeField] float spawnInterval = 5f;
+    [SerializeField] float spawnInterval = 2f;
     [SerializeField] private float spawnDistanceMin = 5f;
     [SerializeField] private float spawnDistanceMax = 10f;
 
     private Transform playerTransform;
-
+    private int totalWeight;
     // Start is called before the first frame update
     void Start()
     {
         playerTransform = FindObjectOfType<Player>().transform;
+        totalWeight = 0;
+        // Get the total weightage for the enemy spawning
+        for (int i = 0; i < enemyPrefab.Count; i++)
+        {
+            totalWeight += enemyPrefab[i].GetComponent<Enemy>().GetSpawnWeight();
+        }
         StartCoroutine(SpawnEnemyRoutine());
     }
 
@@ -39,10 +45,7 @@ public class EnemySpawner : MonoBehaviour
     {
         GameObject enemyToSpawn = ChooseEnemyType();
         Vector3 spawnPosition = GetSpawnPosition();
-        Debug.Log(enemyToSpawn);
-        Debug.Log(spawnPosition);
         Node spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
-        Debug.Log("x: " + spawnNode.x + "y: " + spawnNode.y);
         while (spawnNode == null || spawnNode.nodeType != Node.NodeType.FLOOR)
         {
             spawnPosition = GetSpawnPosition();
@@ -54,16 +57,19 @@ public class EnemySpawner : MonoBehaviour
     // Method to choose the enemy type based on spawn factors
     private GameObject ChooseEnemyType()
     {
-        float totalWeight;
+        int spawnNum = Random.Range(0, totalWeight);
+        Debug.Log(spawnNum);
+        int currentWeight = 0;
+        for (int i = 0; i < enemyPrefab.Count; i++)
+        {
+            currentWeight += enemyPrefab[i].GetComponent<Enemy>().GetSpawnWeight();
 
-        for (int i = 0; i < enemyPrefab.count; i++){
-            totalWeight += enemyPrefab[i].GetComponent<Enemy>().spawnWeight;
+            if (spawnNum < currentWeight)
+            {
+                return enemyPrefab[i];
+            }
         }
-        
-        float totalWeight = meleeSpawnFactor + rangedSpawnFactor;
-        float randomValue = Random.Range(0, totalWeight);
-
-        return null;
+        return enemyPrefab[enemyPrefab.Count - 1];
     }
 
     // Get a random spawn position around player
