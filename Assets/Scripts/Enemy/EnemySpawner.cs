@@ -8,17 +8,12 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Pathfinding pathFinding;
 
     [Header("Enemy Prefabs")]
-    [SerializeField] private GameObject meleeEnemyPrefab;
-    [SerializeField] private GameObject rangedEnemyPrefab;
+    [SerializeField] private List<GameObject> enemyPrefab;
 
     [Header("Attributes")]
     [SerializeField] float spawnInterval = 5f;
     [SerializeField] private float spawnDistanceMin = 5f;
     [SerializeField] private float spawnDistanceMax = 10f;
-
-    [Header("Spawn Chance Weights")]
-    [SerializeField, Range(0, 10)] private float meleeSpawnFactor = 10f;
-    [SerializeField, Range(0, 10)] private float rangedSpawnFactor = 10f;
 
     private Transform playerTransform;
 
@@ -59,17 +54,16 @@ public class EnemySpawner : MonoBehaviour
     // Method to choose the enemy type based on spawn factors
     private GameObject ChooseEnemyType()
     {
+        float totalWeight;
+
+        for (int i = 0; i < enemyPrefab.count; i++){
+            totalWeight += enemyPrefab[i].GetComponent<Enemy>().spawnWeight;
+        }
+        
         float totalWeight = meleeSpawnFactor + rangedSpawnFactor;
         float randomValue = Random.Range(0, totalWeight);
 
-        if (randomValue < meleeSpawnFactor)
-        {
-            return meleeEnemyPrefab;
-        }
-        else
-        {
-            return rangedEnemyPrefab;
-        }
+        return null;
     }
 
     // Get a random spawn position around player

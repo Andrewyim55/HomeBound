@@ -151,6 +151,7 @@ MonoBehaviour:
   dmg: 5
   attackRange: 2
   moveSpeed: 1
+  spawnWeight: 5
   chargeSpeed: 4
   chargeDistance: 4
   chargeCooldown: 2

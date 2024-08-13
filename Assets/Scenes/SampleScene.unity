@@ -20476,10 +20476,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathFinding: {fileID: 231699193}
-  meleeEnemyPrefab: {fileID: 4060631292738436701, guid: 214961e346c18cc4d97b9e646cde615d,
-    type: 3}
-  rangedEnemyPrefab: {fileID: 5166914298691396457, guid: 4075a87906154f841b8f093258c04440,
-    type: 3}
+  enemyPrefab:
+  - {fileID: 4060631292738436701, guid: 214961e346c18cc4d97b9e646cde615d, type: 3}
+  - {fileID: 5166914298691396457, guid: 4075a87906154f841b8f093258c04440, type: 3}
   spawnInterval: 5
   spawnDistanceMin: 5
   spawnDistanceMax: 10

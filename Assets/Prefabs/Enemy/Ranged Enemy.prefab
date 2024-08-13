@@ -233,6 +233,7 @@ MonoBehaviour:
   dmg: 2
   attackRange: 2
   moveSpeed: 1
+  spawnWeight: 10
   bulletPrefab: {fileID: 4251451353765411853, guid: 3eb9490e723fc1f4bb73115eabedb11b,
     type: 3}
   firePoint: {fileID: 7939013429744296997}
