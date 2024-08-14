@@ -35,10 +35,6 @@ public class Bullet : MonoBehaviour
         {
             collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
         }
-        else if(collision.gameObject.GetComponent<Bullet>() != null)
-        {
-            return;
-        }
         Destroy(gameObject);
     }
 }

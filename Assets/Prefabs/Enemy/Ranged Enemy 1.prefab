@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1905972496738697463}
   - component: {fileID: 3198277299904553666}
   - component: {fileID: 7165998325984161220}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ranged Enemy 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -158,7 +158,7 @@ MonoBehaviour:
   firePoint: {fileID: 3741018392502699959}
   firingRate: 5
   bulletDmg: 1
-  fireForce: 2
+  fireForce: 5
   attackDelay: 5
   shootingDistance: 3
 --- !u!1 &2741087212655771141
@@ -170,7 +170,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3741018392502699959}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -201,7 +201,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5088325884978977426}
   - component: {fileID: 6104754380893359659}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

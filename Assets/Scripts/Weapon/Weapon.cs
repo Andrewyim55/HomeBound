@@ -43,7 +43,6 @@ public class Weapon : MonoBehaviour
         if(reloadTime <= reloadSpeed)
         {
             reloadTime += Time.deltaTime;
-            Debug.Log(reloadTime);
         }
         else
         {

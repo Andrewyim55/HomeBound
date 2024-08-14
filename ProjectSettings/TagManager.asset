@@ -15,12 +15,12 @@ TagManager:
   - UI
   - 
   - 
-  - player
-  - floor
-  - walls
-  - enemy
-  - 
-  - 
+  - Player
+  - Floor
+  - Walls
+  - Enemy
+  - Bullet
+  - Item
   - 
   - 
   - 
