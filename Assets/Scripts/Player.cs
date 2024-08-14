@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Weapon weapon;
     [SerializeField] private Image healthBarImage;
+    [SerializeField] private GameObject aimArm;
+    [SerializeField] private SpriteRenderer sr;
 
     [Header("Attributes")]
     [SerializeField] private float health;
@@ -23,14 +25,14 @@ public class Player : MonoBehaviour
     private bool canDash;
     private bool isDashing;
     private SkillCD skillCD;
-    public GameObject deathScreenUI;
+
+    // store the weapon that the player is able to pick up
+    private Weapon nearbyWeapon;
 
     void Start()
     {
         canDash = true;
         isDashing = false;
-        Time.timeScale = 1f;
-        deathScreenUI.SetActive(false);
         if (skillCD == null)
         {
             skillCD = GetComponent<SkillCD>();
@@ -54,18 +56,24 @@ public class Player : MonoBehaviour
         // Attacking
         if (Input.GetMouseButtonDown(0))
         {
-            weapon.Fire();
-            TakeDmg(1f);
+            if (weapon != null) 
+            {
+                weapon.Fire();
+            }
+        }
+
+        if(Input.GetButtonDown("Reload"))
+        {
+            weapon.Reload();
         }
 
         if (Input.GetButtonDown("Jump") && canDash)
         {
             StartCoroutine(Dash());
         }
-        if (health <= 0)
+        if(Input.GetButtonDown("Pickup"))
         {
-            Time.timeScale = 0f;
-            deathScreenUI.SetActive(true);
+            pickUpWeapon();
         }
     }
     private void FixedUpdate()
@@ -77,11 +85,29 @@ public class Player : MonoBehaviour
 
         // Moving of player
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rotateWeapon();
+    }
+
+    private void rotateWeapon()
+    {
+        if (weapon == null)
+        {
+            return;
+        }
 
         // Rotation of weapon
         Vector2 aimDir = (mousePos - rb.position).normalized;
         float aimAngle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
-        weapon.transform.parent.transform.eulerAngles = new Vector3(0, 0, aimAngle);
+        aimArm.transform.eulerAngles = new Vector3(0, 0, aimAngle);
+
+        if(aimDir.x < 0)
+        {
+            sr.flipX = true;
+        }
+        else if (aimDir.x > 0)
+        {
+            sr.flipX = false;
+        }
     }
 
     public void TakeDmg(float _dmg)
@@ -96,7 +122,6 @@ public class Player : MonoBehaviour
     }
     private IEnumerator Dash()
     {
-        Debug.Log("dash");
         canDash = false;
         isDashing = true;
         rb.MovePosition(rb.position + (movement * dashingPower));
@@ -107,5 +132,38 @@ public class Player : MonoBehaviour
         skillCD.dashCooldown(dashingCooldown);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+
+    private void pickUpWeapon()
+    {
+        if (nearbyWeapon != null)
+        {
+            // check if player already has a weapon
+            if(weapon != null)
+            {
+                Destroy(weapon.gameObject);
+            }
+            weapon = nearbyWeapon;
+            weapon.transform.SetParent(aimArm.transform);
+            weapon.transform.localPosition = new Vector3(0.8f,1f,0);
+            nearbyWeapon = null;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Weapon collidedWeapon = collision.GetComponent<Weapon>();
+        if (collidedWeapon != null)
+        {
+            nearbyWeapon = collidedWeapon;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Weapon collidedWeapon = collision.GetComponent<Weapon>();
+        if (collidedWeapon == nearbyWeapon)
+        {
+            nearbyWeapon = null;  // Clear the nearby weapon reference when leaving the collider
+        }
     }
 }
