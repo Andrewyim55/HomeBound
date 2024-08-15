@@ -13,6 +13,7 @@ public class Shotgun : Weapon
         // If there is ammo in the magazine, fire
         if (magazineSize > 0)
         {
+            SoundManager.instance.PlaySfx(sfxClip, transform);
             for (int i = 0; i < numPellets; i++)
             {
                 // Calculate a random rotation within the cone

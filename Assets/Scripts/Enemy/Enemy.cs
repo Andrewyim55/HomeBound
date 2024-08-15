@@ -150,7 +150,6 @@ public abstract class Enemy : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<Player>() != null)
         {
-            Debug.Log("Took Damage");
             collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
         }
     }

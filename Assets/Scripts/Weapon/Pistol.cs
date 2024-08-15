@@ -9,6 +9,7 @@ public class Pistol : Weapon
         // If there is ammo in the magazine, fire
         if (magazineSize > 0)
         {
+            SoundManager.instance.PlaySfx(sfxClip, transform);
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), transform.parent.parent.GetComponent<Collider2D>());
             bullet.GetComponent<Bullet>().SetDmg(bulletDmg);

@@ -160,7 +160,7 @@ MonoBehaviour:
   bulletDmg: 1
   fireForce: 5
   attackDelay: 5
-  shootingDistance: 3
+  shootingDistance: 5
 --- !u!1 &2741087212655771141
 GameObject:
   m_ObjectHideFlags: 0

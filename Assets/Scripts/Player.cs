@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Image healthBarImage;
     [SerializeField] private GameObject aimArm;
     [SerializeField] private SpriteRenderer sr;
+    [SerializeField] private Animator animator;
 
     [Header("Attributes")]
     [SerializeField] private float health;
@@ -25,12 +26,14 @@ public class Player : MonoBehaviour
     private bool canDash;
     private bool isDashing;
     private SkillCD skillCD;
+    private bool isAlive;
 
     // store the weapon that the player is able to pick up
     private Weapon nearbyWeapon;
 
     void Start()
     {
+        isAlive = true;
         canDash = true;
         isDashing = false;
         if (skillCD == null)
@@ -40,6 +43,12 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
+        if (!isAlive)
+        {
+            rb.velocity = Vector3.zero;
+            return;
+        }
+
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // Basic WASD Movement
@@ -49,9 +58,7 @@ public class Player : MonoBehaviour
 
         // If player is dashing player is not able to do other actions
         if (isDashing)
-        {
             return;
-        }
 
         // Attacking
         if (Input.GetMouseButtonDown(0))
@@ -75,26 +82,31 @@ public class Player : MonoBehaviour
         {
             pickUpWeapon();
         }
+
+        // Update Animator parameters
+        animator.SetFloat("Speed", movement.magnitude);
     }
     private void FixedUpdate()
     {
+        if (!isAlive)
+        {
+            rb.velocity = Vector3.zero;
+            return;
+        }
+
         if (isDashing)
         {
+            rb.MovePosition(rb.position + movement * dashingPower * Time.fixedDeltaTime);
             return;
         }
 
         // Moving of player
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
-        rotateWeapon();
+        RotatePlayer();
     }
 
-    private void rotateWeapon()
+    private void RotatePlayer()
     {
-        if (weapon == null)
-        {
-            return;
-        }
-
         // Rotation of weapon
         Vector2 aimDir = (mousePos - rb.position).normalized;
         float aimAngle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
@@ -103,10 +115,18 @@ public class Player : MonoBehaviour
         if(aimDir.x < 0)
         {
             sr.flipX = true;
+            if(weapon != null)
+            {
+                weapon.GetComponent<SpriteRenderer>().flipY = true;
+            }
         }
         else if (aimDir.x > 0)
         {
             sr.flipX = false;
+            if (weapon != null)
+            {
+                weapon.GetComponent<SpriteRenderer>().flipY = false;
+            }
         }
     }
 
@@ -114,6 +134,10 @@ public class Player : MonoBehaviour
     {
         health -= _dmg;
         UpdateHealthBar();
+        if (health <= 0 && isAlive)
+        {
+            Die();
+        }
     }
     private void UpdateHealthBar()
     {
@@ -124,11 +148,25 @@ public class Player : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-        rb.MovePosition(rb.position + (movement * dashingPower));
+        animator.SetTrigger("Dash");
         tr.emitting = true;
-        yield return new WaitForSeconds(dashingTime);
+
+        Vector2 originalPosition = rb.position;
+        Vector2 dashPosition = originalPosition + (movement * dashingPower);
+
+        float elapsed = 0f;
+        while (elapsed < dashingTime)
+        {
+            rb.MovePosition(Vector2.Lerp(originalPosition, dashPosition, elapsed / dashingTime));
+            elapsed += Time.fixedDeltaTime;
+            yield return new WaitForFixedUpdate();
+        }
+        rb.MovePosition(dashPosition);
+
+        animator.ResetTrigger("Dash"); 
         tr.emitting = false;
         isDashing = false;
+
         skillCD.dashCooldown(dashingCooldown);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
@@ -145,10 +183,21 @@ public class Player : MonoBehaviour
             }
             weapon = nearbyWeapon;
             weapon.transform.SetParent(aimArm.transform);
-            weapon.transform.localPosition = new Vector3(0.8f,1f,0);
+            weapon.transform.localPosition = new Vector3(0, 0, 0);
+            weapon.GetComponent<BoxCollider2D>().enabled = false;
             nearbyWeapon = null;
+            weapon.transform.eulerAngles = aimArm.transform.eulerAngles;
         }
     }
+    // If player die, call this function
+    private void Die()
+    {
+        isAlive = false;
+        animator.SetTrigger("Death");
+        GetComponent<BoxCollider2D>().enabled = false;
+        rb.velocity = Vector3.zero;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Weapon collidedWeapon = collision.GetComponent<Weapon>();

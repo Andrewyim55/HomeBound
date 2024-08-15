@@ -58,7 +58,6 @@ public class EnemySpawner : MonoBehaviour
     private GameObject ChooseEnemyType()
     {
         int spawnNum = Random.Range(0, totalWeight);
-        Debug.Log(spawnNum);
         int currentWeight = 0;
         for (int i = 0; i < enemyPrefab.Count; i++)
         {

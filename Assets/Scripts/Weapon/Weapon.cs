@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
     [Header("References")]
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected Transform firePoint;
+    [SerializeField] protected AudioClip sfxClip;
 
     [Header("Attributes")]
     [SerializeField] protected float fireForce;
