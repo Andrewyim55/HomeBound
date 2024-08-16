@@ -63,13 +63,21 @@ public class Player : MonoBehaviour
         // Attacking
         if (Input.GetMouseButtonDown(0))
         {
-            if (weapon != null) 
+            if (weapon != null)
             {
                 weapon.Fire();
             }
         }
 
-        if(Input.GetButtonDown("Reload"))
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (weapon != null)
+            {
+                weapon.StopFire();
+            }
+        }
+
+        if (Input.GetButtonDown("Reload"))
         {
             weapon.Reload();
         }
@@ -194,6 +202,10 @@ public class Player : MonoBehaviour
     {
         isAlive = false;
         animator.SetTrigger("Death");
+        if(weapon != null)
+        {
+            Destroy(weapon.gameObject);
+        }
         GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = Vector3.zero;
     }

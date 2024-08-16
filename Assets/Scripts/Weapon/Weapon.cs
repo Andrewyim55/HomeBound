@@ -15,6 +15,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected int magazineSize;
     [SerializeField] protected float reloadSpeed;
     [SerializeField] protected float fireRate;
+    [SerializeField] public bool isAutomatic;
 
     protected float reloadTime;
     protected int magSize;
@@ -28,6 +29,11 @@ public class Weapon : MonoBehaviour
     public virtual void Fire()
     {
         magazineSize--;
+    }
+
+    public virtual void StopFire()
+    {
+
     }
 
     private void Update()
