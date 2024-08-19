@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject aimArm;
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Animator animator;
+    [SerializeField] private Material flashMaterial;
 
     [Header("Attributes")]
     [SerializeField] private float health;
@@ -20,6 +21,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float dashingTime;
     [SerializeField] private float dashingCooldown;
     [SerializeField] TrailRenderer tr;
+    [SerializeField] private float flashDuration;
 
     private Vector2 movement;
     private Vector2 mousePos;
@@ -27,6 +29,7 @@ public class Player : MonoBehaviour
     private bool isDashing;
     private SkillCD skillCD;
     private bool isAlive;
+    private Material originalMaterial;
 
     // store the weapon that the player is able to pick up
     private Weapon nearbyWeapon;
@@ -36,6 +39,7 @@ public class Player : MonoBehaviour
         isAlive = true;
         canDash = true;
         isDashing = false;
+        originalMaterial = sr.material;
         if (skillCD == null)
         {
             skillCD = GetComponent<SkillCD>();
@@ -142,6 +146,7 @@ public class Player : MonoBehaviour
     {
         health -= _dmg;
         UpdateHealthBar();
+        StartCoroutine(flashEffect());
         if (health <= 0 && isAlive)
         {
             Die();
@@ -152,6 +157,14 @@ public class Player : MonoBehaviour
         float fillAmount = health / 10;
         healthBarImage.fillAmount = fillAmount;
     }
+
+    private IEnumerator flashEffect()
+    {
+        sr.material = flashMaterial;
+        yield return new WaitForSeconds(flashDuration);
+        sr.material = originalMaterial;
+    }
+
     private IEnumerator Dash()
     {
         canDash = false;
