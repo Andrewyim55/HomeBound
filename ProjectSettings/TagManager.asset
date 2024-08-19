@@ -49,11 +49,11 @@ TagManager:
   - name: Walls
     uniqueID: 2507432811
     locked: 0
-  - name: Accessory
-    uniqueID: 425376137
-    locked: 0
   - name: UI Layer
     uniqueID: 36598297
+    locked: 0
+  - name: Accessory
+    uniqueID: 425376137
     locked: 0
   - name: Default
     uniqueID: 0
