@@ -5,8 +5,7 @@ using UnityEngine;
 public class Flamethrower : Weapon
 {
     [Header("Flamethrower Attributes")]
-    [SerializeField] private float coneSize;
-    [SerializeField] private int numFire;
+    [SerializeField] private ParticleSystem flameParticles;
     private bool isFiring;
 
     private void Start()
@@ -19,57 +18,35 @@ public class Flamethrower : Weapon
         if (!isFiring && magazineSize > 0)
         {
             isFiring = true;
+            flameParticles.Play();
             StartCoroutine(FireContinuously());
+            SoundManager.instance.PlaySfx(sfxClip, transform);
         }
     }
     public override void StopFire()
     {
         isFiring = false;
+        flameParticles.Stop();
     }
     private IEnumerator FireContinuously()
     {
         while (isFiring && magazineSize > 0)
         {
-            FireBullet();
+            magazineSize -= 10;
             // Control firing rate
             yield return new WaitForSeconds(1f / fireRate);
         }
         // Stop firing when out of ammo
         isFiring = false;
+        flameParticles.Stop();
     }
 
-    private void FireBullet()
+    private void OnParticleCollision(GameObject collision)
     {
-        SoundManager.instance.PlaySfx(sfxClip, transform);
-        for (int i = 0; i < numFire; i++)
+        if (collision.gameObject.GetComponent<Enemy>() != null)
         {
-            // Calculate a random rotation within the cone
-            float randomAngle = Random.Range(-coneSize / 2f, coneSize / 2f);
-            Quaternion pelletRotation = Quaternion.Euler(0, 0, randomAngle);
+            collision.gameObject.GetComponent<Enemy>().TakeDmg(bulletDmg);
 
-            // Instantiate the bullet with the calculated rotation
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * pelletRotation);
-            Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), transform.parent.parent.GetComponent<Collider2D>());
-            bullet.GetComponent<Bullet>().SetDmg(bulletDmg);
-            bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.right * fireForce, ForceMode2D.Impulse);
-        }
-        magazineSize--;
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        // Draw the cone in the editor for visualization
-        if (firePoint != null)
-        {
-            Gizmos.color = Color.yellow;
-            float halfConeSize = coneSize / 2f;
-
-            // Draw lines representing the cone
-            Vector3 rightBoundary = Quaternion.Euler(0, 0, halfConeSize) * firePoint.right * 2f;
-            Vector3 leftBoundary = Quaternion.Euler(0, 0, -halfConeSize) * firePoint.right * 2f;
-
-            Gizmos.DrawRay(firePoint.position, rightBoundary);
-            Gizmos.DrawRay(firePoint.position, leftBoundary);
         }
     }
 }
