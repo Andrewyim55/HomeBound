@@ -27,11 +27,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<Enemy>() != null)
+        if (collision.gameObject.GetComponent<Enemy>() != null && gameObject.layer == 12)
         {
             collision.gameObject.GetComponent<Enemy>().TakeDmg(dmg);
         }
-        else if(collision.gameObject.GetComponent<Player>() != null)
+        else if(collision.gameObject.GetComponent<Player>() != null && gameObject.layer == 11)
         {
             collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
         }

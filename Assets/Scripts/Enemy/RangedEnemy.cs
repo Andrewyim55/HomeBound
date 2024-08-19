@@ -92,6 +92,7 @@ public class RangedEnemy : Enemy
         {
             // Instantiate a bullet at the firePoint's position and rotation
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            bullet.layer = 11;
 
             // Set the bullet's damage (if your bullet script handles this)
             Bullet bulletScript = bullet.GetComponent<Bullet>();
