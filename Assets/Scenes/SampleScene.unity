@@ -26265,8 +26265,9 @@ MonoBehaviour:
   soundObj: {fileID: 3793975859375765434, guid: b275bb96707701e4b970765997139fe8,
     type: 3}
   bgmSource: {fileID: 84460850}
-  bgmClip: []
-  bgmVol: 1
+  bgmClip:
+  - {fileID: 8300000, guid: 4438cefde35e8ad41b6602ba017e508d, type: 3}
+  bgmVol: 0.15
   sfxVol: 1
 --- !u!4 &2072814689
 Transform:

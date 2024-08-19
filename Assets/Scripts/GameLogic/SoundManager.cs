@@ -21,7 +21,7 @@ public class SoundManager : MonoBehaviour
     {
         if (instance == null)
             instance = this;
-        //PlayBgm();
+        PlayBgm();
     }
 
     public void PlayBgm()
@@ -29,6 +29,7 @@ public class SoundManager : MonoBehaviour
         if (bgmClip == null)
             return;
         bgmSource.clip = bgmClip[0];
+        bgmSource.volume = bgmVol;
         bgmSource.Play();
     }
 
