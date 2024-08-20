@@ -177,10 +177,8 @@ public class Player : MonoBehaviour
     // Iframes after taking damage
     private IEnumerator flashEffect()
     {
-        GetComponent<Collider2D>().enabled = false;
         sr.material = flashMaterial;
         yield return new WaitForSeconds(flashDuration);
-        GetComponent<Collider2D>().enabled = true;
         sr.material = originalMaterial;
     }
 
