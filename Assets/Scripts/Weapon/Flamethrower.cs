@@ -6,11 +6,16 @@ public class Flamethrower : Weapon
 {
     [Header("Flamethrower Attributes")]
     [SerializeField] private ParticleSystem flameParticles;
+    [SerializeField] private AudioSource flameSource;
+    [SerializeField] private AudioClip flameClip;
     private bool isFiring;
 
     public override void Start()
     {
         isFiring = false;
+        flameSource.clip = flameClip;
+        flameSource.loop = true;
+        flameSource.volume = SoundManager.instance.GetSFXVol();
         base.Start();
     }
     // Start is called before the first frame update
@@ -19,9 +24,10 @@ public class Flamethrower : Weapon
         if (!isFiring && magazineSize > 0)
         {
             isFiring = true;
+            flameSource.Play();
             flameParticles.Play();
             StartCoroutine(FireContinuously());
-            SoundManager.instance.PlaySfx(sfxClip, transform);
+
         }
         else
         {
@@ -32,6 +38,7 @@ public class Flamethrower : Weapon
     public override void StopFire()
     {
         isFiring = false;
+        flameSource.Stop();
         flameParticles.Stop();
     }
     private IEnumerator FireContinuously()
@@ -44,6 +51,7 @@ public class Flamethrower : Weapon
         }
         // Stop firing when out of ammo
         isFiring = false;
+        flameSource.Stop();
         flameParticles.Stop();
     }
 
