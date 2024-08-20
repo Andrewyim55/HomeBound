@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Animator animator;
     [SerializeField] private Material flashMaterial;
+    [SerializeField] private AudioClip dashClip;
+    [SerializeField] private AudioClip walkClip;
+    [SerializeField] private AudioSource walkAudioSource;
 
     [Header("Attributes")]
     [SerializeField] private float health;
@@ -44,6 +47,9 @@ public class Player : MonoBehaviour
         {
             skillCD = GetComponent<SkillCD>();
         }
+        walkAudioSource.clip = walkClip;
+        walkAudioSource.loop = true;
+        walkAudioSource.volume = SoundManager.instance.GetSFXVol();
     }
     private void Update()
     {
@@ -115,6 +121,16 @@ public class Player : MonoBehaviour
         // Moving of player
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         RotatePlayer();
+        if (movement.magnitude > 0)
+        {
+            if(!walkAudioSource.isPlaying)
+                walkAudioSource.Play();
+        }
+        else
+        {
+            if(walkAudioSource.isPlaying)
+                walkAudioSource.Stop();
+        }
     }
 
     private void RotatePlayer()
@@ -158,10 +174,13 @@ public class Player : MonoBehaviour
         healthBarImage.fillAmount = fillAmount;
     }
 
+    // Iframes after taking damage
     private IEnumerator flashEffect()
     {
+        GetComponent<Collider2D>().enabled = false;
         sr.material = flashMaterial;
         yield return new WaitForSeconds(flashDuration);
+        GetComponent<Collider2D>().enabled = true;
         sr.material = originalMaterial;
     }
 
@@ -171,7 +190,7 @@ public class Player : MonoBehaviour
         isDashing = true;
         animator.SetTrigger("Dash");
         tr.emitting = true;
-
+        SoundManager.instance.PlaySfx(dashClip, transform);
         Vector2 originalPosition = rb.position;
         Vector2 dashPosition = originalPosition + (movement * dashingPower);
 
