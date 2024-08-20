@@ -9,6 +9,10 @@ public class Shotgun : Weapon
     [SerializeField] private int numPellets;
     [SerializeField] private float coneSize;
 
+    public override void Start()
+    {
+        base.Start();
+    }
     public override void Fire()
     {
         // If there is ammo in the magazine, fire

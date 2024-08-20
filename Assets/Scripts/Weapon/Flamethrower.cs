@@ -8,10 +8,10 @@ public class Flamethrower : Weapon
     [SerializeField] private ParticleSystem flameParticles;
     private bool isFiring;
 
-    private void Start()
+    public override void Start()
     {
         isFiring = false;
-        
+        base.Start();
     }
     // Start is called before the first frame update
     public override void Fire()
@@ -25,18 +25,6 @@ public class Flamethrower : Weapon
             SoundManager.instance.PlaySfx(sfxClip, transform);
         }
     }
-    public override void Equipped()
-    {
-        ammoText.text = magazineSize + "";
-    }
-    private void Update()
-    {
- 
-        if (magazineSize == 0)
-        {
-            ammoText.text = "Out of Bullets";
-        }
-    }
     public override void StopFire()
     {
         isFiring = false;
@@ -47,7 +35,6 @@ public class Flamethrower : Weapon
         while (isFiring && magazineSize > 0)
         {
             magazineSize -= 10;
-            ammoText.text = magazineSize + "";
             // Control firing rate
             yield return new WaitForSeconds(1f / fireRate);
         }

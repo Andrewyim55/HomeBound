@@ -7,9 +7,10 @@ public class MachineGun : Weapon
 {
     private bool isFiring;
 
-    private void Start()
+    public override void Start()
     {
         isFiring = false;
+        base.Start();
     }
     // Start is called before the first frame update
     public override void Fire()
@@ -18,17 +19,6 @@ public class MachineGun : Weapon
         {
             isFiring = true;
             StartCoroutine(FireContinuously());
-        }
-    }
-    public override void Equipped()
-    {
-        ammoText.text = magazineSize + "";
-    }
-    private void Update()
-    { 
-        if(magazineSize == 0)
-        {
-            ammoText.text = "Out of Bullets";
         }
     }
     public override void StopFire()
@@ -55,6 +45,5 @@ public class MachineGun : Weapon
         bullet.GetComponent<Bullet>().SetDmg(bulletDmg);
         bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.right * fireForce, ForceMode2D.Impulse);
         magazineSize--;
-        ammoText.text = magazineSize +"";
     }
 }

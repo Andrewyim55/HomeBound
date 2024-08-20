@@ -211,6 +211,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shotgun
       objectReference: {fileID: 0}
+    - target: {fileID: 6109373954693084241, guid: 912ed23bed7a5374ca3fadafad5ed69e,
+        type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 651080418}
     - target: {fileID: 8853701392193007198, guid: 912ed23bed7a5374ca3fadafad5ed69e,
         type: 3}
       propertyPath: m_RootOrder
@@ -478,7 +483,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 142388410}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 231996376}
+        m_MethodName: levelUp
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Damage
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &142388410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -679,6 +695,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &231996376 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3226799406029820611, guid: 158916433150f5949a4c112a216095f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1390538623}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231996368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bb6c36aa4cb82a488981104a4819131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &293618950
 GameObject:
   m_ObjectHideFlags: 0
@@ -9287,7 +9315,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 30/30
+  m_Text: 
 --- !u!222 &651080419
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9531,7 +9559,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 949320106}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 231996376}
+        m_MethodName: levelUp
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Health
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &949320106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9864,7 +9903,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Speed increase by 5
+  m_Text: Speed increase by 0.25
 --- !u!222 &1106489847
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11536,6 +11575,11 @@ PrefabInstance:
       propertyPath: walkClip
       value: 
       objectReference: {fileID: 8300000, guid: a7fb1ee7191d09749b98a3ecf8d461b5, type: 3}
+    - target: {fileID: 3226799406029820611, guid: 158916433150f5949a4c112a216095f1,
+        type: 3}
+      propertyPath: LevelUpUI
+      value: 
+      objectReference: {fileID: 1077212544}
     - target: {fileID: 3226799406029820611, guid: 158916433150f5949a4c112a216095f1,
         type: 3}
       propertyPath: ammoCount
@@ -27142,7 +27186,7 @@ PrefabInstance:
     - target: {fileID: 304904337929355502, guid: 198023f496e6a434487dd82635b1701e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 304904338201840502, guid: 198023f496e6a434487dd82635b1701e,
         type: 3}
@@ -27502,7 +27546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1822594862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27679,7 +27723,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1886121058
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27955,7 +27999,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Damage increase by 5
+  m_Text: Damage increase by 0.5
 --- !u!222 &1999391288
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28545,7 +28589,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2096170867}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 231996376}
+        m_MethodName: levelUp
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Movement
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2096170867
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28650,6 +28705,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MachineGun
       objectReference: {fileID: 0}
+    - target: {fileID: 9058615837281972494, guid: 9b9d777da9b1e834894d2423fff24ef1,
+        type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 651080418}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b9d777da9b1e834894d2423fff24ef1, type: 3}
 --- !u!1001 &5674125828379401015
@@ -28714,6 +28774,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4594761428066376300, guid: 9b8a05008f559524ba711a4fd631c72e,
+        type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 651080418}
     - target: {fileID: 5155708883986097825, guid: 9b8a05008f559524ba711a4fd631c72e,
         type: 3}
       propertyPath: m_Name
@@ -28792,6 +28857,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5010493922624827032, guid: 9c2e0256286573e47ba269b80b49ea35,
+        type: 3}
+      propertyPath: ammoText
+      value: 
+      objectReference: {fileID: 651080418}
     - target: {fileID: 5010493922624827032, guid: 9c2e0256286573e47ba269b80b49ea35,
         type: 3}
       propertyPath: fireForce

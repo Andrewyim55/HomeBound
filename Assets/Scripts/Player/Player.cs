@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip dashClip;
     [SerializeField] private AudioClip walkClip;
     [SerializeField] private AudioSource walkAudioSource;
+    [SerializeField] private Text ammoCount;
 
     [Header("Attributes")]
     [SerializeField] private float health;
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
     private bool isAlive;
     private Material originalMaterial;
     [SerializeField] private Image weaponDisplay;
+    private float increasedDmg;
 
    [Header("UIScreens")]
    [SerializeField] private GameObject deathScreenUI;
@@ -43,6 +45,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        increasedDmg = 0f;
         Time.timeScale = 1f;    
         deathScreenUI.SetActive(false);
         isAlive = true;
@@ -96,6 +99,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Reload"))
         {
             weapon.Reload();
+            ammoCount.text = "Reloading";
         }
 
         if (Input.GetButtonDown("Jump") && canDash)
@@ -105,6 +109,10 @@ public class Player : MonoBehaviour
         if(Input.GetButtonDown("Pickup"))
         {
             pickUpWeapon();
+        }
+        if (weapon != null)
+        {
+            ammoCount.text = weapon.magazineSize + "/" + weapon.magSize;
         }
         
         // Update Animator parameters
@@ -239,11 +247,9 @@ public class Player : MonoBehaviour
             weapon.GetComponent<BoxCollider2D>().enabled = false;
             nearbyWeapon = null;
             weapon.transform.eulerAngles = aimArm.transform.eulerAngles;
-            Weapon weaponScript = weapon.GetComponent<Weapon>();
-            if (weaponScript != null)
-            {
-                weaponScript.Equipped();
-            }
+            weapon.bulletDmg += increasedDmg;
+            print(weapon.bulletDmg);
+            
         }
     }
     // If player die, call this function
@@ -301,6 +307,11 @@ public class Player : MonoBehaviour
             print("Damage");
             LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
+            increasedDmg += 0.5f;
+            if (weapon != null) {
+                weapon.bulletDmg += 0.5f;
+                print(weapon.bulletDmg);
+            }
         }
 
     }

@@ -12,19 +12,17 @@ public class Weapon : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] protected float fireForce;
-    [SerializeField] protected float bulletDmg;
-    [SerializeField] protected int magazineSize;
+    [SerializeField] public float bulletDmg;
+    [SerializeField] public int magazineSize;
     [SerializeField] protected float reloadSpeed;
     [SerializeField] protected float fireRate;
     [SerializeField] public bool isAutomatic;
-    [Header("UI")]
-    [SerializeField] protected Text ammoText;
 
     protected float reloadTime;
-    protected int magSize;
+    public int magSize;
     protected bool isReloading;
 
-    private void Start()
+    public virtual void Start()
     {
         magSize = magazineSize;
         isReloading = false;
@@ -32,15 +30,11 @@ public class Weapon : MonoBehaviour
     public virtual void Fire()
     {
         magazineSize--;
-        ammoText.text = magazineSize + "/" + magSize;
     }
 
     public virtual void StopFire()
     {
 
-    }
-    public virtual void Equipped() {
-        ammoText.text = magazineSize + "/" + magSize;
     }
     private void Update()
     {
@@ -56,7 +50,6 @@ public class Weapon : MonoBehaviour
         if(reloadTime <= reloadSpeed)
         {
             reloadTime += Time.deltaTime;
-            ammoText.text = "Reloading";
         }
         else
         {
@@ -66,7 +59,6 @@ public class Weapon : MonoBehaviour
             magazineSize = magSize;
             reloadTime = 0;
             isReloading = false;
-            ammoText.text = magazineSize + "/" + magSize;
         }
     }
 }
