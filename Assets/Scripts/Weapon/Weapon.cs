@@ -38,6 +38,10 @@ public class Weapon : MonoBehaviour
     }
     private void Update()
     {
+        if(magazineSize <= 0)
+        {
+            isReloading = true;
+        }
         if (isReloading)
         {
             Reload();

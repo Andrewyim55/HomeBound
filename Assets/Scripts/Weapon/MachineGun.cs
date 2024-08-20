@@ -20,6 +20,11 @@ public class MachineGun : Weapon
             isFiring = true;
             StartCoroutine(FireContinuously());
         }
+        else
+        {
+            isFiring = false;
+            isReloading = true;
+        }
     }
     public override void StopFire()
     {

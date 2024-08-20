@@ -16,13 +16,17 @@ public class Flamethrower : Weapon
     // Start is called before the first frame update
     public override void Fire()
     {
-
         if (!isFiring && magazineSize > 0)
         {
             isFiring = true;
             flameParticles.Play();
             StartCoroutine(FireContinuously());
             SoundManager.instance.PlaySfx(sfxClip, transform);
+        }
+        else
+        {
+            isFiring = false;
+            isReloading = true;
         }
     }
     public override void StopFire()
