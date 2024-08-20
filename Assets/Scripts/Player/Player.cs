@@ -33,18 +33,12 @@ public class Player : MonoBehaviour
     private SkillCD skillCD;
     private bool isAlive;
     private Material originalMaterial;
-    [SerializeField] private Image weaponDisplay;
 
-   [Header("UIScreens")]
-   [SerializeField] private GameObject deathScreenUI;
-   [SerializeField] private GameObject LevelUpUI;
     // store the weapon that the player is able to pick up
     private Weapon nearbyWeapon;
 
     void Start()
     {
-        Time.timeScale = 1f;    
-        deathScreenUI.SetActive(false);
         isAlive = true;
         canDash = true;
         isDashing = false;
@@ -106,7 +100,7 @@ public class Player : MonoBehaviour
         {
             pickUpWeapon();
         }
-        
+
         // Update Animator parameters
         animator.SetFloat("Speed", movement.magnitude);
     }
@@ -171,7 +165,7 @@ public class Player : MonoBehaviour
         StartCoroutine(flashEffect());
         if (health <= 0 && isAlive)
         {
-            StartCoroutine(Die());
+            Die();
         }
     }
     private void UpdateHealthBar()
@@ -226,28 +220,15 @@ public class Player : MonoBehaviour
                 Destroy(weapon.gameObject);
             }
             weapon = nearbyWeapon;
-            SpriteRenderer weaponSpriteRenderer = nearbyWeapon.GetComponent<SpriteRenderer>();
-
-            if (weaponSpriteRenderer != null)
-            {
-                weaponDisplay.sprite = weaponSpriteRenderer.sprite;
-                weaponDisplay.color = new Color32(255, 255, 255, 255);
-
-            }
             weapon.transform.SetParent(aimArm.transform);
             weapon.transform.localPosition = new Vector3(0, 0, 0);
             weapon.GetComponent<BoxCollider2D>().enabled = false;
             nearbyWeapon = null;
             weapon.transform.eulerAngles = aimArm.transform.eulerAngles;
-            Weapon weaponScript = weapon.GetComponent<Weapon>();
-            if (weaponScript != null)
-            {
-                weaponScript.Equipped();
-            }
         }
     }
     // If player die, call this function
-    private IEnumerator Die()
+    private void Die()
     {
         isAlive = false;
         animator.SetTrigger("Death");
@@ -257,10 +238,6 @@ public class Player : MonoBehaviour
         }
         GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = Vector3.zero;
-        yield return new WaitForSeconds(1);
-
-        Time.timeScale = 0f;
-        deathScreenUI.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -279,29 +256,5 @@ public class Player : MonoBehaviour
         {
             nearbyWeapon = null;  // Clear the nearby weapon reference when leaving the collider
         }
-    }
-    public void levelUp(string type)
-    {
-        if (type == "Movement")
-        {
-            moveSpeed += 0.25f;
-            print("movement");
-            LevelUpUI.SetActive(false);
-            Time.timeScale = 1f;
-        }
-        else if (type == "Health")
-        {
-            health += 5;
-            print("Health");
-            LevelUpUI.SetActive(false);
-            Time.timeScale = 1f;
-        }
-        else if (type == "Damage")
-        {
-            print("Damage");
-            LevelUpUI.SetActive(false);
-            Time.timeScale = 1f;
-        }
-
     }
 }

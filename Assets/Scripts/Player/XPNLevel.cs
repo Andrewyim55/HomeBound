@@ -5,20 +5,15 @@ using UnityEngine.UI;
 
 public class XPNLevel : MonoBehaviour
 {
-    [Header("Level and XP Attributes")]
-    [SerializeField] private Text XPText;
-    [SerializeField] private Text LevelText;
-    [SerializeField] private Image xpBarImage;
-    [SerializeField] private GameObject LevelUpUI;
-
+    public Text XPText;
+    public Text LevelText;
+    public Image xpBarImage;
     private int XPLevel = 1;
     private float currentXP;
     private float maxExperience = 100;
-
     // Start is called before the first frame update
     void Start()
     {
-        LevelUpUI.SetActive(false);
         currentXP = 0;
         UpdateXPBar();
     }
@@ -28,6 +23,7 @@ public class XPNLevel : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             gainXP(10);
+            //print(currentXP);
         }
     }
     public void gainXP(float experience)
@@ -36,15 +32,12 @@ public class XPNLevel : MonoBehaviour
         currentXP += experience;
         if (currentXP >= maxExperience)
         {
-            LevelUpUI.SetActive(true);
             currentXP = 0;
             XPLevel += 1;
             LevelText.text = XPLevel.ToString();
-            Time.timeScale = 0f;
-
         }
         currentXP = Mathf.Clamp(currentXP, 0, maxExperience);
-        UpdateXPBar();
+        UpdateXPBar(); 
     }
 
     private void UpdateXPBar()

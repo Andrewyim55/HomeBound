@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 
 public class PauseScript : MonoBehaviour
 {
-    [Header("UIScreens")]
-    [SerializeField] private GameObject pauseMenuUI;
+    public GameObject pauseMenuUI;
+
     private bool isPaused = false;
     void Awake()
     {

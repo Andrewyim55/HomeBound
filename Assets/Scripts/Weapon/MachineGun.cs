@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MachineGun : Weapon
 {
@@ -18,17 +17,6 @@ public class MachineGun : Weapon
         {
             isFiring = true;
             StartCoroutine(FireContinuously());
-        }
-    }
-    public override void Equipped()
-    {
-        ammoText.text = magazineSize + "";
-    }
-    private void Update()
-    { 
-        if(magazineSize == 0)
-        {
-            ammoText.text = "Out of Bullets";
         }
     }
     public override void StopFire()
@@ -55,6 +43,5 @@ public class MachineGun : Weapon
         bullet.GetComponent<Bullet>().SetDmg(bulletDmg);
         bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.right * fireForce, ForceMode2D.Impulse);
         magazineSize--;
-        ammoText.text = magazineSize +"";
     }
 }

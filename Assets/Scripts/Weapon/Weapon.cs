@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
@@ -17,8 +16,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected float reloadSpeed;
     [SerializeField] protected float fireRate;
     [SerializeField] public bool isAutomatic;
-    [Header("UI")]
-    [SerializeField] protected Text ammoText;
 
     protected float reloadTime;
     protected int magSize;
@@ -32,19 +29,16 @@ public class Weapon : MonoBehaviour
     public virtual void Fire()
     {
         magazineSize--;
-        ammoText.text = magazineSize + "/" + magSize;
     }
 
     public virtual void StopFire()
     {
 
     }
-    public virtual void Equipped() {
-        ammoText.text = magazineSize + "/" + magSize;
-    }
+
     private void Update()
     {
-        if (isReloading)
+        if(isReloading)
         {
             Reload();
         }
@@ -56,7 +50,6 @@ public class Weapon : MonoBehaviour
         if(reloadTime <= reloadSpeed)
         {
             reloadTime += Time.deltaTime;
-            ammoText.text = "Reloading";
         }
         else
         {
@@ -66,7 +59,6 @@ public class Weapon : MonoBehaviour
             magazineSize = magSize;
             reloadTime = 0;
             isReloading = false;
-            ammoText.text = magazineSize + "/" + magSize;
         }
     }
 }
