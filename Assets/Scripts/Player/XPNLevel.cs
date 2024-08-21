@@ -23,7 +23,6 @@ public class XPNLevel : MonoBehaviour
         currentXP = 0;
         UpdateXPBar();
         movementAnimator = MovementButton.GetComponent<Animator>();
-        movementAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
 
     void Update()
@@ -39,6 +38,7 @@ public class XPNLevel : MonoBehaviour
         currentXP += experience;
         if (currentXP >= maxExperience)
         {
+            Debug.Log("Opened");
             LevelUpUI.SetActive(true);
             movementAnimator.SetBool("isOpened", true);
             currentXP = 0;
