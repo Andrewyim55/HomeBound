@@ -9,7 +9,7 @@ public class SettingScript : MonoBehaviour
     [SerializeField] private GameObject settingsUI;
     private void Start()
     {
-        settingsUI.SetActive(false);
+        //settingsUI.SetActive(false);
     }
     public void CloseSettings()
     {

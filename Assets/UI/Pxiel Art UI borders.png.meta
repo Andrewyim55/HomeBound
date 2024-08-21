@@ -5,6 +5,15 @@ TextureImporter:
   - first:
       213: 6514801778214281896
     second: Pxiel Art UI borders_0
+  - first:
+      213: 1918388615020650963
+    second: Pxiel Art UI borders_1
+  - first:
+      213: -6662550046534533565
+    second: Pxiel Art UI borders_2
+  - first:
+      213: 6084041096113389371
+    second: Pxiel Art UI borders_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -98,7 +107,7 @@ TextureImporter:
         width: 94
         height: 94
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -106,6 +115,69 @@ TextureImporter:
       bones: []
       spriteID: 8a2ab8c43b9396a50800000000000000
       internalID: 6514801778214281896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pxiel Art UI borders_1
+      rect:
+        serializedVersion: 2
+        x: 164
+        y: 36
+        width: 88
+        height: 88
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d1a573084c7f9a10800000000000000
+      internalID: 1918388615020650963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pxiel Art UI borders_2
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 162
+        width: 92
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34efb0a480ed983a0800000000000000
+      internalID: -6662550046534533565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pxiel Art UI borders_3
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 35
+        width: 90
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3f77bc642bde6450800000000000000
+      internalID: 6084041096113389371
       vertices: []
       indices: 
       edges: []

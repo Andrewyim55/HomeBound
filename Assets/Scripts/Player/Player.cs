@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] private float health;
+    [SerializeField] private float maxHealth;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float dashingPower;
     [SerializeField] private float dashingTime;
@@ -39,11 +40,12 @@ public class Player : MonoBehaviour
 
     private Animator skillCDAnimator;
 
-   [Header("UI")]
-   [SerializeField] private Image weaponDisplay;
-   [SerializeField] private Image cooldownImage;
-   [SerializeField] private GameObject deathScreenUI;
-   [SerializeField] private GameObject LevelUpUI;
+    [Header("UI")]
+    [SerializeField] private Text healthText;
+    [SerializeField] private Image weaponDisplay;
+    [SerializeField] private Image cooldownImage;
+    [SerializeField] private GameObject deathScreenUI;
+    [SerializeField] private GameObject LevelUpUI;
     // store the weapon that the player is able to pick up
     private Weapon nearbyWeapon;
 
@@ -184,8 +186,9 @@ public class Player : MonoBehaviour
     }
     private void UpdateHealthBar()
     {
-        float fillAmount = health / 10;
+        float fillAmount = health / maxHealth;
         healthBarImage.fillAmount = fillAmount;
+        healthText.text = health + "/" +maxHealth;
     }
 
     // Iframes after taking damage
@@ -300,9 +303,11 @@ public class Player : MonoBehaviour
         else if (type == "Health")
         {
             health += 5;
+            maxHealth += 5;
             print("Health");
             LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
+            UpdateHealthBar();
         }
         else if (type == "Damage")
         {
