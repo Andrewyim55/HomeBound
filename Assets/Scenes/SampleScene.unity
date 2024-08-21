@@ -31476,12 +31476,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1546756205}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1722562279 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 304904338201840502, guid: 198023f496e6a434487dd82635b1701e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1546756205}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1788704004
 GameObject:
   m_ObjectHideFlags: 0
@@ -31981,9 +31975,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pathFinding: {fileID: 231699193}
   enemyPrefab:
-  - {fileID: 3599983831781924280, guid: dd9cdb962b7469541a8c1f4f9e574bba, type: 3}
   - {fileID: 4060631292738436701, guid: 214961e346c18cc4d97b9e646cde615d, type: 3}
-  - {fileID: 1905972496738697467, guid: 36a3c81054c05be44bd15fac0d4da0da, type: 3}
   - {fileID: 5166914298691396457, guid: 4075a87906154f841b8f093258c04440, type: 3}
   spawnInterval: 5
   spawnDistanceMin: 5
@@ -32020,8 +32012,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b89d07befb54764e959eefd73e646b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainUI: {fileID: 1722562279}
-  settingsUI: {fileID: 881168094}
+  MainUI: {fileID: 0}
+  settingsUI: {fileID: 0}
 --- !u!114 &1992358698
 MonoBehaviour:
   m_ObjectHideFlags: 0

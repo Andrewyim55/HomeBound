@@ -317,4 +317,8 @@ public class Player : MonoBehaviour
         }
 
     }
+    public bool GetAlive()
+    {
+        return isAlive;
+    }
 }
