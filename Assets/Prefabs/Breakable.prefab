@@ -145,6 +145,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0810fd18e91b79429cd0cc8223c0b5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brokenSprite: {fileID: -8793744985370901079, guid: c2f254adc888bdd4b87e0363996bc709,
+    type: 3}
+  destroyDelay: 0.5
 --- !u!114 &-7977428780651342335
 MonoBehaviour:
   m_ObjectHideFlags: 0
