@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class Breakables : MonoBehaviour
@@ -49,6 +50,24 @@ public class Breakables : MonoBehaviour
         }
 
         OnBreak?.Invoke(); 
+        StartCoroutine(FadeAndDestroy());
+    }
+
+     private IEnumerator FadeAndDestroy()
+    {
+        float elapsedTime = 0f;
+        Color c = spriteRenderer.color;
+
+        // fade before destroying
         Destroy(gameObject, destroyDelay);
+        while (elapsedTime < destroyDelay)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / destroyDelay);
+            spriteRenderer.color = new Color(c.r, c.g, c.b, alpha);
+            yield return null;
+        }
+
+        spriteRenderer.color = new Color(c.r, c.g, c.b, 0f);
     }
 }
