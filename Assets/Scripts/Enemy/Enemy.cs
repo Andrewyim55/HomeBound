@@ -31,10 +31,12 @@ public abstract class Enemy : MonoBehaviour
     protected float pathUpdateTimer;
     protected float pathUpdateInterval = 0.5f;
     private bool isAlive;
+    private Loot loot;
 
     protected virtual void Start()
     {
         isAlive = true;
+        loot = GetComponent<Loot>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         if (target.GetComponent<Player>().GetAlive())
         {
@@ -185,11 +187,17 @@ public abstract class Enemy : MonoBehaviour
     {
         if(isAlive)
         {
+            if (loot != null)
+            {
+                loot.DropLoot();
+            }
+
             isAlive = false;
             animator.SetTrigger("Death");
             GetComponent<BoxCollider2D>().enabled = false;
             rb.velocity = Vector3.zero;
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
             Destroy(gameObject);
         }
     }

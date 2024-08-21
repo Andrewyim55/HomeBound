@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3128793592854467858}
   - component: {fileID: 6208639009517617395}
   m_Layer: 0
-  m_Name: Flamethrower Sprite
+  m_Name: Sprite Anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

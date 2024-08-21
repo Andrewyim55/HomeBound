@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1030071991966997604}
   - component: {fileID: 3896123444548201957}
   - component: {fileID: 506065925}
+  - component: {fileID: -8880013907847255866}
   m_Layer: 11
   m_Name: MeleeEnemy
   m_TagString: Enemy
@@ -177,3 +178,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-8880013907847255866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4060631292738436701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e5a81149851c34f8fe68e2e8493fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootCategories:
+  - {fileID: 11400000, guid: a2eb49d606ba541458bf98a0daa008f3, type: 2}

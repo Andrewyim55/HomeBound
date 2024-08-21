@@ -98,6 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  healAmt: 5
+  speedMultiplier: 2
+  speedDuration: 5
 --- !u!61 &8062033314571612973
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -136,7 +139,7 @@ GameObject:
   - component: {fileID: 8200393331781017389}
   - component: {fileID: 879545349259160644}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: Sprite Anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

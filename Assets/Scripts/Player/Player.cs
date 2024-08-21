@@ -241,7 +241,7 @@ public class Player : MonoBehaviour
                 Destroy(weapon.gameObject);
             }
             weapon = nearbyWeapon;
-            SpriteRenderer weaponSpriteRenderer = nearbyWeapon.GetComponent<SpriteRenderer>();
+            SpriteRenderer weaponSpriteRenderer = weapon.GetComponent<SpriteRenderer>();
 
             if (weaponSpriteRenderer != null)
             {
@@ -251,10 +251,14 @@ public class Player : MonoBehaviour
 
             }
 
-            SpriteRenderer childSpriteRenderer = nearbyWeapon.GetComponentInChildren<SpriteRenderer>();
-            if (childSpriteRenderer != null && childSpriteRenderer != weaponSpriteRenderer)
+            Transform childTransform = weapon.transform.Find("Sprite Anim");
+            if (childTransform != null)
             {
-                childSpriteRenderer.enabled = false;
+                SpriteRenderer childSpriteRenderer = childTransform.GetComponent<SpriteRenderer>();
+                if (childSpriteRenderer != null && childSpriteRenderer != weaponSpriteRenderer)
+                {
+                    childSpriteRenderer.enabled = false;
+                }
             }
 
             weapon.transform.SetParent(aimArm.transform);

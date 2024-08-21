@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 6127121387983880350}
   - component: {fileID: 724081854486359640}
   m_Layer: 13
-  m_Name: Machine Gun Sprite
+  m_Name: Sprite Anim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

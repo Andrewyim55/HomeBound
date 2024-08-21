@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8189055456046793040}
   - component: {fileID: 4518644572547518038}
   - component: {fileID: 1998701886}
+  - component: {fileID: 7586397658369609272}
   m_Layer: 11
   m_Name: Ranged Enemy
   m_TagString: Enemy
@@ -183,6 +184,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &7586397658369609272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5166914298691396457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e5a81149851c34f8fe68e2e8493fd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lootCategories:
+  - {fileID: 11400000, guid: a2eb49d606ba541458bf98a0daa008f3, type: 2}
 --- !u!1 &8920929935591415191
 GameObject:
   m_ObjectHideFlags: 0
