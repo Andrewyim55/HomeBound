@@ -27917,7 +27917,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921280275}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9c4bfe2c25c8c045a6d6e0e6b60729e, type: 3}
   m_Name: 
@@ -27931,6 +27931,28 @@ MonoBehaviour:
   spawnInterval: 1
   spawnDistanceMin: 5
   spawnDistanceMax: 10
+--- !u!114 &1921280278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1921280275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ad1b5275db939342b469bbb4eb3a194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathFinding: {fileID: 231699193}
+  breakablePrefab: {fileID: 2388162441153644792, guid: 6ccaded6ed5c7d542aeb160629d92b4c,
+    type: 3}
+  spawnIntervalMin: 5
+  spawnIntervalMax: 20
+  spawnDistanceMin: 5
+  spawnDistanceMax: 10
+  minSpawnDistance: 2
+  spawnAttempts: 10
+  maxBreakables: 5
 --- !u!1 &1999391285
 GameObject:
   m_ObjectHideFlags: 0
