@@ -13,6 +13,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected Transform target;
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected Pathfinding pathfinding;
+    [SerializeField] protected Animator animator;
+    [SerializeField] protected SpriteRenderer sr;
 
     [Header("Attributes")]
     [SerializeField] protected float health;
@@ -32,9 +34,17 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
-        pathfinding = GameObject.FindGameObjectWithTag("Map").GetComponent<Pathfinding>();
-        pathfinding = FindObjectOfType<Pathfinding>();
-        UpdatePath();
+        if (target.GetComponent<Player>().GetAlive())
+        {
+            pathfinding = GameObject.FindGameObjectWithTag("Map").GetComponent<Pathfinding>();
+            pathfinding = FindObjectOfType<Pathfinding>();
+            UpdatePath();
+            animator.SetBool("target", true);
+        }
+        else
+        {
+            animator.SetBool("target", false);
+        }
     }
 
     private void OnDrawGizmosSelected()
@@ -44,19 +54,23 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
+        if (!target.GetComponent<Player>().GetAlive())
+        {
+            return;
+        }
+
         pathUpdateTimer += Time.deltaTime;
         if (pathUpdateTimer >= pathUpdateInterval)
         {
             UpdatePath();
             pathUpdateTimer = 0f;
         }
-
-        RotateTowardsTarget();
-
         // check if in range of player
         // if not in range follow path to player
         if (!CheckInRange())
         {
+            animator.SetBool("isFollowing", true);
+            animator.SetBool("isAttacking", false);
             FollowPath();
         }
         else
@@ -64,8 +78,11 @@ public abstract class Enemy : MonoBehaviour
             // attack the player when in range
             path = null;
             rb.velocity = Vector2.zero;
+            animator.SetBool("isFollowing", false);
+            animator.SetBool("isAttacking", true);
             Attack();
         }
+        flipSprite();
     }
 
     protected void FollowPath()
@@ -98,31 +115,6 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
-    protected virtual void RotateTowardsTarget()
-    {
-        if (target == null)
-            return;
-
-        // If not in range of target look at where it is going 
-        if (!CheckInRange())
-        {
-            if (path == null)
-                return;
-            Vector3 nextNodePosition = path[pathIndex].GetPosition();
-            Vector3 direction = (nextNodePosition + new Vector3(path[pathIndex].grid.GetCellSize() / 2, path[pathIndex].grid.GetCellSize() / 2, 0) - transform.position).normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + -90f;
-            Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 200 * Time.deltaTime);
-        }
-        else
-        {
-            // If in range of the target look at the target
-            float angle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x) * Mathf.Rad2Deg + -90f;
-            Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 200 * Time.deltaTime);
-        }
-    }
-
     protected abstract void Attack();
 
     protected bool CheckInRange()
@@ -137,13 +129,29 @@ public abstract class Enemy : MonoBehaviour
         health -= _dmg;
         if (health <= 0)
         {
-            Destroy(gameObject);
+            StartCoroutine(Die());
         }
     }
 
     public int GetSpawnWeight()
     {
         return spawnWeight;
+    }
+
+    private void flipSprite()
+    {
+        // Rotation of weapon
+        Vector2 aimDir = (new Vector2(target.position.x, target.position.y) - rb.position).normalized;
+        float aimAngle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
+
+        if (aimDir.x < 0)
+        {
+            sr.flipX = true;
+        }
+        else if (aimDir.x > 0)
+        {
+            sr.flipX = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -170,5 +178,13 @@ public abstract class Enemy : MonoBehaviour
                     path[i + 1].GetPosition() + new Vector3(path[pathIndex].grid.GetCellSize() / 2, path[pathIndex].grid.GetCellSize() / 2, 0));
             }
         }
+    }
+    private IEnumerator Die()
+    {
+        animator.SetTrigger("Death");
+        GetComponent<BoxCollider2D>().enabled = false;
+        rb.velocity = Vector3.zero;
+        yield return new WaitForSeconds(0.5f);
+        Destroy(gameObject);
     }
 }

@@ -8,6 +8,7 @@ public class PauseScript : MonoBehaviour
 {
     [Header("UIScreens")]
     [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject settingsUI;
     private bool isPaused = false;
     void Awake()
     {
@@ -20,13 +21,7 @@ public class PauseScript : MonoBehaviour
     }
     private void Start()
     {
-        if (SceneTracker.previousScene == "Settings")
-        {
-            pauseMenuUI.SetActive(true);
-        }
-        else {
         pauseMenuUI.SetActive(false);
-        }
     }
 
     void Update()
@@ -70,11 +65,8 @@ public class PauseScript : MonoBehaviour
     }
     public void Settings()
     {
-        print("Settings");
-        Time.timeScale = 1f;
-        SceneTracker.previousScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene("Settings");
-
+        pauseMenuUI.SetActive(false);
+        settingsUI.SetActive(true);
     }
 
     public void QuitGame()
