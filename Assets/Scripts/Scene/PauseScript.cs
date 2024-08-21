@@ -10,6 +10,7 @@ public class PauseScript : MonoBehaviour
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private GameObject settingsUI;
     private bool isPaused = false;
+    private bool isSettings = false;
     void Awake()
     {
         if (FindObjectOfType<EventSystem>() == null)
@@ -28,13 +29,22 @@ public class PauseScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
+            if (!isSettings) // not in settings
             {
-                Resume();
+                if (isPaused)
+                {
+                    Resume();
+                }
+                else
+                {
+                    Pause();
+                }
             }
-            else
+            else //in settings
             {
-                Pause();
+                isSettings = false;
+                pauseMenuUI.SetActive(true);
+                settingsUI.SetActive(false);
             }
         }
     }
@@ -67,6 +77,11 @@ public class PauseScript : MonoBehaviour
     {
         pauseMenuUI.SetActive(false);
         settingsUI.SetActive(true);
+        isSettings = true;
+    }
+    public void outOfSettings()
+    {
+        isSettings = false;
     }
 
     public void QuitGame()

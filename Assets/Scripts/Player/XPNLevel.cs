@@ -10,7 +10,6 @@ public class XPNLevel : MonoBehaviour
     [SerializeField] private Text LevelText;
     [SerializeField] private Image xpBarImage;
     [SerializeField] private GameObject LevelUpUI;
-
     private int XPLevel = 1;
     private float currentXP;
     private float maxExperience = 100;

@@ -1,31 +1,19 @@
 fileFormatVersion: 2
-guid: 0c328c50467eedc4ebc052689b38d14f
+guid: 8c2a594698f96f946b0d6924ccd5be73
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5225540622116197949
-    second: 02_0
+      213: 6514801778214281896
+    second: Pxiel Art UI borders_0
   - first:
-      213: -4287101317676662005
-    second: 02_1
+      213: 1918388615020650963
+    second: Pxiel Art UI borders_1
   - first:
-      213: 6574457499336702476
-    second: 02_2
+      213: -6662550046534533565
+    second: Pxiel Art UI borders_2
   - first:
-      213: 813639542560780024
-    second: 02_3
-  - first:
-      213: 4743604252110829558
-    second: 02_4
-  - first:
-      213: 8265534151042842254
-    second: 02_5
-  - first:
-      213: -1067803521116911252
-    second: 02_6
-  - first:
-      213: 2435825256731879224
-    second: 02_7
+      213: 6084041096113389371
+    second: Pxiel Art UI borders_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -55,7 +43,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -111,55 +99,55 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: 02_0
+      name: Pxiel Art UI borders_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 80
-        width: 32
-        height: 32
+        x: 17
+        y: 289
+        width: 94
+        height: 94
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3c9e3638d762b77b0800000000000000
-      internalID: -5225540622116197949
+      spriteID: 8a2ab8c43b9396a50800000000000000
+      internalID: 6514801778214281896
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 02_1
+      name: Pxiel Art UI borders_1
       rect:
         serializedVersion: 2
-        x: 32
-        y: 80
-        width: 32
-        height: 32
+        x: 164
+        y: 36
+        width: 88
+        height: 88
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b0306cbc0182184c0800000000000000
-      internalID: -4287101317676662005
+      spriteID: 3d1a573084c7f9a10800000000000000
+      internalID: 1918388615020650963
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 02_2
+      name: Pxiel Art UI borders_2
       rect:
         serializedVersion: 2
-        x: 64
-        y: 80
-        width: 32
-        height: 32
+        x: 306
+        y: 162
+        width: 92
+        height: 92
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,20 +155,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0afdde334a2d3b50800000000000000
-      internalID: 6574457499336702476
+      spriteID: 34efb0a480ed983a0800000000000000
+      internalID: -6662550046534533565
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 02_3
+      name: Pxiel Art UI borders_3
       rect:
         serializedVersion: 2
-        x: 96
-        y: 80
-        width: 32
-        height: 32
+        x: 307
+        y: 35
+        width: 90
+        height: 90
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,92 +176,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8feeb856ad0aa4b00800000000000000
-      internalID: 813639542560780024
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 02_4
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6f739124feaa4d140800000000000000
-      internalID: 4743604252110829558
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 02_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e8eb4c7848315b270800000000000000
-      internalID: 8265534151042842254
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 02_6
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c694ae1ea566e21f0800000000000000
-      internalID: -1067803521116911252
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 02_7
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 837ad6a5a2acdc120800000000000000
-      internalID: 2435825256731879224
+      spriteID: b3f77bc642bde6450800000000000000
+      internalID: 6084041096113389371
       vertices: []
       indices: 
       edges: []

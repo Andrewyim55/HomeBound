@@ -73,22 +73,26 @@ public class RangedEnemy : Enemy
         // If the enemy is ready to fire
         if (fireTime >= 1f / firingRate)
         {
+            Vector2 direction = (target.position - firePoint.position).normalized;
+
+            // Calculate the rotation based on the direction to the player
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+
             // Instantiate a bullet at the firePoint's position and rotation
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, rotation);
             bullet.layer = 11;
 
-            // Set the bullet's damage (if your bullet script handles this)
-            Bullet bulletScript = bullet.GetComponent<Bullet>();
-            if (bulletScript != null)
+            if (bullet.GetComponent<Bullet>() != null)
             {
-                bulletScript.SetDmg(bulletDmg);
+                bullet.GetComponent<Bullet>().SetDmg(bulletDmg);
             }
 
             // Apply force to the bullet to shoot it forward
             Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
             if (bulletRb != null)
             {
-                bulletRb.AddForce(firePoint.up * fireForce, ForceMode2D.Impulse);
+                bulletRb.AddForce(bullet.transform.up * fireForce, ForceMode2D.Impulse);
             }
 
             // Reset the fire time

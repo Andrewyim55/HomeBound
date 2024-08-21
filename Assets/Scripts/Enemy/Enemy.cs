@@ -30,9 +30,11 @@ public abstract class Enemy : MonoBehaviour
 
     protected float pathUpdateTimer;
     protected float pathUpdateInterval = 0.5f;
+    private bool isAlive;
 
     protected virtual void Start()
     {
+        isAlive = true;
         target = GameObject.FindGameObjectWithTag("Player").transform;
         if (target.GetComponent<Player>().GetAlive())
         {
@@ -54,7 +56,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        if (!target.GetComponent<Player>().GetAlive())
+        if (!target.GetComponent<Player>().GetAlive() || !isAlive)
         {
             return;
         }
@@ -181,10 +183,13 @@ public abstract class Enemy : MonoBehaviour
     }
     private IEnumerator Die()
     {
+        isAlive = false;
         animator.SetTrigger("Death");
         GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = Vector3.zero;
-        yield return new WaitForSeconds(0.5f);
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        float animationLength = stateInfo.length;
+        yield return new WaitForSeconds(animationLength);
         Destroy(gameObject);
     }
 }
