@@ -63,7 +63,7 @@ public class RangedEnemy : Enemy
         {
             Node startNode = pathfinding.grid.GetGridObject(transform.position);
             Node endNode = pathfinding.grid.GetGridObject(target.position);
-            path = pathfinding.FindPath(startNode.x, startNode.y, endNode.x, endNode.y);
+            path = pathfinding.FindPath(startNode.x, startNode.y, endNode.x, endNode.y, GetComponent<Collider2D>().bounds.extents.magnitude);
             pathIndex = 1;
         }
     }

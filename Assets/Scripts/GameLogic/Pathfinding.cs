@@ -135,20 +135,21 @@ public class Pathfinding : MonoBehaviour
         return Node.NodeType.NONE;
     }
 
-    public List<Node> FindPath(int startX, int startY, int endX, int endY)
+    public List<Node> FindPath(int startX, int startY, int endX, int endY, float enemyColliderRadius)
     {
         Node startNode = grid.GetGridObject(startX, startY);
         Node endNode = grid.GetGridObject(endX, endY);
 
-        if(endNode.nodeType == Node.NodeType.WALL)
+        // If end node is a wall, find the closest walkable node
+        if (endNode.nodeType == Node.NodeType.WALL || !IsNodeWalkable(endNode, enemyColliderRadius))
         {
-            endNode = GetClostestNode(endNode);
+            endNode = GetClosestWalkableNode(endNode, enemyColliderRadius);
         }
-
 
         openList = new List<Node> { startNode };
         closedList = new List<Node>();
 
+        // Iterate through the grid using nested for loops
         for (int x = 0; x < grid.GetWidth(); x++)
         {
             for (int y = 0; y < grid.GetHeight(); y++)
@@ -179,7 +180,8 @@ public class Pathfinding : MonoBehaviour
             foreach (Node neighborNode in GetNeighborList(currentNode))
             {
                 if (closedList.Contains(neighborNode)) continue;
-                if (neighborNode.nodeType == Node.NodeType.WALL)
+
+                if (neighborNode.nodeType == Node.NodeType.WALL || !IsNodeWalkable(neighborNode, enemyColliderRadius))
                 {
                     closedList.Add(neighborNode);
                     continue;
@@ -201,8 +203,65 @@ public class Pathfinding : MonoBehaviour
             }
         }
 
-        // Out of nodes on the openList
+        // No path found
         return null;
+    }
+    private bool IsNodeWalkable(Node node, float colliderRadius)
+    {
+        // Calculate how many nodes around this node should be checked based on collider radius
+        int checkRadius = Mathf.CeilToInt(colliderRadius / nodeSize);
+
+        for (int dx = -checkRadius; dx <= checkRadius; dx++)
+        {
+            for (int dy = -checkRadius; dy <= checkRadius; dy++)
+            {
+                int checkX = node.x + dx;
+                int checkY = node.y + dy;
+
+                if (checkX < 0 || checkX >= grid.GetWidth() || checkY < 0 || checkY >= grid.GetHeight())
+                {
+                    return false;
+                }
+
+                Node checkNode = grid.GetGridObject(checkX, checkY);
+                if (checkNode.nodeType == Node.NodeType.WALL)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private Node GetClosestWalkableNode(Node currentNode, float colliderRadius)
+    {
+        Queue<Node> nodeQueue = new Queue<Node>();
+        HashSet<Node> visitedNodes = new HashSet<Node>();
+
+        nodeQueue.Enqueue(currentNode);
+        visitedNodes.Add(currentNode);
+
+        while (nodeQueue.Count > 0)
+        {
+            Node node = nodeQueue.Dequeue();
+
+            if (IsNodeWalkable(node, colliderRadius))
+            {
+                return node;
+            }
+
+            foreach (Node neighbor in GetNeighborList(node))
+            {
+                if (!visitedNodes.Contains(neighbor))
+                {
+                    nodeQueue.Enqueue(neighbor);
+                    visitedNodes.Add(neighbor);
+                }
+            }
+        }
+        // If no walkable node is found, return the original node
+        return currentNode;
     }
 
     private int CalculateDistanceCost(Node a, Node b)

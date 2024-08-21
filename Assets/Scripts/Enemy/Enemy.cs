@@ -98,7 +98,7 @@ public abstract class Enemy : MonoBehaviour
         Vector3 direction = (path[pathIndex].GetPosition() + new Vector3(path[pathIndex].grid.GetCellSize() / 2, path[pathIndex].grid.GetCellSize() / 2, 0) - transform.position).normalized;
         rb.velocity = direction * moveSpeed;
 
-        if (Vector3.Distance(transform.position, path[pathIndex].GetPosition()) < 0.1f)
+        if (Vector3.Distance(transform.position, path[pathIndex].GetPosition()) < 0.5f)
         {
             pathIndex++;
         }
@@ -111,7 +111,7 @@ public abstract class Enemy : MonoBehaviour
         {
             Node startNode = pathfinding.grid.GetGridObject(transform.position);
             Node endNode = pathfinding.grid.GetGridObject(target.position);
-            path = pathfinding.FindPath(startNode.x, startNode.y, endNode.x, endNode.y);
+            path = pathfinding.FindPath(startNode.x, startNode.y, endNode.x, endNode.y, GetComponent<Collider2D>().bounds.extents.magnitude);
             pathIndex = 1;
             // update the target so that the enemy will look at where it is going to next
         }

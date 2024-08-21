@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5166914298691396457}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.91, y: 5.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_Children:
   - {fileID: 7939013429744296997}
   m_Father: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
   health: 4
   dmg: 2
   attackRange: 2
-  moveSpeed: 1
+  moveSpeed: 1.5
   spawnWeight: 15
   bulletPrefab: {fileID: 4251451353765411853, guid: 3eb9490e723fc1f4bb73115eabedb11b,
     type: 3}
