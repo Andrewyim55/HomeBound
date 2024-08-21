@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
@@ -11,17 +12,17 @@ public class Weapon : MonoBehaviour
 
     [Header("Attributes")]
     [SerializeField] protected float fireForce;
-    [SerializeField] protected float bulletDmg;
-    [SerializeField] protected int magazineSize;
+    [SerializeField] public float bulletDmg;
+    [SerializeField] public int magazineSize;
     [SerializeField] protected float reloadSpeed;
     [SerializeField] protected float fireRate;
     [SerializeField] public bool isAutomatic;
 
     protected float reloadTime;
-    protected int magSize;
+    public int magSize;
     protected bool isReloading;
 
-    private void Start()
+    public virtual void Start()
     {
         magSize = magazineSize;
         isReloading = false;
@@ -35,10 +36,13 @@ public class Weapon : MonoBehaviour
     {
 
     }
-
     private void Update()
     {
-        if(isReloading)
+        if(magazineSize <= 0)
+        {
+            isReloading = true;
+        }
+        if (isReloading)
         {
             Reload();
         }

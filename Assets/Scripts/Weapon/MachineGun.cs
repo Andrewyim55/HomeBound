@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MachineGun : Weapon
 {
     private bool isFiring;
 
-    private void Start()
+    public override void Start()
     {
         isFiring = false;
+        base.Start();
     }
     // Start is called before the first frame update
     public override void Fire()
@@ -17,6 +19,11 @@ public class MachineGun : Weapon
         {
             isFiring = true;
             StartCoroutine(FireContinuously());
+        }
+        else
+        {
+            isFiring = false;
+            isReloading = true;
         }
     }
     public override void StopFire()

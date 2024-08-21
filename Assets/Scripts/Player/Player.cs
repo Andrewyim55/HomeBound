@@ -13,6 +13,10 @@ public class Player : MonoBehaviour
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Animator animator;
     [SerializeField] private Material flashMaterial;
+    [SerializeField] private AudioClip dashClip;
+    [SerializeField] private AudioClip walkClip;
+    [SerializeField] private AudioSource walkAudioSource;
+    [SerializeField] private Text ammoCount;
 
     [Header("Attributes")]
     [SerializeField] private float health;
@@ -30,12 +34,20 @@ public class Player : MonoBehaviour
     private SkillCD skillCD;
     private bool isAlive;
     private Material originalMaterial;
+    [SerializeField] private Image weaponDisplay;
+    private float increasedDmg;
 
+   [Header("UIScreens")]
+   [SerializeField] private GameObject deathScreenUI;
+   [SerializeField] private GameObject LevelUpUI;
     // store the weapon that the player is able to pick up
     private Weapon nearbyWeapon;
 
     void Start()
     {
+        increasedDmg = 0f;
+        Time.timeScale = 1f;    
+        deathScreenUI.SetActive(false);
         isAlive = true;
         canDash = true;
         isDashing = false;
@@ -44,6 +56,9 @@ public class Player : MonoBehaviour
         {
             skillCD = GetComponent<SkillCD>();
         }
+        walkAudioSource.clip = walkClip;
+        walkAudioSource.loop = true;
+        walkAudioSource.volume = SoundManager.instance.GetSFXVol();
     }
     private void Update()
     {
@@ -84,6 +99,7 @@ public class Player : MonoBehaviour
         if (Input.GetButtonDown("Reload"))
         {
             weapon.Reload();
+            ammoCount.text = "Reloading";
         }
 
         if (Input.GetButtonDown("Jump") && canDash)
@@ -94,7 +110,11 @@ public class Player : MonoBehaviour
         {
             pickUpWeapon();
         }
-
+        if (weapon != null)
+        {
+            ammoCount.text = weapon.magazineSize + "/" + weapon.magSize;
+        }
+        
         // Update Animator parameters
         animator.SetFloat("Speed", movement.magnitude);
     }
@@ -115,6 +135,16 @@ public class Player : MonoBehaviour
         // Moving of player
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         RotatePlayer();
+        if (movement.magnitude > 0)
+        {
+            if(!walkAudioSource.isPlaying)
+                walkAudioSource.Play();
+        }
+        else
+        {
+            if(walkAudioSource.isPlaying)
+                walkAudioSource.Stop();
+        }
     }
 
     private void RotatePlayer()
@@ -149,7 +179,7 @@ public class Player : MonoBehaviour
         StartCoroutine(flashEffect());
         if (health <= 0 && isAlive)
         {
-            Die();
+            StartCoroutine(Die());
         }
     }
     private void UpdateHealthBar()
@@ -158,6 +188,7 @@ public class Player : MonoBehaviour
         healthBarImage.fillAmount = fillAmount;
     }
 
+    // Iframes after taking damage
     private IEnumerator flashEffect()
     {
         sr.material = flashMaterial;
@@ -171,7 +202,7 @@ public class Player : MonoBehaviour
         isDashing = true;
         animator.SetTrigger("Dash");
         tr.emitting = true;
-
+        SoundManager.instance.PlaySfx(dashClip, transform);
         Vector2 originalPosition = rb.position;
         Vector2 dashPosition = originalPosition + (movement * dashingPower);
 
@@ -203,15 +234,26 @@ public class Player : MonoBehaviour
                 Destroy(weapon.gameObject);
             }
             weapon = nearbyWeapon;
+            SpriteRenderer weaponSpriteRenderer = nearbyWeapon.GetComponent<SpriteRenderer>();
+
+            if (weaponSpriteRenderer != null)
+            {
+                weaponDisplay.sprite = weaponSpriteRenderer.sprite;
+                weaponDisplay.color = new Color32(255, 255, 255, 255);
+
+            }
             weapon.transform.SetParent(aimArm.transform);
             weapon.transform.localPosition = new Vector3(0, 0, 0);
             weapon.GetComponent<BoxCollider2D>().enabled = false;
             nearbyWeapon = null;
             weapon.transform.eulerAngles = aimArm.transform.eulerAngles;
+            weapon.bulletDmg += increasedDmg;
+            print(weapon.bulletDmg);
+            
         }
     }
     // If player die, call this function
-    private void Die()
+    private IEnumerator Die()
     {
         isAlive = false;
         animator.SetTrigger("Death");
@@ -221,6 +263,10 @@ public class Player : MonoBehaviour
         }
         GetComponent<BoxCollider2D>().enabled = false;
         rb.velocity = Vector3.zero;
+        yield return new WaitForSeconds(1);
+
+        Time.timeScale = 0f;
+        deathScreenUI.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -239,5 +285,34 @@ public class Player : MonoBehaviour
         {
             nearbyWeapon = null;  // Clear the nearby weapon reference when leaving the collider
         }
+    }
+    public void levelUp(string type)
+    {
+        if (type == "Movement")
+        {
+            moveSpeed += 0.25f;
+            print("movement");
+            LevelUpUI.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        else if (type == "Health")
+        {
+            health += 5;
+            print("Health");
+            LevelUpUI.SetActive(false);
+            Time.timeScale = 1f;
+        }
+        else if (type == "Damage")
+        {
+            print("Damage");
+            LevelUpUI.SetActive(false);
+            Time.timeScale = 1f;
+            increasedDmg += 0.5f;
+            if (weapon != null) {
+                weapon.bulletDmg += 0.5f;
+                print(weapon.bulletDmg);
+            }
+        }
+
     }
 }
