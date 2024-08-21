@@ -10,7 +10,8 @@ public class XPNLevel : MonoBehaviour
     [SerializeField] private Text LevelText;
     [SerializeField] private Image xpBarImage;
     [SerializeField] private GameObject LevelUpUI;
-
+    [SerializeField] private Button MovementButton;
+    private Animator movementAnimator;
     private int XPLevel = 1;
     private float currentXP;
     private float maxExperience = 100;
@@ -21,6 +22,8 @@ public class XPNLevel : MonoBehaviour
         LevelUpUI.SetActive(false);
         currentXP = 0;
         UpdateXPBar();
+        movementAnimator = MovementButton.GetComponent<Animator>();
+        movementAnimator.updateMode = AnimatorUpdateMode.UnscaledTime;
     }
 
     void Update()
@@ -37,6 +40,7 @@ public class XPNLevel : MonoBehaviour
         if (currentXP >= maxExperience)
         {
             LevelUpUI.SetActive(true);
+            movementAnimator.SetBool("isOpened", true);
             currentXP = 0;
             XPLevel += 1;
             LevelText.text = XPLevel.ToString();
@@ -45,6 +49,7 @@ public class XPNLevel : MonoBehaviour
         }
         currentXP = Mathf.Clamp(currentXP, 0, maxExperience);
         UpdateXPBar();
+        movementAnimator.SetBool("isOpened", false);
     }
 
     private void UpdateXPBar()
