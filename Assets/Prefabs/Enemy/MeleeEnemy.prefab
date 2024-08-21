@@ -149,6 +149,7 @@ MonoBehaviour:
   rb: {fileID: 1030071991966997604}
   pathfinding: {fileID: 0}
   animator: {fileID: 506065925}
+  sr: {fileID: 4060631292738436690}
   health: 10
   dmg: 5
   attackRange: 2

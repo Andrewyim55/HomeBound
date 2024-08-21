@@ -14,6 +14,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected Pathfinding pathfinding;
     [SerializeField] protected Animator animator;
+    [SerializeField] protected SpriteRenderer sr;
 
     [Header("Attributes")]
     [SerializeField] protected float health;
@@ -64,7 +65,6 @@ public abstract class Enemy : MonoBehaviour
             UpdatePath();
             pathUpdateTimer = 0f;
         }
-
         // check if in range of player
         // if not in range follow path to player
         if (!CheckInRange())
@@ -82,6 +82,7 @@ public abstract class Enemy : MonoBehaviour
             animator.SetBool("isAttacking", true);
             Attack();
         }
+        flipSprite();
     }
 
     protected void FollowPath()
@@ -135,6 +136,22 @@ public abstract class Enemy : MonoBehaviour
     public int GetSpawnWeight()
     {
         return spawnWeight;
+    }
+
+    private void flipSprite()
+    {
+        // Rotation of weapon
+        Vector2 aimDir = (new Vector2(target.position.x, target.position.y) - rb.position).normalized;
+        float aimAngle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
+
+        if (aimDir.x < 0)
+        {
+            sr.flipX = true;
+        }
+        else if (aimDir.x > 0)
+        {
+            sr.flipX = false;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
