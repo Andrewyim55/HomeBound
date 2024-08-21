@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
         isDashing = false;
         originalMaterial = sr.material;
         walkAudioSource.clip = walkClip;
-        walkAudioSource.loop = true;
+        walkAudioSource.loop = false;
         walkAudioSource.volume = SoundManager.instance.GetSFXVol();
         UpdateHealthBar();
     }
@@ -139,7 +139,7 @@ public class Player : MonoBehaviour
         // Moving of player
         rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         RotatePlayer();
-        if (movement.magnitude > 0)
+        if (movement.magnitude > 0 && isAlive)
         {
             if(!walkAudioSource.isPlaying)
                 walkAudioSource.Play();
