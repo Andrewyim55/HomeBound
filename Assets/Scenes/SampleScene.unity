@@ -12541,6 +12541,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  healAmt: 0
+  speedMultiplier: 2
+  speedDuration: 5
 --- !u!212 &1286606830
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14230,6 +14233,11 @@ PrefabInstance:
       objectReference: {fileID: 1796563065}
     - target: {fileID: 3226799406029820611, guid: 158916433150f5949a4c112a216095f1,
         type: 3}
+      propertyPath: health
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3226799406029820611, guid: 158916433150f5949a4c112a216095f1,
+        type: 3}
       propertyPath: dashClip
       value: 
       objectReference: {fileID: 8300000, guid: 96531bdc35d568b48932f2d59722b83d, type: 3}
@@ -14588,6 +14596,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  healAmt: 5
+  speedMultiplier: 2
+  speedDuration: 5
 --- !u!61 &1467352027
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -31765,6 +31776,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 2
+  healAmt: 0
+  speedMultiplier: 2
+  speedDuration: 5
 --- !u!61 &1533642106
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -32611,7 +32625,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1921280275}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9c4bfe2c25c8c045a6d6e0e6b60729e, type: 3}
   m_Name: 

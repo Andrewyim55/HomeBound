@@ -181,15 +181,21 @@ public abstract class Enemy : MonoBehaviour
             }
         }
     }
-    private IEnumerator Die()
+    public IEnumerator Die()
     {
-        isAlive = false;
-        animator.SetTrigger("Death");
-        GetComponent<BoxCollider2D>().enabled = false;
-        rb.velocity = Vector3.zero;
-        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        float animationLength = stateInfo.length;
-        yield return new WaitForSeconds(animationLength);
-        Destroy(gameObject);
+        if(isAlive)
+        {
+            isAlive = false;
+            animator.SetTrigger("Death");
+            GetComponent<BoxCollider2D>().enabled = false;
+            rb.velocity = Vector3.zero;
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+            Destroy(gameObject);
+        }
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 }

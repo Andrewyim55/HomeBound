@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
     private bool isAlive;
     private Material originalMaterial;
     
+    
     private float increasedDmg;
 
     private Animator skillCDAnimator;
@@ -61,6 +62,7 @@ public class Player : MonoBehaviour
         walkAudioSource.clip = walkClip;
         walkAudioSource.loop = true;
         walkAudioSource.volume = SoundManager.instance.GetSFXVol();
+        UpdateHealthBar();
     }
     private void Update()
     {
@@ -184,7 +186,7 @@ public class Player : MonoBehaviour
             StartCoroutine(Die());
         }
     }
-    private void UpdateHealthBar()
+    public void UpdateHealthBar()
     {
         float fillAmount = health / maxHealth;
         healthBarImage.fillAmount = fillAmount;
@@ -333,5 +335,46 @@ public class Player : MonoBehaviour
     public bool GetAlive()
     {
         return isAlive;
+    }
+
+    public void SetHealth(float hp)
+    {
+        health = hp;
+    }
+
+    public float GetHealth()
+    {
+        return health;
+    }
+    public void SetMaxHealth(float hp)
+    {
+        maxHealth = hp;
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+    public void SetSpeed(float speed)
+    {
+        moveSpeed = speed;
+    }
+
+    public float GetSpeed()
+    {
+        return moveSpeed;
+    }
+
+    public void ApplySpeedBoost(float multiplier, float duration)
+    {
+        StartCoroutine(SpeedBoostCoroutine(multiplier, duration));
+    }
+
+    private IEnumerator SpeedBoostCoroutine(float multiplier, float duration)
+    {
+        float originalSpeed = moveSpeed;
+        moveSpeed *= multiplier;
+        yield return new WaitForSeconds(duration);
+        moveSpeed = originalSpeed;
     }
 }

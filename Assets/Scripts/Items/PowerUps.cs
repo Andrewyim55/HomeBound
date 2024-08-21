@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 public class PowerUps : MonoBehaviour
@@ -12,23 +13,36 @@ public class PowerUps : MonoBehaviour
     }
     [Header("Attributes")]
     [SerializeField] private powerUp type;
+    [SerializeField] private float healAmt;
+    [SerializeField] private float speedMultiplier = 2f;
+    [SerializeField] private float speedDuration = 5f;
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
+            Player player = other.GetComponent<Player>();
+
             switch (type)
             {
-            case powerUp.health:
-                    Debug.Log("Health Pick Up");
+                case powerUp.health:
+                    float hp = player.GetHealth() + healAmt;
+                    player.SetHealth(Mathf.Min(hp, player.GetMaxHealth()));
+                    player.UpdateHealthBar();
                     break;
-            case powerUp.speed:
-                    Debug.Log("Speed Pick Up");
+
+                case powerUp.speed:
+                    player.ApplySpeedBoost(speedMultiplier, speedDuration);
                     break;
-            case powerUp.bomb:
-                    Debug.Log("Bomb Pick Up");
+
+                case powerUp.bomb:
+                    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+                    foreach (GameObject enemy in enemies)
+                    {
+                        enemy.GetComponent<Enemy>().TakeDmg(enemy.GetComponent<Enemy>().GetHealth());
+                    }
                     break;
             }
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }
