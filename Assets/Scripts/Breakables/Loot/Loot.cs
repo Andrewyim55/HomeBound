@@ -58,7 +58,14 @@ public class Loot : MonoBehaviour
         if (items.Length > 0)
         {
             int randomIndex = Random.Range(0, items.Length);
-            Instantiate(items[randomIndex], transform.position, Quaternion.identity);
+            GameObject droppedItem = Instantiate(items[randomIndex], transform.position, Quaternion.identity);
+
+            Animator itemAnimator = droppedItem.GetComponentInChildren<Animator>();
+            if (itemAnimator != null)
+            {
+                // set ItemDropped trigger to start animation
+                itemAnimator.SetTrigger("ItemDropped");
+            }
         }
     }
 }
