@@ -240,10 +240,18 @@ public class Player : MonoBehaviour
 
             if (weaponSpriteRenderer != null)
             {
+                weaponSpriteRenderer.enabled = true;
                 weaponDisplay.sprite = weaponSpriteRenderer.sprite;
                 weaponDisplay.color = new Color32(255, 255, 255, 255);
 
             }
+
+            SpriteRenderer childSpriteRenderer = nearbyWeapon.GetComponentInChildren<SpriteRenderer>();
+            if (childSpriteRenderer != null && childSpriteRenderer != weaponSpriteRenderer)
+            {
+                childSpriteRenderer.enabled = false;
+            }
+
             weapon.transform.SetParent(aimArm.transform);
             weapon.transform.localPosition = new Vector3(0, 0, 0);
             weapon.GetComponent<BoxCollider2D>().enabled = false;
