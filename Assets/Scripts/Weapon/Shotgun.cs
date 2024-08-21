@@ -30,6 +30,7 @@ public class Shotgun : Weapon
                 Physics2D.IgnoreCollision(bullet.GetComponent<Collider2D>(), transform.parent.parent.GetComponent<Collider2D>());
                 bullet.GetComponent<Bullet>().SetDmg(bulletDmg);
                 bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.right * fireForce, ForceMode2D.Impulse);
+                base.Fire();
             }
         }
         else
@@ -37,7 +38,6 @@ public class Shotgun : Weapon
             // If there is no ammo, reload gun
             isReloading = true;
         }
-        base.Fire();
     }
 
     private void OnDrawGizmosSelected()
