@@ -31,13 +31,17 @@ public class Player : MonoBehaviour
     private Vector2 mousePos;
     private bool canDash;
     private bool isDashing;
-    private SkillCD skillCD;
+    //private SkillCD skillCD;
     private bool isAlive;
     private Material originalMaterial;
-    [SerializeField] private Image weaponDisplay;
+    
     private float increasedDmg;
 
-   [Header("UIScreens")]
+    private Animator skillCDAnimator;
+
+   [Header("UI")]
+   [SerializeField] private Image weaponDisplay;
+   [SerializeField] private Image cooldownImage;
    [SerializeField] private GameObject deathScreenUI;
    [SerializeField] private GameObject LevelUpUI;
     // store the weapon that the player is able to pick up
@@ -52,10 +56,6 @@ public class Player : MonoBehaviour
         canDash = true;
         isDashing = false;
         originalMaterial = sr.material;
-        if (skillCD == null)
-        {
-            skillCD = GetComponent<SkillCD>();
-        }
         walkAudioSource.clip = walkClip;
         walkAudioSource.loop = true;
         walkAudioSource.volume = SoundManager.instance.GetSFXVol();
@@ -218,10 +218,12 @@ public class Player : MonoBehaviour
         animator.ResetTrigger("Dash"); 
         tr.emitting = false;
         isDashing = false;
-
-        skillCD.dashCooldown(dashingCooldown);
+        skillCDAnimator = cooldownImage.GetComponent<Animator>();
+        skillCDAnimator.SetBool("isCoolDown", true);
+        //skillCD.dashCooldown(dashingCooldown);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+        skillCDAnimator.SetBool("isCoolDown", false);
     }
 
     private void pickUpWeapon()
@@ -314,5 +316,9 @@ public class Player : MonoBehaviour
             }
         }
 
+    }
+    public bool GetAlive()
+    {
+        return isAlive;
     }
 }

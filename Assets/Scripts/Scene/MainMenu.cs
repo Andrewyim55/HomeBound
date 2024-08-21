@@ -5,17 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [Header("UIScreens")]
+    [SerializeField] private GameObject MainUI;
+    [SerializeField] private GameObject settingsUI;
     public void PlayGame()
     {
-
-        SceneTracker.previousScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene("SampleScene");
 
     }
     public void Settings()
     {
-        SceneTracker.previousScene = SceneManager.GetActiveScene().name;
-        SceneManager.LoadScene("Settings");
-
+        MainUI.SetActive(false);
+        settingsUI.SetActive(true);
     }
 }

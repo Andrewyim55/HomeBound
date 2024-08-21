@@ -55,23 +55,6 @@ public class RangedEnemy : Enemy
             Attack();
         }
     }
-    protected override void RotateTowardsTarget()
-    {
-        if (target == null)
-            return;
-
-        if (Vector2.Distance(target.position, transform.position) <= shootingDistance)
-        {
-            Vector3 direction = (target.position - transform.position).normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + -90f;
-            Quaternion targetRotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 100 * Time.deltaTime);
-        }
-        else
-        {
-            base.RotateTowardsTarget();
-        }
-    }
 
     protected override void UpdatePath()
     {
