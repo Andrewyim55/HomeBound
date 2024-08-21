@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   categoryName: Health
   items:
-  - {fileID: 5166914298691396457, guid: 4075a87906154f841b8f093258c04440, type: 3}
+  - {fileID: 7913532668938383239, guid: d71522097eeb88b418ccfc5939f1291c, type: 3}
   dropChance: 60

@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   categoryName: Powerup
   items:
-  - {fileID: 4060631292738436701, guid: 214961e346c18cc4d97b9e646cde615d, type: 3}
+  - {fileID: 8588385833399404583, guid: 2c6afdf42cea0fc48a75050318b2bd64, type: 3}
+  - {fileID: 8062033314571612970, guid: fb6cd886e8232684b8801368c460b1e5, type: 3}
   dropChance: 20
