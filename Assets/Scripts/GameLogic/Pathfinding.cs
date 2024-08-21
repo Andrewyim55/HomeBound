@@ -140,6 +140,12 @@ public class Pathfinding : MonoBehaviour
         Node startNode = grid.GetGridObject(startX, startY);
         Node endNode = grid.GetGridObject(endX, endY);
 
+        if(endNode.nodeType == Node.NodeType.WALL)
+        {
+            endNode = GetClostestNode(endNode);
+        }
+
+
         openList = new List<Node> { startNode };
         closedList = new List<Node>();
 
@@ -199,7 +205,7 @@ public class Pathfinding : MonoBehaviour
         return null;
     }
 
-private int CalculateDistanceCost(Node a, Node b)
+    private int CalculateDistanceCost(Node a, Node b)
     {
         int xDistance = Mathf.Abs(a.x - b.x);
         int yDistance = Mathf.Abs(a.y - b.y);
@@ -218,6 +224,37 @@ private int CalculateDistanceCost(Node a, Node b)
             }
         }
         return lowestFCostNode;
+    }
+
+    private Node GetClostestNode(Node currentNode)
+    {
+        Queue<Node> nodeQueue = new Queue<Node>();
+        HashSet<Node> visitedNodes = new HashSet<Node>();
+
+        nodeQueue.Enqueue(currentNode);
+        visitedNodes.Add(currentNode);
+
+        while (nodeQueue.Count > 0)
+        {
+            Node node = nodeQueue.Dequeue();
+
+            // Check if this node is not a wall
+            if (node.nodeType != Node.NodeType.WALL)
+            {
+                return node;
+            }
+
+            // Enqueue all non-visited neighbors
+            foreach (Node neighbor in GetNeighborList(node))
+            {
+                if (!visitedNodes.Contains(neighbor))
+                {
+                    nodeQueue.Enqueue(neighbor);
+                    visitedNodes.Add(neighbor);
+                }
+            }
+        }
+        return null;
     }
 
     private List<Node> GetNeighborList(Node currentNode)
