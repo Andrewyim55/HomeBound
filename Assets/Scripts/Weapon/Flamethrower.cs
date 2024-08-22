@@ -35,10 +35,13 @@ public class Flamethrower : Weapon
     }
     public override void StopFire()
     {
+        if (isReloading)
+            return;
         isFiring = false;
         audioSource.Stop();
         flameParticles.Stop();
     }
+
     private IEnumerator FireContinuously()
     {
         while (isFiring && magazineSize > 0)

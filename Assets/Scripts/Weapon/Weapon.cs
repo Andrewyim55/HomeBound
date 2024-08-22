@@ -33,6 +33,8 @@ public class Weapon : MonoBehaviour
     }
     public virtual void Fire()
     {
+        if (isReloading)
+            return;
         audioSource.volume = SoundManager.instance.GetSFXVol();
         magazineSize--;
     }
@@ -45,7 +47,6 @@ public class Weapon : MonoBehaviour
     {
         if (PauseScript.instance.GetPaused())
         {
-            Debug.Log(PauseScript.instance.GetPaused());
             audioSource.Pause();
             return;
         }
@@ -56,7 +57,6 @@ public class Weapon : MonoBehaviour
 
         if (magazineSize <= 0 && !isReloading)
         {
-            Debug.Log("reloading");
             isReloading = true;
         }
         if(isReloading)
@@ -68,7 +68,7 @@ public class Weapon : MonoBehaviour
     }
 
     // This will be the reloading of the gun
-    public void Reload()
+    private void Reload()
     {
         if(!audioSource.isPlaying)
         {

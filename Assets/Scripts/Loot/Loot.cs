@@ -43,7 +43,6 @@ public class Loot : MonoBehaviour
             currentWeight += category.dropChance;
             if (lootNum < currentWeight)
             {
-                Debug.Log("Loot dropped from: " + category.categoryName);
                 // return list of items within category
                 return category.items;
             }

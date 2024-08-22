@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (weapon != null)
+            if (weapon != null && !weapon.GetReloading() && !PauseScript.instance.GetPaused())
             {
                 weapon.StopFire();
             }
@@ -313,7 +313,6 @@ public class Player : MonoBehaviour
         {
             PauseScript.instance.SetPaused(false);
             moveSpeed += 0.25f;
-            print("movement");
             LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
         }
