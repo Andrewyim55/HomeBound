@@ -232,16 +232,15 @@ MonoBehaviour:
   firePoint: {fileID: 6069380053803786835}
   sfxClip: {fileID: 0}
   reloadingClip: {fileID: 8300000, guid: 78b59e5cf6a5ebf4bb57f0364738ea5f, type: 3}
-  reloadingSource: {fileID: 2010938150}
+  audioSource: {fileID: 2010938150}
   fireForce: 7
   bulletDmg: 0.2
-  magazineSize: 5000
+  magazineSize: 1000
   reloadSpeed: 4
   fireRate: 100
   isAutomatic: 1
   magSize: 0
   flameParticles: {fileID: 5674125828379401022}
-  flameSource: {fileID: 2010938150}
   flameClip: {fileID: 8300000, guid: 13c60ad2f222ab94d9c368cff95dbfa5, type: 3}
 --- !u!198 &5674125828379401022
 ParticleSystem:

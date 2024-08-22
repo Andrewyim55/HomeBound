@@ -211,6 +211,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shotgun
       objectReference: {fileID: 0}
+    - target: {fileID: 6109373954693084241, guid: 912ed23bed7a5374ca3fadafad5ed69e,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 466511074}
     - target: {fileID: 8853701392193007198, guid: 912ed23bed7a5374ca3fadafad5ed69e,
         type: 3}
       propertyPath: m_RootOrder
@@ -11047,6 +11052,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461140798}
   m_CullTransparentMesh: 0
+--- !u!82 &466511074 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 466511074, guid: 912ed23bed7a5374ca3fadafad5ed69e,
+    type: 3}
+  m_PrefabInstance: {fileID: 45272366}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &466894388
 GameObject:
   m_ObjectHideFlags: 0
@@ -12730,6 +12741,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1151522808}
   m_CullTransparentMesh: 0
+--- !u!82 &1201892983 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1201892983, guid: 9b9d777da9b1e834894d2423fff24ef1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4266109148869817136}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1367254136
 GameObject:
   m_ObjectHideFlags: 0
@@ -32954,6 +32971,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1999391285}
   m_CullTransparentMesh: 0
+--- !u!82 &2010938150 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2010938150, guid: 9b8a05008f559524ba711a4fd631c72e,
+    type: 3}
+  m_PrefabInstance: {fileID: 5674125828379401015}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2011186934
 GameObject:
   m_ObjectHideFlags: 0
@@ -33123,6 +33146,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathScreenUI: {fileID: 1822594861}
+--- !u!82 &2022066038 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2022066038, guid: 9c2e0256286573e47ba269b80b49ea35,
+    type: 3}
+  m_PrefabInstance: {fileID: 8850898648324715093}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2031828118
 GameObject:
   m_ObjectHideFlags: 0
@@ -33971,6 +34000,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MachineGun
       objectReference: {fileID: 0}
+    - target: {fileID: 9058615837281972494, guid: 9b9d777da9b1e834894d2423fff24ef1,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1201892983}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b9d777da9b1e834894d2423fff24ef1, type: 3}
 --- !u!1001 &5674125828379401015
@@ -34035,6 +34069,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4594761428066376300, guid: 9b8a05008f559524ba711a4fd631c72e,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 2010938150}
+    - target: {fileID: 4594761428066376300, guid: 9b8a05008f559524ba711a4fd631c72e,
+        type: 3}
+      propertyPath: magazineSize
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 5155708883986097825, guid: 9b8a05008f559524ba711a4fd631c72e,
         type: 3}
       propertyPath: m_Name
@@ -34093,6 +34137,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5010493922624827032, guid: 9c2e0256286573e47ba269b80b49ea35,
+        type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 2022066038}
     - target: {fileID: 8351643915669449116, guid: 9c2e0256286573e47ba269b80b49ea35,
         type: 3}
       propertyPath: m_Name

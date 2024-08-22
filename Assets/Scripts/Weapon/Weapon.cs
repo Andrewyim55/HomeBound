@@ -10,7 +10,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected Transform firePoint;
     [SerializeField] protected AudioClip sfxClip;
     [SerializeField] protected AudioClip reloadingClip;
-    [SerializeField] protected AudioSource reloadingSource;
+    [SerializeField] protected AudioSource audioSource;
 
     [Header("Attributes")]
     [SerializeField] protected float fireForce;
@@ -28,11 +28,11 @@ public class Weapon : MonoBehaviour
     {
         magSize = magazineSize;
         isReloading = false;
-        reloadingSource.clip = reloadingClip;
-        reloadingSource.loop = true;
+        audioSource.loop = true;
     }
     public virtual void Fire()
     {
+        audioSource.volume = SoundManager.instance.GetSFXVol();
         magazineSize--;
     }
 
@@ -44,7 +44,9 @@ public class Weapon : MonoBehaviour
     {
         if(magazineSize <= 0 && !isReloading)
         {
-            reloadingSource.Play();
+            Debug.Log("reloading");
+            audioSource.volume = SoundManager.instance.GetSFXVol();
+            audioSource.clip = reloadingClip;
             isReloading = true;
         }
         if (isReloading)
@@ -56,7 +58,9 @@ public class Weapon : MonoBehaviour
     // This will be the reloading of the gun
     public void Reload()
     {
-        if(reloadTime <= reloadSpeed)
+        if(!audioSource.isPlaying)
+            audioSource.Play();
+        if (reloadTime <= reloadSpeed)
         {
             reloadTime += Time.deltaTime;
         }
@@ -68,7 +72,7 @@ public class Weapon : MonoBehaviour
             magazineSize = magSize;
             reloadTime = 0;
             isReloading = false;
-            reloadingSource.Stop();
+            audioSource.Stop();
         }
     }
 }
