@@ -232,6 +232,7 @@ MonoBehaviour:
   firePoint: {fileID: 6069380053803786835}
   sfxClip: {fileID: 0}
   reloadingClip: {fileID: 8300000, guid: 78b59e5cf6a5ebf4bb57f0364738ea5f, type: 3}
+  reloadingSource: {fileID: 2010938150}
   fireForce: 7
   bulletDmg: 0.2
   magazineSize: 5000

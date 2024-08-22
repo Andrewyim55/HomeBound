@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected Transform firePoint;
     [SerializeField] protected AudioClip sfxClip;
     [SerializeField] protected AudioClip reloadingClip;
+    [SerializeField] protected AudioSource reloadingSource;
 
     [Header("Attributes")]
     [SerializeField] protected float fireForce;
@@ -27,6 +28,8 @@ public class Weapon : MonoBehaviour
     {
         magSize = magazineSize;
         isReloading = false;
+        reloadingSource.clip = reloadingClip;
+        reloadingSource.loop = true;
     }
     public virtual void Fire()
     {
@@ -41,7 +44,7 @@ public class Weapon : MonoBehaviour
     {
         if(magazineSize <= 0 && !isReloading)
         {
-            SoundManager.instance.PlaySfx(reloadingClip, transform);
+            reloadingSource.Play();
             isReloading = true;
         }
         if (isReloading)
@@ -65,6 +68,7 @@ public class Weapon : MonoBehaviour
             magazineSize = magSize;
             reloadTime = 0;
             isReloading = false;
+            reloadingSource.Stop();
         }
     }
 }
