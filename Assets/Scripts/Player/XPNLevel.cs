@@ -10,6 +10,7 @@ public class XPNLevel : MonoBehaviour
     [SerializeField] private Text LevelText;
     [SerializeField] private Image xpBarImage;
     [SerializeField] private GameObject LevelUpUI;
+    [SerializeField] protected AudioClip LevelUpClip;
     private int XPLevel = 1;
     private float currentXP;
     private float maxExperience = 100;
@@ -35,6 +36,7 @@ public class XPNLevel : MonoBehaviour
         currentXP += experience;
         if (currentXP >= maxExperience)
         {
+            SoundManager.instance.PlaySfx(LevelUpClip,transform);
             LevelUpUI.SetActive(true);
             currentXP = 0;
             XPLevel += 1;
