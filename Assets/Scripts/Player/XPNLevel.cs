@@ -36,6 +36,7 @@ public class XPNLevel : MonoBehaviour
         currentXP += experience;
         if (currentXP >= maxExperience)
         {
+            PauseScript.instance.SetPaused(true);
             SoundManager.instance.PlaySfx(LevelUpClip,transform);
             LevelUpUI.SetActive(true);
             currentXP = 0;

@@ -311,6 +311,7 @@ public class Player : MonoBehaviour
     {
         if (type == "Movement")
         {
+            PauseScript.instance.SetPaused(false);
             moveSpeed += 0.25f;
             print("movement");
             LevelUpUI.SetActive(false);
@@ -318,6 +319,7 @@ public class Player : MonoBehaviour
         }
         else if (type == "Health")
         {
+            PauseScript.instance.SetPaused(false);
             health += 5;
             maxHealth += 5;
             print("Health");
@@ -327,6 +329,7 @@ public class Player : MonoBehaviour
         }
         else if (type == "Damage")
         {
+            PauseScript.instance.SetPaused(false);
             print("Damage");
             LevelUpUI.SetActive(false);
             Time.timeScale = 1f;

@@ -11,6 +11,8 @@ public class PauseScript : MonoBehaviour
     [SerializeField] private GameObject settingsUI;
     private bool isPaused = false;
     private bool isSettings = false;
+    public static PauseScript instance;
+
     void Awake()
     {
         if (FindObjectOfType<EventSystem>() == null)
@@ -22,6 +24,8 @@ public class PauseScript : MonoBehaviour
     }
     private void Start()
     {
+        if (instance == null)
+            instance = this;
         pauseMenuUI.SetActive(false);
     }
 
@@ -87,5 +91,14 @@ public class PauseScript : MonoBehaviour
     public void QuitGame()
     {
         SceneManager.LoadScene("Main Menu");
+    }
+    public void SetPaused(bool pause)
+    {
+        isPaused = pause;
+    }
+
+    public bool GetPaused()
+    {
+        return isPaused;
     }
 }

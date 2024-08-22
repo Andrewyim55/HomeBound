@@ -42,15 +42,23 @@ public class Weapon : MonoBehaviour
     }
     private void Update()
     {
-        if(magazineSize <= 0 && !isReloading)
+        if (PauseScript.instance.GetPaused())
+        {
+            Debug.Log(PauseScript.instance.GetPaused());
+            audioSource.Pause();
+            return;
+        }
+        else if(!PauseScript.instance.GetPaused())
+        {
+            audioSource.UnPause();
+        }
+
+        if (magazineSize <= 0 && !isReloading)
         {
             Debug.Log("reloading");
             audioSource.volume = SoundManager.instance.GetSFXVol();
             audioSource.clip = reloadingClip;
             isReloading = true;
-        }
-        if (isReloading)
-        {
             Reload();
         }
     }
