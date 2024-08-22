@@ -26,6 +26,7 @@ public class Weapon : MonoBehaviour
 
     public virtual void Start()
     {
+        reloadTime = 0;
         magSize = magazineSize;
         isReloading = false;
         audioSource.loop = true;
@@ -56,9 +57,12 @@ public class Weapon : MonoBehaviour
         if (magazineSize <= 0 && !isReloading)
         {
             Debug.Log("reloading");
+            isReloading = true;
+        }
+        if(isReloading)
+        {
             audioSource.volume = SoundManager.instance.GetSFXVol();
             audioSource.clip = reloadingClip;
-            isReloading = true;
             Reload();
         }
     }
@@ -67,7 +71,9 @@ public class Weapon : MonoBehaviour
     public void Reload()
     {
         if(!audioSource.isPlaying)
+        {
             audioSource.Play();
+        }
         if (reloadTime <= reloadSpeed)
         {
             reloadTime += Time.deltaTime;
@@ -82,5 +88,14 @@ public class Weapon : MonoBehaviour
             isReloading = false;
             audioSource.Stop();
         }
+    }
+
+    public bool GetReloading()
+    {
+        return isReloading;
+    }
+    public void SetReloading(bool reloading)
+    {
+        isReloading = reloading;
     }
 }

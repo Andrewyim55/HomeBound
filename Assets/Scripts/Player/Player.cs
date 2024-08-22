@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
         // Attacking
         if (Input.GetMouseButtonDown(0))
         {
-            if (weapon != null)
+            if (weapon != null && !weapon.GetReloading() && !PauseScript.instance.GetPaused())
             {
                 weapon.Fire();
             }
@@ -103,7 +103,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetButtonDown("Reload"))
         {
-            weapon.Reload();
+            weapon.SetReloading(true);
             ammoCount.text = "Reloading";
         }
 
