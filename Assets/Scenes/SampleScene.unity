@@ -14819,6 +14819,7 @@ MonoBehaviour:
   LevelText: {fileID: 2060766843}
   xpBarImage: {fileID: 1788704006}
   LevelUpUI: {fileID: 1077212544}
+  LevelUpClip: {fileID: 8300000, guid: 017e9367870fda84eb287d1746e2ee5e, type: 3}
 --- !u!1 &1500335137
 GameObject:
   m_ObjectHideFlags: 0
@@ -35004,6 +35005,11 @@ PrefabInstance:
       propertyPath: magazineSize
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 4594761428066376300, guid: 9b8a05008f559524ba711a4fd631c72e,
+        type: 3}
+      propertyPath: reloadingClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c4e4773c6f0ddd148ab81e863f05f8ff, type: 3}
     - target: {fileID: 5155708883986097825, guid: 9b8a05008f559524ba711a4fd631c72e,
         type: 3}
       propertyPath: m_Name
