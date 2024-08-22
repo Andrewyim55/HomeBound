@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Material flashMaterial;
     [SerializeField] private AudioClip dashClip;
     [SerializeField] private AudioClip walkClip;
+    [SerializeField] private AudioClip pickUpClip;
     [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] private Text ammoCount;
 
@@ -261,6 +262,7 @@ public class Player : MonoBehaviour
                 }
             }
 
+            SoundManager.instance.PlaySfx(pickUpClip, transform);
             weapon.transform.SetParent(aimArm.transform);
             weapon.transform.localPosition = new Vector3(0, 0, 0);
             weapon.GetComponent<BoxCollider2D>().enabled = false;

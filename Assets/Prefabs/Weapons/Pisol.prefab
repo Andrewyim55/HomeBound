@@ -157,7 +157,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8351643915669449116}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.19, y: 0.529, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 1}
   m_Children:
@@ -258,7 +258,8 @@ MonoBehaviour:
     type: 3}
   firePoint: {fileID: 6940323059140554094}
   sfxClip: {fileID: 8300000, guid: 7924f7aea7410384c96bfe60fda3e01d, type: 3}
-  fireForce: 5
+  reloadingClip: {fileID: 8300000, guid: 78b59e5cf6a5ebf4bb57f0364738ea5f, type: 3}
+  fireForce: 7
   bulletDmg: 2
   magazineSize: 7
   reloadSpeed: 1

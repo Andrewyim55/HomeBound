@@ -9,6 +9,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected GameObject bulletPrefab;
     [SerializeField] protected Transform firePoint;
     [SerializeField] protected AudioClip sfxClip;
+    [SerializeField] protected AudioClip reloadingClip;
 
     [Header("Attributes")]
     [SerializeField] protected float fireForce;
@@ -38,8 +39,9 @@ public class Weapon : MonoBehaviour
     }
     private void Update()
     {
-        if(magazineSize <= 0)
+        if(magazineSize <= 0 && !isReloading)
         {
+            SoundManager.instance.PlaySfx(reloadingClip, transform);
             isReloading = true;
         }
         if (isReloading)

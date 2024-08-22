@@ -10,24 +10,17 @@ public class MeleeEnemy : Enemy
     // This is the distance at which the enemy will charge till
     [SerializeField] private float chargeDistance;
     [SerializeField] private float chargeCooldown;
-    private bool isCharging;
     private float lastChargeTime;
 
     protected override void Start()
     {
         base.Start();
-        isCharging = false;
         lastChargeTime = -chargeCooldown;
     }
 
     protected override void Update()
     {
         base.Update();
-
-        if (isCharging)
-        {
-            ChargeTowardsTarget();
-        }
     }
 
     protected override void Attack()
@@ -40,30 +33,16 @@ public class MeleeEnemy : Enemy
 
     private IEnumerator PerformChargeAttack()
     {
-        isCharging = true;
         lastChargeTime = Time.time;
-
         Vector3 chargeDirection = (target.position - transform.position).normalized;
         float chargeEndTime = Time.time + chargeDistance / chargeSpeed;
-
+        yield return new WaitForSeconds(0.5f);
         while (Time.time < chargeEndTime)
         {
             rb.velocity = chargeDirection * chargeSpeed;
             yield return null;
         }
-
         rb.velocity = Vector2.zero;
-        isCharging = false;
-    }
-
-    private void ChargeTowardsTarget()
-    {
-        // Continue charging if the enemy is still in the charge state
-        if (isCharging)
-        {
-            Vector3 direction = (target.position - transform.position).normalized;
-            rb.velocity = direction * chargeSpeed;
-        }
     }
 
     protected override void DrawGizmos()
