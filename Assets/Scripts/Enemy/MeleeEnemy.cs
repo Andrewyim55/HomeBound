@@ -14,8 +14,8 @@ public class MeleeEnemy : Enemy
 
     protected override void Start()
     {
-        base.Start();
         lastChargeTime = -chargeCooldown;
+        base.Start();
     }
 
     protected override void Update()
@@ -36,6 +36,8 @@ public class MeleeEnemy : Enemy
         lastChargeTime = Time.time;
         Vector3 chargeDirection = (target.position - transform.position).normalized;
         float chargeEndTime = Time.time + chargeDistance / chargeSpeed;
+
+        animator.SetTrigger("isAttacking");
         yield return new WaitForSeconds(0.5f);
         while (Time.time < chargeEndTime)
         {
@@ -43,6 +45,8 @@ public class MeleeEnemy : Enemy
             yield return null;
         }
         rb.velocity = Vector2.zero;
+        animator.ResetTrigger("isAttacking");
+        yield return new WaitForSeconds(chargeCooldown);
     }
 
     protected override void DrawGizmos()

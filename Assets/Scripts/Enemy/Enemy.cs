@@ -38,10 +38,10 @@ public abstract class Enemy : MonoBehaviour
         isAlive = true;
         loot = GetComponent<Loot>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        pathfinding = GameObject.FindGameObjectWithTag("Map").GetComponent<Pathfinding>();
+        pathfinding = FindObjectOfType<Pathfinding>();
         if (target.GetComponent<Player>().GetAlive())
         {
-            pathfinding = GameObject.FindGameObjectWithTag("Map").GetComponent<Pathfinding>();
-            pathfinding = FindObjectOfType<Pathfinding>();
             UpdatePath();
             animator.SetBool("target", true);
         }
@@ -74,7 +74,6 @@ public abstract class Enemy : MonoBehaviour
         if (!CheckInRange())
         {
             animator.SetBool("isFollowing", true);
-            animator.SetBool("isAttacking", false);
             FollowPath();
         }
         else
@@ -83,7 +82,6 @@ public abstract class Enemy : MonoBehaviour
             path = null;
             rb.velocity = Vector2.zero;
             animator.SetBool("isFollowing", false);
-            animator.SetBool("isAttacking", true);
             Attack();
         }
         flipSprite();

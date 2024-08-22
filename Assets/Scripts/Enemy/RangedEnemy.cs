@@ -73,6 +73,7 @@ public class RangedEnemy : Enemy
         // If the enemy is ready to fire
         if (fireTime >= 1f / firingRate)
         {
+            animator.SetTrigger("isAttacking");
             Vector2 direction = (target.position - firePoint.position).normalized;
 
             // Calculate the rotation based on the direction to the player
@@ -94,7 +95,7 @@ public class RangedEnemy : Enemy
             {
                 bulletRb.AddForce(bullet.transform.up * fireForce, ForceMode2D.Impulse);
             }
-
+            animator.ResetTrigger("isAttacking");
             // Reset the fire time
             fireTime = 0f;
         }
