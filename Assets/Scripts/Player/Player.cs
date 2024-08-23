@@ -41,11 +41,11 @@ public class Player : MonoBehaviour
     //private SkillCD skillCD;
     private bool isAlive;
     private Material originalMaterial;
-    
-    
+
+    private float ammoPercentage;
     private float increasedDmg;
     private float reloadSpd;
-
+    private float dashReduce;
     private Animator skillCDAnimator;
 
     [Header("UI")]
@@ -59,8 +59,10 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        reloadSpd = 1;
+        dashReduce = 1f;
+        reloadSpd = 1f;
         increasedDmg = 1f;
+        ammoPercentage = 1f;
         Time.timeScale = 1f;    
         deathScreenUI.SetActive(false);
         isAlive = true;
@@ -278,6 +280,14 @@ public class Player : MonoBehaviour
             nearbyWeapon = null;
             weapon.transform.eulerAngles = aimArm.transform.eulerAngles;
             weapon.bulletDmg *= increasedDmg;
+            weapon.reloadSpeed *= reloadSpd;
+
+            float magazineSizeFloat = (float)weapon.magSize;
+            magazineSizeFloat *= ammoPercentage;
+            weapon.magSize = Mathf.RoundToInt(magazineSizeFloat);
+
+
+            /// ==========================================================================================================================================
         }
     }
 
@@ -387,12 +397,33 @@ public class Player : MonoBehaviour
                 reloadSpd += value;
             }
         }
-        else if (type == "Critical Rate")
+        else if (type == "Dash Cooldown")
         {
             PauseScript.instance.SetPaused(false);
             LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
-            print(type);
+            dashingCooldown *= dashReduce;
+            dashReduce += value;
+            dashingCooldown /= dashReduce;
+        }
+        else if (type == "Ammo Count")
+        {
+            PauseScript.instance.SetPaused(false);
+            LevelUpUI.SetActive(false);
+            Time.timeScale = 1f;
+            if (weapon != null)
+            {
+                float magazineSizeFloat = (float)weapon.magSize;
+                magazineSizeFloat /= ammoPercentage;
+                ammoPercentage += value;
+                magazineSizeFloat *= ammoPercentage;
+
+                weapon.magSize = Mathf.RoundToInt(magazineSizeFloat);
+            }
+            else
+            {
+                ammoPercentage += value;
+            }
         }
 
     }

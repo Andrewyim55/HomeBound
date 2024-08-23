@@ -25,7 +25,8 @@ public class LevelUpPanel : MonoBehaviour
             ("Speed", "Speed increase by 0.25", 0.25f),
             ("Damage", "Damage increase by 5%", 0.05f),
             ("Reload Speed", "Reloading speed increase by 10%", 0.05f),
-            ("Critical Rate", "Critical rate increase by 5%", 0.05f)
+            ("Dash Cooldown", "Dash cooldown decrease by 5%", 0.05f),
+            ("Ammo Count", "Ammo Count increase by 5%", 0.05f)
         };
     }
 
