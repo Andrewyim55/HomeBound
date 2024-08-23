@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1922867124044264618}
   - component: {fileID: 1922867124044264621}
   - component: {fileID: 1922867124044264620}
+  - component: {fileID: 5039885655029744851}
   m_Layer: 0
   m_Name: EXP orb
   m_TagString: Pickup
@@ -109,6 +110,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.12438893, y: 0.11973119}
   m_EdgeRadius: 0
+--- !u!114 &5039885655029744851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1922867124044264622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67f60354d4585454cb006b06d6af16ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupClip: {fileID: 8300000, guid: fea26fc9245ad4e428aa775fc53791c6, type: 3}
+  xpSystem: {fileID: 7798124905749553650, guid: f22c352df3bfc9142b6de7de0b540fa0,
+    type: 3}
+  type: 3
+  healAmt: 0
+  speedMultiplier: 0
+  speedDuration: 0
+  expAmt: 10
 --- !u!1 &1922867124286178188
 GameObject:
   m_ObjectHideFlags: 0

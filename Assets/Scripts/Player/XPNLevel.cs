@@ -25,10 +25,10 @@ public class XPNLevel : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            gainXP(10);
-        }
+        //if (Input.GetKeyDown(KeyCode.Mouse0))
+        //{
+        //    gainXP(10);
+        //}
     }
     public void gainXP(float experience)
     {

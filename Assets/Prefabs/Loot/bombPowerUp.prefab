@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f60354d4585454cb006b06d6af16ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupClip: {fileID: 8300000, guid: e043f9b5b130da647a9c7e649361e658, type: 3}
   type: 2
   healAmt: 5
   speedMultiplier: 2

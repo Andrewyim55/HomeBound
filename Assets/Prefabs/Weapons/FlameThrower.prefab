@@ -231,7 +231,7 @@ MonoBehaviour:
     type: 3}
   firePoint: {fileID: 6069380053803786835}
   sfxClip: {fileID: 0}
-  reloadingClip: {fileID: 8300000, guid: 78b59e5cf6a5ebf4bb57f0364738ea5f, type: 3}
+  reloadingClip: {fileID: 8300000, guid: c4e4773c6f0ddd148ab81e863f05f8ff, type: 3}
   audioSource: {fileID: 2010938150}
   fireForce: 7
   bulletDmg: 0.2
@@ -3942,7 +3942,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 11264
+      m_Bits: 27648
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5

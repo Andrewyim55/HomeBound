@@ -63,5 +63,9 @@ public class Flamethrower : Weapon
             collision.gameObject.GetComponent<Enemy>().TakeDmg(bulletDmg);
 
         }
+        else if (collision.gameObject.GetComponent<Breakables>() != null)
+        {
+            collision.gameObject.GetComponent<Breakables>().BreakBreakable();
+        }
     }
 }

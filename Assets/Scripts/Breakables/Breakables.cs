@@ -7,6 +7,7 @@ public class Breakables : MonoBehaviour
     public event Action OnBreak;
     private Loot loot;
     private SpriteRenderer spriteRenderer;
+    private BoxCollider2D boxCollider2D;
     private bool hasBroken = false; //flag to check if already broken
 
     [SerializeField] private Sprite brokenSprite; 
@@ -17,6 +18,7 @@ public class Breakables : MonoBehaviour
     {
         loot = GetComponent<Loot>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider2D = GetComponent<BoxCollider2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -57,6 +59,8 @@ public class Breakables : MonoBehaviour
     {
         float elapsedTime = 0f;
         Color c = spriteRenderer.color;
+
+        boxCollider2D.enabled = false;
 
         // fade before destroying
         Destroy(gameObject, destroyDelay);

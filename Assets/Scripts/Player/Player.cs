@@ -29,6 +29,11 @@ public class Player : MonoBehaviour
     [SerializeField] TrailRenderer tr;
     [SerializeField] private float flashDuration;
 
+    [Header("Pickup attributes")]
+    [SerializeField] private float pickupRadius = 1f;
+    [SerializeField] float minPickupSpeed = 0.2f;
+    [SerializeField] private float maxPickupSpeed = 3f;
+
     private Vector2 movement;
     private Vector2 mousePos;
     private bool canDash;
@@ -119,6 +124,8 @@ public class Player : MonoBehaviour
         {
             ammoCount.text = weapon.magazineSize + "/" + weapon.magSize;
         }
+        
+        AttractNearbyPickups();
         
         // Update Animator parameters
         animator.SetFloat("Speed", movement.magnitude);
@@ -273,6 +280,7 @@ public class Player : MonoBehaviour
             
         }
     }
+
     // If player die, call this function
     private IEnumerator Die()
     {
@@ -307,6 +315,28 @@ public class Player : MonoBehaviour
             nearbyWeapon = null;  // Clear the nearby weapon reference when leaving the collider
         }
     }
+
+    private void AttractNearbyPickups()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, pickupRadius);
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Pickup"))
+            {
+                // calc distance and direction
+                Vector2 direction = (transform.position - collider.transform.position).normalized;
+                float distance = Vector2.Distance(transform.position, collider.transform.position);
+                
+                // increase speed based on closeness to player
+                float speed = Mathf.Lerp(maxPickupSpeed, minPickupSpeed, distance / pickupRadius);
+
+                // move pickup towards player
+                collider.transform.position = Vector2.MoveTowards(collider.transform.position, transform.position, speed * Time.deltaTime);
+            }
+        }
+    }
+
     public void levelUp(string type)
     {
         if (type == "Movement")
