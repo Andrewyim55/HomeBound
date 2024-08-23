@@ -9,26 +9,29 @@ public class XPNLevel : MonoBehaviour
     [SerializeField] private Text XPText;
     [SerializeField] private Text LevelText;
     [SerializeField] private Image xpBarImage;
+    [SerializeField] private GameObject LevelUpScreen;
     [SerializeField] private GameObject LevelUpUI;
     [SerializeField] protected AudioClip LevelUpClip;
+
+    private LevelUpPanel LevelUpPanelScript;
     private int XPLevel = 1;
     private float currentXP;
     private float maxExperience = 100;
-
     // Start is called before the first frame update
     void Start()
     {
         LevelUpUI.SetActive(false);
         currentXP = 0;
         UpdateXPBar();
+        LevelUpPanelScript = LevelUpScreen.GetComponent<LevelUpPanel>();
     }
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Mouse0))
-        //{
-        //    gainXP(10);
-        //}
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+           gainXP(10);
+        }
     }
     public void gainXP(float experience)
     {
@@ -39,6 +42,7 @@ public class XPNLevel : MonoBehaviour
             PauseScript.instance.SetPaused(true);
             SoundManager.instance.PlaySfx(LevelUpClip,transform);
             LevelUpUI.SetActive(true);
+            LevelUpPanelScript.UpdateLevelUpUI();
             currentXP = 0;
             XPLevel += 1;
             LevelText.text = XPLevel.ToString();

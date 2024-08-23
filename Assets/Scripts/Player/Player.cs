@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     
     
     private float increasedDmg;
+    private float reloadSpd;
 
     private Animator skillCDAnimator;
 
@@ -58,7 +59,8 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        increasedDmg = 0f;
+        reloadSpd = 1;
+        increasedDmg = 1f;
         Time.timeScale = 1f;    
         deathScreenUI.SetActive(false);
         isAlive = true;
@@ -275,9 +277,7 @@ public class Player : MonoBehaviour
             weapon.GetComponent<BoxCollider2D>().enabled = false;
             nearbyWeapon = null;
             weapon.transform.eulerAngles = aimArm.transform.eulerAngles;
-            weapon.bulletDmg += increasedDmg;
-            print(weapon.bulletDmg);
-            
+            weapon.bulletDmg *= increasedDmg;
         }
     }
 
@@ -337,21 +337,20 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void levelUp(string type)
+    public void levelUp(string type, float value)
     {
-        if (type == "Movement")
+        if (type == "Speed")
         {
             PauseScript.instance.SetPaused(false);
-            moveSpeed += 0.25f;
+            moveSpeed += value;
             LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
         }
-        else if (type == "Health")
+        else if (type == "Max Health")
         {
             PauseScript.instance.SetPaused(false);
-            health += 5;
-            maxHealth += 5;
-            print("Health");
+            health += value;
+            maxHealth += value;
             LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
             UpdateHealthBar();
@@ -359,14 +358,41 @@ public class Player : MonoBehaviour
         else if (type == "Damage")
         {
             PauseScript.instance.SetPaused(false);
-            print("Damage");
             LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
-            increasedDmg += 0.5f;
-            if (weapon != null) {
-                weapon.bulletDmg += 0.5f;
-                print(weapon.bulletDmg);
+            if (weapon != null)
+            {
+                weapon.bulletDmg /= increasedDmg;
+                increasedDmg += value;
+                weapon.bulletDmg *= increasedDmg;
             }
+            else
+            {
+                increasedDmg += value;
+            }
+        }
+        else if (type == "Reload Speed")
+        {
+            PauseScript.instance.SetPaused(false);
+            LevelUpUI.SetActive(false);
+            Time.timeScale = 1f;
+            if (weapon != null)
+            {
+                weapon.reloadSpeed /= reloadSpd;
+                reloadSpd += value;
+                weapon.reloadSpeed *= reloadSpd;
+            }
+            else
+            {
+                reloadSpd += value;
+            }
+        }
+        else if (type == "Critical Rate")
+        {
+            PauseScript.instance.SetPaused(false);
+            LevelUpUI.SetActive(false);
+            Time.timeScale = 1f;
+            print(type);
         }
 
     }

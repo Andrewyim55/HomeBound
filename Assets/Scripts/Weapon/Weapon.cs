@@ -16,7 +16,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] protected float fireForce;
     [SerializeField] public float bulletDmg;
     [SerializeField] public int magazineSize;
-    [SerializeField] protected float reloadSpeed;
+    [SerializeField] public float reloadSpeed;
     [SerializeField] protected float fireRate;
     [SerializeField] public bool isAutomatic;
 
