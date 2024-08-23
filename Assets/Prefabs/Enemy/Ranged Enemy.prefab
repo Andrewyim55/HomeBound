@@ -157,13 +157,13 @@ MonoBehaviour:
   attackRange: 2
   moveSpeed: 1.5
   spawnWeight: 15
-  bulletPrefab: {fileID: 4251451353765411853, guid: 3eb9490e723fc1f4bb73115eabedb11b,
+  bulletPrefab: {fileID: 8163785539256820667, guid: 92e07df3ef151b144b9b60c2e5824c4c,
     type: 3}
   firePoint: {fileID: 7939013429744296997}
   firingRate: 2
   bulletDmg: 1
   fireForce: 5
-  attackDelay: 5
+  attackCooldown: 2
   shootingDistance: 3
 --- !u!95 &1998701886
 Animator:

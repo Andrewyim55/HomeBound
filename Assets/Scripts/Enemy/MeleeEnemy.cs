@@ -10,11 +10,11 @@ public class MeleeEnemy : Enemy
     // This is the distance at which the enemy will charge till
     [SerializeField] private float chargeDistance;
     [SerializeField] private float chargeCooldown;
-    private float lastChargeTime;
+    private float chargeCooldownTimer;
 
     protected override void Start()
     {
-        lastChargeTime = -chargeCooldown;
+        chargeCooldownTimer = -chargeCooldown;
         base.Start();
     }
 
@@ -25,7 +25,7 @@ public class MeleeEnemy : Enemy
 
     protected override void Attack()
     {
-        if (Time.time >= lastChargeTime + chargeCooldown)
+        if (Time.time >= chargeCooldownTimer + chargeCooldown)
         {
             StartCoroutine(PerformChargeAttack());
         }
@@ -33,13 +33,13 @@ public class MeleeEnemy : Enemy
 
     private IEnumerator PerformChargeAttack()
     {
-        lastChargeTime = Time.time;
+        chargeCooldownTimer = Time.time;
         Vector3 chargeDirection = (target.position - transform.position).normalized;
         float chargeEndTime = Time.time + chargeDistance / chargeSpeed;
-
+        float animWaitTime = 0.5f;
         animator.SetTrigger("isAttacking");
-        yield return new WaitForSeconds(0.5f);
-        while (Time.time < chargeEndTime)
+        yield return new WaitForSeconds(animWaitTime);
+        while (Time.time < chargeEndTime + animWaitTime)
         {
             rb.velocity = chargeDirection * chargeSpeed;
             yield return null;
