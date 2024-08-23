@@ -10,6 +10,7 @@ public class PowerUps : MonoBehaviour
         health,
         speed,
         bomb,
+        magnet,
         exp,
         NONE
     }
@@ -21,6 +22,7 @@ public class PowerUps : MonoBehaviour
     [SerializeField] private float healAmt;
     [SerializeField] private float speedMultiplier;
     [SerializeField] private float speedDuration;
+    [SerializeField] private float magnetDuration;
     [SerializeField] private float expAmt;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -50,6 +52,11 @@ public class PowerUps : MonoBehaviour
                         enemy.GetComponent<Enemy>().TakeDmg(enemy.GetComponent<Enemy>().GetHealth());
                     }
                     break;
+                    
+                case powerUp.magnet:
+                    player.ApplyMagnet(magnetDuration);
+                    break;
+
                 case powerUp.exp:
                     xpSystem.gainXP(expAmt);
                     break;

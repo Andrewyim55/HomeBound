@@ -322,7 +322,7 @@ public class Player : MonoBehaviour
 
         foreach (Collider2D collider in colliders)
         {
-            if (collider.CompareTag("Pickup"))
+            if (collider.CompareTag("Exp"))
             {
                 // calc distance and direction
                 Vector2 direction = (transform.position - collider.transform.position).normalized;
@@ -414,5 +414,27 @@ public class Player : MonoBehaviour
         moveSpeed *= multiplier;
         yield return new WaitForSeconds(duration);
         moveSpeed = originalSpeed;
+    }
+
+    public void ApplyMagnet(float duration)
+    {
+        StartCoroutine(magnetCoroutine(duration));
+    }
+
+    private IEnumerator magnetCoroutine(float duration)
+    {
+        float originalPickupRadius = pickupRadius;
+        float originalMinPickupSpeed = minPickupSpeed;
+        float originalMaxPickupSpeed = maxPickupSpeed;
+
+        pickupRadius = 500;
+        minPickupSpeed = 10;
+        maxPickupSpeed = 20;
+
+        yield return new WaitForSeconds(duration);
+
+        pickupRadius = originalPickupRadius;
+        minPickupSpeed = originalMinPickupSpeed;
+        maxPickupSpeed = originalMaxPickupSpeed;
     }
 }

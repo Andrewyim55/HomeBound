@@ -15,4 +15,4 @@ MonoBehaviour:
   categoryName: Health
   items:
   - {fileID: 2694113211272775727, guid: 174fd56288e72c148a4d931206c0f101, type: 3}
-  dropChance: 100
+  dropChance: 60
