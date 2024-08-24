@@ -117,6 +117,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    // This will be called when the enemy is in attack range of the player
     protected abstract void Attack();
 
     protected bool CheckInRange()

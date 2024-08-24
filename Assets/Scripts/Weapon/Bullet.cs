@@ -6,12 +6,12 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [Header("Attributes")]
-    [SerializeField] private float timeTillDespawn;
+    [SerializeField] protected float timeTillDespawn;
 
     private float dmg;
     private float flyTime;
 
-    private void Update()
+    protected virtual void Update()
     {
         flyTime += Time.deltaTime;
         if (flyTime >= timeTillDespawn)
