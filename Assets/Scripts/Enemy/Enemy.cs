@@ -73,7 +73,7 @@ public abstract class Enemy : MonoBehaviour
         // if not in range follow path to player
         if (!CheckInRange())
         {
-            animator.SetBool("isFollowing", true);
+            //animator.SetBool("isFollowing", true);
             FollowPath();
         }
         else
@@ -81,7 +81,7 @@ public abstract class Enemy : MonoBehaviour
             // attack the player when in range
             path = null;
             rb.velocity = Vector2.zero;
-            animator.SetBool("isFollowing", false);
+            //animator.SetBool("isFollowing", false);
             Attack();
         }
         flipSprite();

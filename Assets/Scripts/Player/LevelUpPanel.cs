@@ -7,7 +7,8 @@ using System.Linq;
 public class LevelUpPanel : MonoBehaviour
 {
     [Header("Level Up UI")]
-    [SerializeField] public GameObject LevelUpUI;
+    [SerializeField] public GameObject ButtonUI;
+    [SerializeField] public GameObject TextUI;
     [SerializeField] public Button[] itemButtons;
     [SerializeField] public Text[] itemTexts;
     [SerializeField] public Text[] descriptionTexts;
@@ -18,6 +19,7 @@ public class LevelUpPanel : MonoBehaviour
 
     void Start()
     {
+
         playerScript = PlayerScreen.GetComponent<Player>();
         items = new (string, string, float)[]
         {
@@ -30,9 +32,13 @@ public class LevelUpPanel : MonoBehaviour
         };
     }
 
-    public void UpdateLevelUpUI()
+    public IEnumerator UpdateLevelUpUI()
     {
-        LevelUpUI.SetActive(true);
+        TextUI.SetActive(true);
+        yield return new WaitForSecondsRealtime(1.2f);
+        print("UpdateLevelUpUI");
+        TextUI.SetActive(false);
+        ButtonUI.SetActive(true);
         var selectedItems = items.OrderBy(x => Random.value).Take(3).ToArray();
 
         for (int i = 0; i < 3; i++)
@@ -46,7 +52,7 @@ public class LevelUpPanel : MonoBehaviour
                 descriptionTexts[i].text = $"{selectedItems[i].Description}";
                 int index = i;
                 itemButtons[i].onClick.RemoveAllListeners();
-                
+
                 itemButtons[i].onClick.AddListener(() => OnItemButtonClick(name, value));
             }
             else

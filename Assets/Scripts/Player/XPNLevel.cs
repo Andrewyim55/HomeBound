@@ -10,7 +10,8 @@ public class XPNLevel : MonoBehaviour
     [SerializeField] private Text LevelText;
     [SerializeField] private Image xpBarImage;
     [SerializeField] private GameObject LevelUpScreen;
-    [SerializeField] private GameObject LevelUpUI;
+    [SerializeField] public GameObject ButtonUI;
+    [SerializeField] public GameObject TextUI;
     [SerializeField] protected AudioClip LevelUpClip;
 
     private LevelUpPanel LevelUpPanelScript;
@@ -20,7 +21,6 @@ public class XPNLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LevelUpUI.SetActive(false);
         currentXP = 0;
         UpdateXPBar();
         LevelUpPanelScript = LevelUpScreen.GetComponent<LevelUpPanel>();
@@ -41,8 +41,7 @@ public class XPNLevel : MonoBehaviour
         {
             PauseScript.instance.SetPaused(true);
             SoundManager.instance.PlaySfx(LevelUpClip,transform);
-            LevelUpUI.SetActive(true);
-            LevelUpPanelScript.UpdateLevelUpUI();
+            StartCoroutine(LevelUpPanelScript.UpdateLevelUpUI());
             currentXP = 0;
             XPLevel += 1;
             LevelText.text = XPLevel.ToString();

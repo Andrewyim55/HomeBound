@@ -349,6 +349,7 @@ public class Player : MonoBehaviour
 
     public void levelUp(string type, float value)
     {
+        print("lvlingup");
         if (type == "Speed")
         {
             PauseScript.instance.SetPaused(false);
