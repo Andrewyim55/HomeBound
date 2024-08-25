@@ -39,7 +39,8 @@ public class ReaperBoss : Enemy
     {
         if (!isAttacking)
         {
-            StartCoroutine(RangedAttack());
+            isAttacking = true;
+            StartCoroutine(ChargeAttack());
         }
         else
         {
@@ -54,21 +55,33 @@ public class ReaperBoss : Enemy
         // Logic for which attack to do
     }
 
-    private void SummonMinions()
+    IEnumerator SummonMinions()
     {
         animator.SetTrigger("summon");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
         animator.ResetTrigger("summon");
+        StartCoroutine(AttackCoolDown());
     }
 
-    private void ChargeAttack()
+    IEnumerator ChargeAttack()
     {
         animator.SetTrigger("charge");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
+        Vector3 chargeDirection = (target.position - transform.position).normalized;
+        float chargeEndTime = Time.time + chargeDistance / chargeSpeed;
+        while (Time.time < chargeEndTime + animator.GetCurrentAnimatorStateInfo(0).length / 2)
+        {
+            rb.velocity = chargeDirection * chargeSpeed;
+            yield return null;
+        }
+        rb.velocity = Vector2.zero;
         animator.ResetTrigger("charge");
+        StartCoroutine(AttackCoolDown());
     }
 
+    // Bosses ranged attackl
     IEnumerator RangedAttack()
     {
-        isAttacking = true;
         animator.SetTrigger("rangeAttack");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
 
@@ -94,16 +107,20 @@ public class ReaperBoss : Enemy
         shadowBall.GetComponent<Collider2D>().enabled = true;
     }
 
-    private void AOEAttack()
+    IEnumerator AOEAttack()
     {
         animator.SetTrigger("special");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
         animator.ResetTrigger("special");
+        StartCoroutine(AttackCoolDown());
     }
 
-    private void BasicAttack()
+    IEnumerator BasicAttack()
     {
         animator.SetTrigger("attack");
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
         animator.ResetTrigger("attack");
+        StartCoroutine(AttackCoolDown());
     }
 
     private IEnumerator AttackCoolDown()
