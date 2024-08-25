@@ -59,6 +59,7 @@ public class ReaperBoss : Enemy
     {
         animator.SetTrigger("summon");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
+        // Code for spawning minions in the summoning radius
         animator.ResetTrigger("summon");
         StartCoroutine(AttackCoolDown());
     }
