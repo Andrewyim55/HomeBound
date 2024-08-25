@@ -8,7 +8,6 @@ public class LevelUpPanel : MonoBehaviour
 {
     [Header("Level Up UI")]
     [SerializeField] public GameObject ButtonUI;
-    [SerializeField] public GameObject TextUI;
     [SerializeField] public Button[] itemButtons;
     [SerializeField] public Text[] itemTexts;
     [SerializeField] public Text[] descriptionTexts;
@@ -34,11 +33,9 @@ public class LevelUpPanel : MonoBehaviour
 
     public IEnumerator UpdateLevelUpUI()
     {
-        TextUI.SetActive(true);
+        ButtonUI.SetActive(true);
         yield return new WaitForSecondsRealtime(1.2f);
         print("UpdateLevelUpUI");
-        TextUI.SetActive(false);
-        ButtonUI.SetActive(true);
         var selectedItems = items.OrderBy(x => Random.value).Take(3).ToArray();
 
         for (int i = 0; i < 3; i++)
