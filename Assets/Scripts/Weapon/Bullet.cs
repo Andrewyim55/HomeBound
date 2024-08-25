@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour
         {
             collision.gameObject.GetComponent<Enemy>().TakeDmg(dmg);
         }
-        else if(collision.gameObject.GetComponent<Player>() != null && gameObject.layer == 11)
+        else if(collision.gameObject.GetComponent<Player>() != null && gameObject.layer == 16)
         {
             collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
         }

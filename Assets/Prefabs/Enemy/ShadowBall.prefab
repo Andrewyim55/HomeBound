@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6372446178267469258}
   - component: {fileID: 1839261301295087883}
   - component: {fileID: 3484713358309809814}
-  m_Layer: 11
+  m_Layer: 16
   m_Name: ShadowBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
