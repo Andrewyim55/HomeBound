@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip pickUpClip;
     [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] private Text ammoCount;
+    [SerializeField] protected GameObject damagePopUpPrefab;
 
     [Header("Attributes")]
     [SerializeField] private float health;

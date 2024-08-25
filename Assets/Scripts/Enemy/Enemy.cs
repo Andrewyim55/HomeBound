@@ -5,6 +5,7 @@ using System.Runtime.InteropServices.ComTypes;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public abstract class Enemy : MonoBehaviour
@@ -15,6 +16,8 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected Pathfinding pathfinding;
     [SerializeField] protected Animator animator;
     [SerializeField] protected SpriteRenderer sr;
+    [SerializeField] protected Image healthBar;
+    [SerializeField] protected GameObject damagePopUpPrefab;
 
     [Header("Attributes")]
     [SerializeField] protected float health;
@@ -32,9 +35,11 @@ public abstract class Enemy : MonoBehaviour
     protected float pathUpdateInterval = 0.5f;
     private bool isAlive;
     private Loot loot;
+    private float maxHealth;
 
     protected virtual void Start()
     {
+        maxHealth = health;
         isAlive = true;
         loot = GetComponent<Loot>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -130,6 +135,11 @@ public abstract class Enemy : MonoBehaviour
     public void TakeDmg(float _dmg)
     {
         health -= _dmg;
+        DamagePopUp(transform.position, _dmg);
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = health / maxHealth;
+        }
         if (health <= 0)
         {
             StartCoroutine(Die());
@@ -204,5 +214,23 @@ public abstract class Enemy : MonoBehaviour
     public float GetHealth()
     {
         return health;
+    }
+
+    public void DamagePopUp(Vector3 position, float dmgAmount)
+    {
+        // Generate a random offset for the pop-up position
+        float offsetX = UnityEngine.Random.Range(-0.5f, 0.5f);  // Adjust the range as needed
+        float offsetY = UnityEngine.Random.Range(-0.5f, 0.5f);  // Adjust the range as needed
+
+        // Apply the offset to the position
+        Vector3 randomOffset = new Vector3(offsetX, offsetY, 0);
+        Vector3 popUpPosition = position + randomOffset;
+
+        // Instantiate the damage pop-up at the new position
+        Transform damagePopUpTransform = Instantiate(damagePopUpPrefab.transform, popUpPosition, Quaternion.identity);
+
+        // Set the damage value on the pop-up
+        DamagePopUp damagePopUp = damagePopUpTransform.GetComponent<DamagePopUp>();
+        damagePopUp.SetValue(dmgAmount);
     }
 }
