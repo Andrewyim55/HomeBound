@@ -7163,8 +7163,8 @@ MonoBehaviour:
     type: 3}
   bgmSource: {fileID: 945692294}
   bgmClip:
-  - {fileID: 8300000, guid: 4438cefde35e8ad41b6602ba017e508d, type: 3}
-  bgmVol: 0
+  - {fileID: 8300000, guid: 394e542c8df7b4543881ee1ef6088acb, type: 3}
+  bgmVol: 0.1
   sfxVol: 0.15
 --- !u!4 &982321293
 Transform:
