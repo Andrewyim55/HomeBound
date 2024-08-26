@@ -12,6 +12,9 @@ public class ReaperBoss : Enemy
     [Header("Summon References")]
     [SerializeField] private List<GameObject> summonPrefab;
 
+    [Header("Reaper Attributes")]
+    [SerializeField] private float attacksTillSuperCharge;
+
     [Header("Attack Attributes")]
     // attackCoolDown is the cooldown of its attacks
     [SerializeField] private float attackCoolDown;
@@ -30,12 +33,23 @@ public class ReaperBoss : Enemy
     [SerializeField] private float chargeDistance;
     [SerializeField] private float chargeSpeed;
 
+    [Header("Special Attack References")]
+    [SerializeField] private GameObject explostionEffect;
+    [Header("Special Attack Attributes")]
+    [SerializeField] private float explostionDmg;
+
+
     private bool isAttacking = false;
     private Transform bossTransform;
+    private float superChargeCounter;
+    private bool superCharge;
 
     // Start is called before the first frame update
     protected override void Start()
     {
+        superCharge = false;
+        superChargeCounter = attacksTillSuperCharge;
+        explostionEffect.GetComponent<Explosion>().SetExplosionDmg(explostionDmg);
         base.Start();
     }
 
@@ -44,11 +58,20 @@ public class ReaperBoss : Enemy
         if (!isAttacking)
         {
             isAttacking = true;
-            StartCoroutine(RangedAttack());
+            //StartCoroutine(RangedAttack());
+            //StartCoroutine(ChargeAttack());
+            //StartCoroutine(SummonMinions());
+            StartCoroutine(AOEAttack());
+            superChargeCounter--;
         }
         else
         {
             return;
+        }
+        if(superChargeCounter <= 0)
+        {
+            superChargeCounter = attacksTillSuperCharge;
+            superCharge = true;
         }
     }
 
@@ -64,8 +87,15 @@ public class ReaperBoss : Enemy
         animator.SetTrigger("summon");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
 
+        float unitsToSpawn = spawnAmount;
+
+        if (superCharge)
+        {
+            unitsToSpawn *= 2;
+            superCharge = false;
+        }
         // Code for spawning minions in the summoning radius
-        for (int i = 0; i < spawnAmount; i++)
+        for (int i = 0; i < unitsToSpawn; i++)
         {
             GameObject enemyToSpawn = ChooseEnemyType();
             Vector3 spawnPosition = GetSpawnPosition();
@@ -144,7 +174,12 @@ public class ReaperBoss : Enemy
     IEnumerator AOEAttack()
     {
         animator.SetTrigger("special");
+        attackWaitTime = animator.GetCurrentAnimatorStateInfo(0).length * 2;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
+        explostionEffect.GetComponent<Animator>().SetTrigger("explosion");
+        explostionEffect.GetComponent<Collider2D>().enabled = true;
+        yield return new WaitForSeconds(explostionEffect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length / 2);
+        explostionEffect.GetComponent<Collider2D>().enabled = false;
         animator.ResetTrigger("special");
         StartCoroutine(AttackCoolDown());
     }

@@ -26,6 +26,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected float attackRange;
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected int spawnWeight;
+    [SerializeField] protected float attackWaitTime;
 
     // As each node in the path is at the bottom left of each tile, we can add it by half the cellsize in x and y to get the middle point
     protected List<Node> path;
@@ -77,15 +78,20 @@ public abstract class Enemy : MonoBehaviour
         // if not in range follow path to player
         if (!CheckInRange())
         {
-            //animator.SetBool("isFollowing", true);
-            FollowPath();
+            if (attackWaitTime <= 0)
+            {
+                FollowPath();
+            }
+            else
+            {
+                attackWaitTime -= Time.deltaTime;
+            }
         }
         else
         {
             // attack the player when in range
             path = null;
             rb.velocity = Vector2.zero;
-            //animator.SetBool("isFollowing", false);
             Attack();
         }
         flipSprite();
