@@ -276,6 +276,10 @@ MonoBehaviour:
   - {fileID: 2042301992}
   bulletPrefab: {fileID: 8950133809200774758, guid: 608f46b2649c6f645858216e15ca7886,
     type: 3}
+  summonPrefab:
+  - {fileID: 4060631292738436701, guid: 214961e346c18cc4d97b9e646cde615d, type: 3}
+  - {fileID: 5166914298691396457, guid: 4075a87906154f841b8f093258c04440, type: 3}
+  pathFinding: {fileID: 0}
   attackCoolDown: 2
   bulletDmg: 10
   fireForce: 3

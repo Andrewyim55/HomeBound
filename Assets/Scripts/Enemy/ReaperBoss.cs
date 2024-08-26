@@ -9,6 +9,10 @@ public class ReaperBoss : Enemy
     [SerializeField] private GameObject[] firePoints;
     [SerializeField] private GameObject bulletPrefab;
 
+    [Header("Summon References")]
+    [SerializeField] private List<GameObject> summonPrefab;
+    [SerializeField] private Pathfinding pathFinding;
+
     [Header("Attack Attributes")]
     // attackCoolDown is the cooldown of its attacks
     [SerializeField] private float attackCoolDown;
@@ -28,6 +32,7 @@ public class ReaperBoss : Enemy
     [SerializeField] private float chargeSpeed;
 
     private bool isAttacking = false;
+    private Transform bossTransform;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -59,9 +64,37 @@ public class ReaperBoss : Enemy
     {
         animator.SetTrigger("summon");
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
+
         // Code for spawning minions in the summoning radius
+        for (int i = 0; i < spawnAmount; i++)
+        {
+            GameObject enemyToSpawn = ChooseEnemyType();
+            Vector3 spawnPosition = GetSpawnPosition();
+            Node spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+            while (spawnNode == null || spawnNode.nodeType != Node.NodeType.FLOOR)
+            {
+                spawnPosition = GetSpawnPosition();
+                spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+            }
+            Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
+        }
+
         animator.ResetTrigger("summon");
         StartCoroutine(AttackCoolDown());
+    }
+
+    private GameObject ChooseEnemyType()
+    {
+        int spawnNum = Random.Range(0, summonPrefab.Count-1);
+        return summonPrefab[spawnNum];
+    }
+
+    private Vector3 GetSpawnPosition()
+    {
+        float spawnAngle = Random.Range(0f, 360f);
+        Vector3 spawnDirection = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0).normalized;
+        Vector3 spawnPosition = transform.position + spawnDirection * spawnDistance;
+        return spawnPosition;
     }
 
     IEnumerator ChargeAttack()
