@@ -44,7 +44,6 @@ public abstract class Enemy : MonoBehaviour
         loot = GetComponent<Loot>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         pathfinding = GameObject.FindGameObjectWithTag("Map").GetComponent<Pathfinding>();
-        pathfinding = FindObjectOfType<Pathfinding>();
         if (target.GetComponent<Player>().GetAlive())
         {
             UpdatePath();

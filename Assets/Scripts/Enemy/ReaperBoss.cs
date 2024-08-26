@@ -11,7 +11,6 @@ public class ReaperBoss : Enemy
 
     [Header("Summon References")]
     [SerializeField] private List<GameObject> summonPrefab;
-    [SerializeField] private Pathfinding pathFinding;
 
     [Header("Attack Attributes")]
     // attackCoolDown is the cooldown of its attacks
@@ -45,7 +44,7 @@ public class ReaperBoss : Enemy
         if (!isAttacking)
         {
             isAttacking = true;
-            StartCoroutine(ChargeAttack());
+            StartCoroutine(RangedAttack());
         }
         else
         {
@@ -70,13 +69,14 @@ public class ReaperBoss : Enemy
         {
             GameObject enemyToSpawn = ChooseEnemyType();
             Vector3 spawnPosition = GetSpawnPosition();
-            Node spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+            Node spawnNode = pathfinding.grid.GetGridObject(spawnPosition);
             while (spawnNode == null || spawnNode.nodeType != Node.NodeType.FLOOR)
             {
                 spawnPosition = GetSpawnPosition();
-                spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+                spawnNode = pathfinding.grid.GetGridObject(spawnPosition);
             }
             Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
+            Debug.Log(enemyToSpawn.name);
         }
 
         animator.ResetTrigger("summon");
@@ -85,7 +85,7 @@ public class ReaperBoss : Enemy
 
     private GameObject ChooseEnemyType()
     {
-        int spawnNum = Random.Range(0, summonPrefab.Count-1);
+        int spawnNum = Random.Range(0, summonPrefab.Count);
         return summonPrefab[spawnNum];
     }
 
