@@ -25,16 +25,17 @@ public class Bullet : MonoBehaviour
         dmg = _dmg;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<Enemy>() != null && gameObject.layer == 12)
         {
             collision.gameObject.GetComponent<Enemy>().TakeDmg(dmg);
         }
-        else if(collision.gameObject.GetComponent<Player>() != null && gameObject.layer == 16)
+        else if (collision.gameObject.GetComponent<Player>() != null && gameObject.layer == 16)
         {
             collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
         }
         Destroy(gameObject);
+
     }
 }

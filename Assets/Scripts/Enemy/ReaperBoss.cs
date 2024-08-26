@@ -63,11 +63,11 @@ public class ReaperBoss : Enemy
         if (!isAttacking)
         {
             isAttacking = true;
-            //StartCoroutine(RangedAttack());
+            StartCoroutine(RangedAttack());
             //StartCoroutine(ChargeAttack());
             //StartCoroutine(SummonMinions());
             //StartCoroutine(AOEAttack());
-            StartCoroutine(BasicAttack());
+            //StartCoroutine(BasicAttack());
             superChargeCounter--;
         }
         else
