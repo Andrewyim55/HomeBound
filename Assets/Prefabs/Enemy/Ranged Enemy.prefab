@@ -326,7 +326,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -388,6 +388,7 @@ MonoBehaviour:
   attackRange: 2
   moveSpeed: 1.5
   spawnWeight: 15
+  attackWaitTime: 0
   bulletPrefab: {fileID: 8163785539256820667, guid: 92e07df3ef151b144b9b60c2e5824c4c,
     type: 3}
   firePoint: {fileID: 7939013429744296997}

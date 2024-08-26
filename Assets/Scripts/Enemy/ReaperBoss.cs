@@ -7,10 +7,13 @@ public class ReaperBoss : Enemy
 {
     [Header("Ranged Attack References")]
     [SerializeField] private GameObject[] firePoints;
+    [SerializeField] private GameObject[] sugerChargedFirePoints;
     [SerializeField] private GameObject bulletPrefab;
 
     [Header("Summon References")]
     [SerializeField] private List<GameObject> summonPrefab;
+    [Header("Reaper References")]
+    [SerializeField] private LayerMask playerLayer;
 
     [Header("Reaper Attributes")]
     [SerializeField] private float attacksTillSuperCharge;
@@ -18,6 +21,8 @@ public class ReaperBoss : Enemy
     [Header("Attack Attributes")]
     // attackCoolDown is the cooldown of its attacks
     [SerializeField] private float attackCoolDown;
+    [SerializeField] private Transform attackPoint;
+    [SerializeField] private float attackDistance;
 
     [Header("Ranged Attack Attributes")]
     [SerializeField] private float bulletDmg;
@@ -61,7 +66,8 @@ public class ReaperBoss : Enemy
             //StartCoroutine(RangedAttack());
             //StartCoroutine(ChargeAttack());
             //StartCoroutine(SummonMinions());
-            StartCoroutine(AOEAttack());
+            //StartCoroutine(AOEAttack());
+            StartCoroutine(BasicAttack());
             superChargeCounter--;
         }
         else
@@ -85,8 +91,8 @@ public class ReaperBoss : Enemy
     IEnumerator SummonMinions()
     {
         animator.SetTrigger("summon");
+        attackWaitTime = animator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
-
         float unitsToSpawn = spawnAmount;
 
         if (superCharge)
@@ -147,18 +153,33 @@ public class ReaperBoss : Enemy
     IEnumerator RangedAttack()
     {
         animator.SetTrigger("rangeAttack");
+        attackWaitTime = animator.GetCurrentAnimatorStateInfo(0).length * 2;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
-
-        // Loop through each fire point and spawn one ShadowBall
-        for (int i = 0; i < firePoints.Length; i++)
+        if (superCharge)
         {
-            Vector2 direction = (target.position - firePoints[i].transform.position).normalized;
-            GameObject shadowBall = Instantiate(bulletPrefab, firePoints[i].transform.position, Quaternion.identity);
-            shadowBall.GetComponent<ShadowBall>().SetDmg(bulletDmg);
+            // Loop through each fire point and spawn one ShadowBall
+            for (int i = 0; i < sugerChargedFirePoints.Length; i++)
+            {
+                Vector2 direction = (target.position - sugerChargedFirePoints[i].transform.position).normalized;
+                GameObject shadowBall = Instantiate(bulletPrefab, sugerChargedFirePoints[i].transform.position, Quaternion.identity);
+                shadowBall.GetComponent<ShadowBall>().SetDmg(bulletDmg);
 
-            StartCoroutine(ShadowBallDelay(shadowBall, direction));
+                StartCoroutine(ShadowBallDelay(shadowBall, direction));
+            }
+            superCharge = false;
         }
+        else
+        {
+            // Loop through each fire point and spawn one ShadowBall
+            for (int i = 0; i < firePoints.Length; i++)
+            {
+                Vector2 direction = (target.position - firePoints[i].transform.position).normalized;
+                GameObject shadowBall = Instantiate(bulletPrefab, firePoints[i].transform.position, Quaternion.identity);
+                shadowBall.GetComponent<ShadowBall>().SetDmg(bulletDmg);
 
+                StartCoroutine(ShadowBallDelay(shadowBall, direction));
+            }
+        }
         yield return new WaitForSeconds(0.1f);
         animator.ResetTrigger("rangeAttack");
         StartCoroutine(AttackCoolDown());
@@ -187,9 +208,29 @@ public class ReaperBoss : Enemy
     IEnumerator BasicAttack()
     {
         animator.SetTrigger("attack");
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
+        attackWaitTime = 0.5f;
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 4);
+        CheckForHit();
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        CheckForHit();
+
         animator.ResetTrigger("attack");
         StartCoroutine(AttackCoolDown());
+    }
+
+    private void CheckForHit()
+    {
+        // Check for collisions with the player within the attack range
+        Collider2D[] hitList = Physics2D.OverlapCircleAll(attackPoint.position, attackDistance, playerLayer);
+
+        foreach (Collider2D hit in hitList)
+        {
+            if (hit.CompareTag("Player"))
+            {
+                hit.GetComponent<Player>().TakeDmg(dmg);
+            }
+        }
     }
 
     private IEnumerator AttackCoolDown()
@@ -209,6 +250,9 @@ public class ReaperBoss : Enemy
         Gizmos.DrawWireSphere(transform.position, spawnDistance);
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, shootingDistance );
+        Gizmos.DrawWireSphere(transform.position, shootingDistance);
+
+        Gizmos.color = Color.black;
+        Gizmos.DrawWireSphere(attackPoint.transform.position, attackDistance);
     }
 }

@@ -162,23 +162,39 @@ public abstract class Enemy : MonoBehaviour
         Vector2 aimDir = (new Vector2(target.position.x, target.position.y) - rb.position).normalized;
         float aimAngle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
 
+        // Get the current scale
+        Vector3 localScale = sr.transform.localScale;
+
         if (aimDir.x < 0)
         {
-            sr.flipX = true;
+            // Flip the sprite by scaling on the X-axis by -1
+            localScale.x = Mathf.Abs(localScale.x) * -1;
         }
         else if (aimDir.x > 0)
         {
-            sr.flipX = false;
+            // Ensure the sprite is not flipped
+            localScale.x = Mathf.Abs(localScale.x);
         }
+
+        // Apply the new scale
+        sr.transform.localScale = localScale;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<Player>() != null)
         {
             collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
         }
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.GetComponent<Player>() != null)
+    //    {
+    //        collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
+    //    }
+    //}
 
     protected virtual void DrawGizmos()
     {
