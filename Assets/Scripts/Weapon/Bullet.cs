@@ -31,11 +31,15 @@ public class Bullet : MonoBehaviour
         {
             collision.gameObject.GetComponent<Enemy>().TakeDmg(dmg);
         }
-        else if (collision.gameObject.GetComponent<Player>() != null && gameObject.layer == 16)
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Player>() != null && gameObject.layer == 16)
         {
             collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
         }
         Destroy(gameObject);
-
     }
 }
