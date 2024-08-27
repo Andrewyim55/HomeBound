@@ -597,6 +597,7 @@ MonoBehaviour:
   chargeSpeed: 6
   explostionEffect: {fileID: 193001968}
   explostionDmg: 20
+  explosionClip: {fileID: 8300000, guid: f43480232e584ad4ab7410fb3c7747a9, type: 3}
 --- !u!60 &773933227
 PolygonCollider2D:
   m_ObjectHideFlags: 0
