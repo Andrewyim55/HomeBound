@@ -9,25 +9,27 @@ public class LevelUpPanel : MonoBehaviour
     [Header("Level Up UI")]
     [SerializeField] public GameObject ButtonUI;
     [SerializeField] public Button[] itemButtons;
+    [SerializeField] public Image[] itemImage;
     [SerializeField] public Text[] itemTexts;
     [SerializeField] public Text[] descriptionTexts;
     [SerializeField] private GameObject PlayerScreen;
+    [SerializeField] private Sprite[] itemSprites; //images
 
     private Player playerScript;
-    private (string Name, string Description, float Value)[] items;
+    private (string Name, string Description, float Value, Sprite Image)[] items;
 
     void Start()
     {
 
         playerScript = PlayerScreen.GetComponent<Player>();
-        items = new (string, string, float)[]
+        items = new (string, string, float, Sprite)[]
         {
-            ("Max Health", "Max HP increase by 5", 5),
-            ("Speed", "Speed increase by 0.25", 0.25f),
-            ("Damage", "Damage increase by 5%", 0.05f),
-            ("Reload Speed", "Reloading speed increase by 10%", 0.05f),
-            ("Dash Cooldown", "Dash cooldown decrease by 5%", 0.05f),
-            ("Ammo Count", "Ammo Count increase by 5%", 0.05f)
+            ("Max Health", "Max HP increase by 5", 5, itemSprites[0] ),
+            ("Speed", "Speed increase by 0.25", 0.25f, itemSprites[1]),
+            ("Damage", "Damage increase by 5%", 0.05f, itemSprites[2]),
+            ("Reload Speed", "Reloading speed increase by 10%", 0.05f, itemSprites[3]),
+            ("Dash Cooldown", "Dash cooldown decrease by 5%", 0.05f, itemSprites[4]),
+            ("Ammo Count", "Ammo Count increase by 5%", 0.05f, itemSprites[5])
         };
     }
 
@@ -35,8 +37,9 @@ public class LevelUpPanel : MonoBehaviour
     {
         ButtonUI.SetActive(true);
         yield return new WaitForSecondsRealtime(1.2f);
+        ButtonUI.SetActive(true);
         print("UpdateLevelUpUI");
-        var selectedItems = items.OrderBy(x => Random.value).Take(3).ToArray();
+        var selectedItems = items.OrderBy(x => Random.value).Take(4).ToArray();
 
         for (int i = 0; i < 3; i++)
         {
@@ -47,6 +50,7 @@ public class LevelUpPanel : MonoBehaviour
                 string name = selectedItems[i].Name;
                 float value = selectedItems[i].Value;
                 descriptionTexts[i].text = $"{selectedItems[i].Description}";
+                itemImage[i].sprite = selectedItems[i].Image;
                 int index = i;
                 itemButtons[i].onClick.RemoveAllListeners();
 
