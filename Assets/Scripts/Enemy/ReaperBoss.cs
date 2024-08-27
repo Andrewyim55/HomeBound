@@ -17,6 +17,7 @@ public class ReaperBoss : Enemy
 
     [Header("Reaper Attributes")]
     [SerializeField] private float attacksTillSuperCharge;
+    [SerializeField] private float followDistance;
 
     [Header("Attack Attributes")]
     // attackCoolDown is the cooldown of its attacks
@@ -72,60 +73,98 @@ public class ReaperBoss : Enemy
     protected override void Update()
     {
         bossFlipSprite();
-        //base.Update();
-
-        if (isAttacking) 
-            return;
-
         float distanceToPlayer = Vector2.Distance(transform.position, target.position);
 
-        if (distanceToPlayer > shootingDistance)
+        if(distanceToPlayer > followDistance)
         {
-            isAttacking = true;
-            StartCoroutine(SummonMinions());
-        }
-        else if(distanceToPlayer <= meleeDistance)
-        {
-            isAttacking = true;
-            StartCoroutine(BasicAttack());
-        }
-        else if(distanceToPlayer >= meleeDistance)
-        {
-            if(distanceToPlayer > chargeDistance)
+            if (attackWaitTime <= 0)
             {
+                Debug.Log("following");
+                pathUpdateTimer += Time.deltaTime;
+                if (pathUpdateTimer >= pathUpdateInterval)
+                {
+                    UpdatePath();
+                    pathUpdateTimer = 0f;
+                }
+
+                FollowPath();
+                animator.SetBool("isFollowing", true);
+            }
+            else
+            {
+                Debug.Log("attackWaitTime" + attackWaitTime);
+                attackWaitTime -= Time.deltaTime;
+            }
+
+        }
+        else
+        {
+            // attack the player when in range
+            path = null;
+            rb.velocity = Vector2.zero;
+            animator.SetBool("isFollowing", false);
+            bossAttackLogic(distanceToPlayer);
+        }
+    }
+
+    private void bossAttackLogic(float dist)
+    {
+        if (!isAttacking)
+        {
+            if (dist > shootingDistance)
+            {
+                isAttacking = true;
+                StartCoroutine(SummonMinions());
+                return;
+            }
+            else if (dist <= meleeDistance)
+            {
+                isAttacking = true;
+                StartCoroutine(BasicAttack());
+                return;
+            }
+            else if (dist >= meleeDistance)
+            {
+                if (dist > chargeDistance)
+                {
+                    if (Random.value < 0.5f)
+                    {
+                        isAttacking = true;
+                        StartCoroutine(SummonMinions());
+                        return;
+                    }
+                    else
+                    {
+                        isAttacking = true;
+                        StartCoroutine(RangedAttack());
+                        return;
+                    }
+                }
+
                 if (Random.value < 0.5f)
                 {
                     isAttacking = true;
-                    StartCoroutine(SummonMinions());
+                    StartCoroutine(ChargeAttack());
+                    return;
                 }
                 else
                 {
                     isAttacking = true;
-                    StartCoroutine(RangedAttack());
+                    StartCoroutine(AOEAttack());
+                    return;
                 }
             }
 
-            if (Random.value < 0.5f)
+            // Increment the attack counter
+            superChargeCounter--;
+            if (superChargeCounter <= 0)
             {
-                isAttacking = true;
-                StartCoroutine(ChargeAttack());
-            }
-            else
-            {
-                isAttacking = true;
-                StartCoroutine(AOEAttack());
+                superChargeCounter = attacksTillSuperCharge;
+                superCharge = true;
             }
         }
-
-        // Increment the attack counter
-        superChargeCounter--;
-        if (superChargeCounter <= 0)
-        {
-            superChargeCounter = attacksTillSuperCharge;
-            superCharge = true;
-        }
-
     }
+
 
     IEnumerator SummonMinions()
     {
@@ -321,5 +360,8 @@ public class ReaperBoss : Enemy
 
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, meleeDistance);
+
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, followDistance);
     }
 }

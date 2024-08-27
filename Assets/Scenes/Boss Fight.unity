@@ -9919,9 +9919,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7798124905749553650, guid: f22c352df3bfc9142b6de7de0b540fa0,
         type: 3}
-      propertyPath: ButtonUI
+      propertyPath: TextUI
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7798124905749553650, guid: f22c352df3bfc9142b6de7de0b540fa0,
+        type: 3}
+      propertyPath: ButtonUI
+      value: 
+      objectReference: {fileID: 1380695579}
     - target: {fileID: 7798124905749553650, guid: f22c352df3bfc9142b6de7de0b540fa0,
         type: 3}
       propertyPath: LevelUpUI
@@ -9936,7 +9941,7 @@ PrefabInstance:
         type: 3}
       propertyPath: LevelUpScreen
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 962004983}
     - target: {fileID: 7798124905749553651, guid: f22c352df3bfc9142b6de7de0b540fa0,
         type: 3}
       propertyPath: m_Pivot.x
@@ -12708,6 +12713,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
+      propertyPath: fireForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
+      propertyPath: followDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
+      propertyPath: shootingDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 9219559029784114998, guid: f8d2e2f56f0f10e46b135fe010df6796,
         type: 3}
       propertyPath: m_Name

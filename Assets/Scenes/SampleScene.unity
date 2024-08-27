@@ -35953,24 +35953,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7798124905749553650, guid: f22c352df3bfc9142b6de7de0b540fa0,
         type: 3}
-      propertyPath: TextUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7798124905749553650, guid: f22c352df3bfc9142b6de7de0b540fa0,
-        type: 3}
       propertyPath: ButtonUI
       value: 
       objectReference: {fileID: 1077212544}
-    - target: {fileID: 7798124905749553650, guid: f22c352df3bfc9142b6de7de0b540fa0,
-        type: 3}
-      propertyPath: LevelUpUI
-      value: 
-      objectReference: {fileID: 1077212544}
-    - target: {fileID: 7798124905749553650, guid: f22c352df3bfc9142b6de7de0b540fa0,
-        type: 3}
-      propertyPath: PlayerScreen
-      value: 
-      objectReference: {fileID: 231996368}
     - target: {fileID: 7798124905749553650, guid: f22c352df3bfc9142b6de7de0b540fa0,
         type: 3}
       propertyPath: LevelUpScreen
@@ -36085,31 +36070,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: XPNLevelManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 7798124906049093658, guid: f22c352df3bfc9142b6de7de0b540fa0,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 56.600006
-      objectReference: {fileID: 0}
-    - target: {fileID: 7798124906049093658, guid: f22c352df3bfc9142b6de7de0b540fa0,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 2.100006
-      objectReference: {fileID: 0}
-    - target: {fileID: 7798124906313931811, guid: f22c352df3bfc9142b6de7de0b540fa0,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 56.100006
-      objectReference: {fileID: 0}
-    - target: {fileID: 7798124906313931811, guid: f22c352df3bfc9142b6de7de0b540fa0,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 2.399994
-      objectReference: {fileID: 0}
-    - target: {fileID: 7798124906321247077, guid: f22c352df3bfc9142b6de7de0b540fa0,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 1.7000122
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f22c352df3bfc9142b6de7de0b540fa0, type: 3}
