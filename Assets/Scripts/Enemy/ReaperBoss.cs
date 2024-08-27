@@ -63,8 +63,8 @@ public class ReaperBoss : Enemy
         if (!isAttacking)
         {
             isAttacking = true;
-            StartCoroutine(RangedAttack());
-            //StartCoroutine(ChargeAttack());
+            //StartCoroutine(RangedAttack());
+            StartCoroutine(ChargeAttack());
             //StartCoroutine(SummonMinions());
             //StartCoroutine(AOEAttack());
             //StartCoroutine(BasicAttack());
@@ -136,16 +136,20 @@ public class ReaperBoss : Enemy
     IEnumerator ChargeAttack()
     {
         animator.SetTrigger("charge");
+        GetComponent<Collider2D>().isTrigger = true;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
         Vector3 chargeDirection = (target.position - transform.position).normalized;
         float chargeEndTime = Time.time + chargeDistance / chargeSpeed;
-        while (Time.time < chargeEndTime + animator.GetCurrentAnimatorStateInfo(0).length / 2)
+        while (Time.time < chargeEndTime + animator.GetCurrentAnimatorStateInfo(0).length / 2 && !isInWall)
         {
             rb.velocity = chargeDirection * chargeSpeed;
             yield return null;
         }
+        if (isInWall)
+            isInWall = false;
         rb.velocity = Vector2.zero;
         animator.ResetTrigger("charge");
+        GetComponent<Collider2D>().isTrigger = false;
         StartCoroutine(AttackCoolDown());
     }
 

@@ -31,6 +31,7 @@ public abstract class Enemy : MonoBehaviour
     // As each node in the path is at the bottom left of each tile, we can add it by half the cellsize in x and y to get the middle point
     protected List<Node> path;
     protected int pathIndex;
+    protected bool isInWall;
 
     protected float pathUpdateTimer;
     protected float pathUpdateInterval = 0.5f;
@@ -81,6 +82,7 @@ public abstract class Enemy : MonoBehaviour
             if (attackWaitTime <= 0)
             {
                 FollowPath();
+                animator.SetBool("isFollowing", true);
             }
             else
             {
@@ -93,6 +95,7 @@ public abstract class Enemy : MonoBehaviour
             path = null;
             rb.velocity = Vector2.zero;
             Attack();
+            animator.SetBool("isFollowing", false);
         }
         flipSprite();
     }
@@ -186,15 +189,19 @@ public abstract class Enemy : MonoBehaviour
         {
             collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
         }
+        else if(collision.gameObject.layer == 10)
+        {
+            isInWall = true;
+        }
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.GetComponent<Player>() != null)
-    //    {
-    //        collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
-    //    }
-    //}
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Player>() != null)
+        {
+            collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
+        }
+    }
 
     protected virtual void DrawGizmos()
     {

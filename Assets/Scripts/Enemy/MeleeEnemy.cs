@@ -33,19 +33,23 @@ public class MeleeEnemy : Enemy
 
     private IEnumerator PerformChargeAttack()
     {
+        GetComponent<Collider2D>().isTrigger = true;
         chargeCooldownTimer = Time.time;
         Vector3 chargeDirection = (target.position - transform.position).normalized;
         float chargeEndTime = Time.time + chargeDistance / chargeSpeed;
         float animWaitTime = 0.5f;
         animator.SetTrigger("isAttacking");
         yield return new WaitForSeconds(animWaitTime);
-        while (Time.time < chargeEndTime + animWaitTime)
+        while (Time.time < chargeEndTime + animWaitTime && !isInWall)
         {
             rb.velocity = chargeDirection * chargeSpeed;
             yield return null;
         }
+        if(isInWall)
+            isInWall = false;
         rb.velocity = Vector2.zero;
         animator.ResetTrigger("isAttacking");
+        GetComponent<Collider2D>().isTrigger = false;
         yield return new WaitForSeconds(chargeCooldown);
     }
 
