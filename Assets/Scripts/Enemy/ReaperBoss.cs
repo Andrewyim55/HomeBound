@@ -23,6 +23,8 @@ public class ReaperBoss : Enemy
     [SerializeField] private float attackCoolDown;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackDistance;
+    [SerializeField] private float meleeDistance;
+
 
     [Header("Ranged Attack Attributes")]
     [SerializeField] private float bulletDmg;
@@ -44,6 +46,9 @@ public class ReaperBoss : Enemy
     [SerializeField] private float explostionDmg;
 
 
+    [Header("VoiceLines References")]
+    [SerializeField] private AudioClip explosionClip;
+
     private bool isAttacking = false;
     private Transform bossTransform;
     private float superChargeCounter;
@@ -60,32 +65,66 @@ public class ReaperBoss : Enemy
 
     protected override void Attack()
     {
-        if (!isAttacking)
-        {
-            isAttacking = true;
-            //StartCoroutine(RangedAttack());
-            StartCoroutine(ChargeAttack());
-            //StartCoroutine(SummonMinions());
-            //StartCoroutine(AOEAttack());
-            //StartCoroutine(BasicAttack());
-            superChargeCounter--;
-        }
-        else
-        {
-            return;
-        }
-        if(superChargeCounter <= 0)
-        {
-            superChargeCounter = attacksTillSuperCharge;
-            superCharge = true;
-        }
+
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
-        // Logic for which attack to do
+        bossFlipSprite();
+        //base.Update();
+
+        if (isAttacking) 
+            return;
+
+        float distanceToPlayer = Vector2.Distance(transform.position, target.position);
+
+        if (distanceToPlayer > shootingDistance)
+        {
+            isAttacking = true;
+            StartCoroutine(SummonMinions());
+        }
+        else if(distanceToPlayer <= meleeDistance)
+        {
+            isAttacking = true;
+            StartCoroutine(BasicAttack());
+        }
+        else if(distanceToPlayer >= meleeDistance)
+        {
+            if(distanceToPlayer > chargeDistance)
+            {
+                if (Random.value < 0.5f)
+                {
+                    isAttacking = true;
+                    StartCoroutine(SummonMinions());
+                }
+                else
+                {
+                    isAttacking = true;
+                    StartCoroutine(RangedAttack());
+                }
+            }
+
+            if (Random.value < 0.5f)
+            {
+                isAttacking = true;
+                StartCoroutine(ChargeAttack());
+            }
+            else
+            {
+                isAttacking = true;
+                StartCoroutine(AOEAttack());
+            }
+        }
+
+        // Increment the attack counter
+        superChargeCounter--;
+        if (superChargeCounter <= 0)
+        {
+            superChargeCounter = attacksTillSuperCharge;
+            superCharge = true;
+        }
+
     }
 
     IEnumerator SummonMinions()
@@ -198,9 +237,9 @@ public class ReaperBoss : Enemy
 
     IEnumerator AOEAttack()
     {
+        SoundManager.instance.PlaySfx(explosionClip, transform);
         animator.SetTrigger("special");
-        attackWaitTime = animator.GetCurrentAnimatorStateInfo(0).length * 2;
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
+        yield return new WaitForSeconds(1.5f);
         explostionEffect.GetComponent<Animator>().SetTrigger("explosion");
         explostionEffect.GetComponent<Collider2D>().enabled = true;
         yield return new WaitForSeconds(explostionEffect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length / 2);
@@ -242,7 +281,28 @@ public class ReaperBoss : Enemy
         yield return new WaitForSeconds(attackCoolDown);
         isAttacking = false;
     }
+    protected void bossFlipSprite()
+    {
+        // Rotation of weapon
+        Vector2 aimDir = (new Vector2(target.position.x, target.position.y) - rb.position).normalized;
+        float aimAngle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
 
+        // Get the current scale
+        Vector3 localScale = sr.transform.localScale;
+        if (aimDir.x < 0)
+        {
+            // Flip the sprite by scaling on the X-axis by -1
+            localScale.x = Mathf.Abs(localScale.x) * -1;
+        }
+        else if (aimDir.x > 0)
+        {
+            // Ensure the sprite is not flipped
+            localScale.x = Mathf.Abs(localScale.x);
+        }
+
+        // Apply the new scale
+        sr.transform.localScale = localScale;
+    }
     protected override void DrawGizmos()
     {
         base.DrawGizmos();
@@ -258,5 +318,8 @@ public class ReaperBoss : Enemy
 
         Gizmos.color = Color.black;
         Gizmos.DrawWireSphere(attackPoint.transform.position, attackDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, meleeDistance);
     }
 }

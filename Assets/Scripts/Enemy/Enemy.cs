@@ -97,7 +97,6 @@ public abstract class Enemy : MonoBehaviour
             Attack();
             animator.SetBool("isFollowing", false);
         }
-        flipSprite();
     }
 
     protected void FollowPath()
@@ -159,7 +158,7 @@ public abstract class Enemy : MonoBehaviour
         return spawnWeight;
     }
 
-    private void flipSprite()
+    protected void flipSprite()
     {
         // Rotation of weapon
         Vector2 aimDir = (new Vector2(target.position.x, target.position.y) - rb.position).normalized;
@@ -167,16 +166,17 @@ public abstract class Enemy : MonoBehaviour
 
         // Get the current scale
         Vector3 localScale = sr.transform.localScale;
-
         if (aimDir.x < 0)
         {
             // Flip the sprite by scaling on the X-axis by -1
-            localScale.x = Mathf.Abs(localScale.x) * -1;
+            sr.flipX = true;
+            //localScale.x = Mathf.Abs(localScale.x) * -1;
         }
         else if (aimDir.x > 0)
         {
+            sr.flipX = false;
             // Ensure the sprite is not flipped
-            localScale.x = Mathf.Abs(localScale.x);
+            //localScale.x = Mathf.Abs(localScale.x);
         }
 
         // Apply the new scale

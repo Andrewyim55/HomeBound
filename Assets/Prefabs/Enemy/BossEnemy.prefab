@@ -559,7 +559,7 @@ MonoBehaviour:
     type: 3}
   health: 500
   dmg: 10
-  attackRange: 2
+  attackRange: 2.75
   moveSpeed: 2
   spawnWeight: 0
   attackWaitTime: 0
@@ -588,15 +588,17 @@ MonoBehaviour:
   attackCoolDown: 2
   attackPoint: {fileID: 1146758321}
   attackDistance: 1
+  meleeDistance: 1.28
   bulletDmg: 10
   fireForce: 3
-  shootingDistance: 4
+  shootingDistance: 6
   spawnDistance: 3
   spawnAmount: 5
-  chargeDistance: 3.5
-  chargeSpeed: 5
+  chargeDistance: 3.75
+  chargeSpeed: 6
   explostionEffect: {fileID: 193001968}
   explostionDmg: 20
+  explosionClip: {fileID: 8300000, guid: f43480232e584ad4ab7410fb3c7747a9, type: 3}
 --- !u!60 &773933227
 PolygonCollider2D:
   m_ObjectHideFlags: 0

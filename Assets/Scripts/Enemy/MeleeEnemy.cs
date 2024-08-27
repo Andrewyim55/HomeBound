@@ -21,6 +21,7 @@ public class MeleeEnemy : Enemy
     protected override void Update()
     {
         base.Update();
+        flipSprite();
     }
 
     protected override void Attack()
