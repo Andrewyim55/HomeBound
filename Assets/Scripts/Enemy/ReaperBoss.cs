@@ -44,6 +44,9 @@ public class ReaperBoss : Enemy
     [SerializeField] private float explostionDmg;
 
 
+    [Header("VoiceLines References")]
+    [SerializeField] private AudioClip explosionClip;
+
     private bool isAttacking = false;
     private Transform bossTransform;
     private float superChargeCounter;
@@ -64,9 +67,9 @@ public class ReaperBoss : Enemy
         {
             isAttacking = true;
             //StartCoroutine(RangedAttack());
-            StartCoroutine(ChargeAttack());
+            //StartCoroutine(ChargeAttack());
             //StartCoroutine(SummonMinions());
-            //StartCoroutine(AOEAttack());
+            StartCoroutine(AOEAttack());
             //StartCoroutine(BasicAttack());
             superChargeCounter--;
         }
@@ -199,9 +202,9 @@ public class ReaperBoss : Enemy
 
     IEnumerator AOEAttack()
     {
+        SoundManager.instance.PlaySfx(explosionClip, transform);
         animator.SetTrigger("special");
-        attackWaitTime = animator.GetCurrentAnimatorStateInfo(0).length * 2;
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
+        yield return new WaitForSeconds(1.5f);
         explostionEffect.GetComponent<Animator>().SetTrigger("explosion");
         explostionEffect.GetComponent<Collider2D>().enabled = true;
         yield return new WaitForSeconds(explostionEffect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length / 2);

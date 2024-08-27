@@ -559,7 +559,7 @@ MonoBehaviour:
     type: 3}
   health: 500
   dmg: 10
-  attackRange: 2
+  attackRange: 2.75
   moveSpeed: 2
   spawnWeight: 0
   attackWaitTime: 0
@@ -593,8 +593,8 @@ MonoBehaviour:
   shootingDistance: 4
   spawnDistance: 3
   spawnAmount: 5
-  chargeDistance: 3.5
-  chargeSpeed: 5
+  chargeDistance: 3.75
+  chargeSpeed: 6
   explostionEffect: {fileID: 193001968}
   explostionDmg: 20
 --- !u!60 &773933227
