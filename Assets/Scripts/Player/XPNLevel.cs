@@ -41,7 +41,6 @@ public class XPNLevel : MonoBehaviour
         {
             PauseScript.instance.SetPaused(true);
             SoundManager.instance.PlaySfx(LevelUpClip,transform);
-            print("geinXP");
             StartCoroutine(LevelUpPanelScript.UpdateLevelUpUI());
 
             currentXP = 0;

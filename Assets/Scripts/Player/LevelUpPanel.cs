@@ -36,9 +36,6 @@ public class LevelUpPanel : MonoBehaviour
     public IEnumerator UpdateLevelUpUI()
     {
         ButtonUI.SetActive(true);
-        yield return new WaitForSecondsRealtime(1.2f);
-        ButtonUI.SetActive(true);
-        print("UpdateLevelUpUI");
         var selectedItems = items.OrderBy(x => Random.value).Take(4).ToArray();
 
         for (int i = 0; i < 3; i++)
@@ -61,6 +58,7 @@ public class LevelUpPanel : MonoBehaviour
                 itemButtons[i].gameObject.SetActive(false);
             }
         }
+        yield return new WaitForSecondsRealtime(1.2f);
     }
 
     void OnItemButtonClick(string Name, float Value)
