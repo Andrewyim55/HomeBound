@@ -23,6 +23,8 @@ public class ReaperBoss : Enemy
     [SerializeField] private float attackCoolDown;
     [SerializeField] private Transform attackPoint;
     [SerializeField] private float attackDistance;
+    [SerializeField] private float meleeDistance;
+
 
     [Header("Ranged Attack Attributes")]
     [SerializeField] private float bulletDmg;
@@ -63,33 +65,66 @@ public class ReaperBoss : Enemy
 
     protected override void Attack()
     {
-        if (!isAttacking)
-        {
-            isAttacking = true;
-            //StartCoroutine(RangedAttack());
-            //StartCoroutine(ChargeAttack());
-            //StartCoroutine(SummonMinions());
-            StartCoroutine(AOEAttack());
-            //StartCoroutine(BasicAttack());
-            superChargeCounter--;
-        }
-        else
-        {
-            return;
-        }
-        if(superChargeCounter <= 0)
-        {
-            superChargeCounter = attacksTillSuperCharge;
-            superCharge = true;
-        }
+
     }
 
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update();
         bossFlipSprite();
-        // Logic for which attack to do
+        //base.Update();
+
+        if (isAttacking) 
+            return;
+
+        float distanceToPlayer = Vector2.Distance(transform.position, target.position);
+
+        if (distanceToPlayer > shootingDistance)
+        {
+            isAttacking = true;
+            StartCoroutine(SummonMinions());
+        }
+        else if(distanceToPlayer <= meleeDistance)
+        {
+            isAttacking = true;
+            StartCoroutine(BasicAttack());
+        }
+        else if(distanceToPlayer >= meleeDistance)
+        {
+            if(distanceToPlayer > chargeDistance)
+            {
+                if (Random.value < 0.5f)
+                {
+                    isAttacking = true;
+                    StartCoroutine(SummonMinions());
+                }
+                else
+                {
+                    isAttacking = true;
+                    StartCoroutine(RangedAttack());
+                }
+            }
+
+            if (Random.value < 0.5f)
+            {
+                isAttacking = true;
+                StartCoroutine(ChargeAttack());
+            }
+            else
+            {
+                isAttacking = true;
+                StartCoroutine(AOEAttack());
+            }
+        }
+
+        // Increment the attack counter
+        superChargeCounter--;
+        if (superChargeCounter <= 0)
+        {
+            superChargeCounter = attacksTillSuperCharge;
+            superCharge = true;
+        }
+
     }
 
     IEnumerator SummonMinions()
@@ -283,5 +318,8 @@ public class ReaperBoss : Enemy
 
         Gizmos.color = Color.black;
         Gizmos.DrawWireSphere(attackPoint.transform.position, attackDistance);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, meleeDistance);
     }
 }

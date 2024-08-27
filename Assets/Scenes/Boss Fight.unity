@@ -12394,9 +12394,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
-      propertyPath: explosionClip
-      value: 
-      objectReference: {fileID: 8300000, guid: f43480232e584ad4ab7410fb3c7747a9, type: 3}
+      propertyPath: attackRange
+      value: 2.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
+      propertyPath: meleeDistance
+      value: 1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
+      propertyPath: shootingDistance
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 9219559029784114998, guid: f8d2e2f56f0f10e46b135fe010df6796,
         type: 3}
       propertyPath: m_Name

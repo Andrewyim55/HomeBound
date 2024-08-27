@@ -588,9 +588,10 @@ MonoBehaviour:
   attackCoolDown: 2
   attackPoint: {fileID: 1146758321}
   attackDistance: 1
+  meleeDistance: 1.28
   bulletDmg: 10
   fireForce: 3
-  shootingDistance: 4
+  shootingDistance: 6
   spawnDistance: 3
   spawnAmount: 5
   chargeDistance: 3.75
