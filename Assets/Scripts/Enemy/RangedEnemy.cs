@@ -30,6 +30,7 @@ public class RangedEnemy : Enemy
     protected override void Update()
     {
         base.Update();
+        flipSprite();
     }
 
     protected override void UpdatePath()

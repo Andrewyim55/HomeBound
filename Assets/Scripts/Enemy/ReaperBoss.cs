@@ -85,6 +85,7 @@ public class ReaperBoss : Enemy
     protected override void Update()
     {
         base.Update();
+        bossFlipSprite();
         // Logic for which attack to do
     }
 
@@ -242,7 +243,28 @@ public class ReaperBoss : Enemy
         yield return new WaitForSeconds(attackCoolDown);
         isAttacking = false;
     }
+    protected void bossFlipSprite()
+    {
+        // Rotation of weapon
+        Vector2 aimDir = (new Vector2(target.position.x, target.position.y) - rb.position).normalized;
+        float aimAngle = Mathf.Atan2(aimDir.y, aimDir.x) * Mathf.Rad2Deg;
 
+        // Get the current scale
+        Vector3 localScale = sr.transform.localScale;
+        if (aimDir.x < 0)
+        {
+            // Flip the sprite by scaling on the X-axis by -1
+            localScale.x = Mathf.Abs(localScale.x) * -1;
+        }
+        else if (aimDir.x > 0)
+        {
+            // Ensure the sprite is not flipped
+            localScale.x = Mathf.Abs(localScale.x);
+        }
+
+        // Apply the new scale
+        sr.transform.localScale = localScale;
+    }
     protected override void DrawGizmos()
     {
         base.DrawGizmos();
