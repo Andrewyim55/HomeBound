@@ -40,6 +40,10 @@ public class Bullet : MonoBehaviour
         {
             collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
         }
+        else if (collision.gameObject.GetComponent<Enemy>() != null && gameObject.layer == 12)
+        {
+            collision.gameObject.GetComponent<Enemy>().TakeDmg(dmg);
+        }
         Destroy(gameObject);
     }
 }
