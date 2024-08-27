@@ -73,45 +73,45 @@ public class ReaperBoss : Enemy
     protected override void Update()
     {
         bossFlipSprite();
-        if(!isAttacking)
+        //if(!isAttacking)
+        //{
+        //    isAttacking = true;
+        //    StartCoroutine(AOEAttack());
+        //}
+
+
+        float distanceToPlayer = Vector2.Distance(transform.position, target.position);
+        
+        if(distanceToPlayer > followDistance)
         {
-            isAttacking = true;
-            StartCoroutine(AOEAttack());
+            if (attackWaitTime <= 0)
+            {
+                Debug.Log("following");
+                pathUpdateTimer += Time.deltaTime;
+                if (pathUpdateTimer >= pathUpdateInterval)
+                {
+                    UpdatePath();
+                    pathUpdateTimer = 0f;
+                }
+        
+                FollowPath();
+                animator.SetBool("isFollowing", true);
+            }
+            else
+            {
+                Debug.Log("attackWaitTime" + attackWaitTime);
+                attackWaitTime -= Time.deltaTime;
+            }
+        
         }
-
-
-        //float distanceToPlayer = Vector2.Distance(transform.position, target.position);
-        //
-        //if(distanceToPlayer > followDistance)
-        //{
-        //    if (attackWaitTime <= 0)
-        //    {
-        //        Debug.Log("following");
-        //        pathUpdateTimer += Time.deltaTime;
-        //        if (pathUpdateTimer >= pathUpdateInterval)
-        //        {
-        //            UpdatePath();
-        //            pathUpdateTimer = 0f;
-        //        }
-        //
-        //        FollowPath();
-        //        animator.SetBool("isFollowing", true);
-        //    }
-        //    else
-        //    {
-        //        Debug.Log("attackWaitTime" + attackWaitTime);
-        //        attackWaitTime -= Time.deltaTime;
-        //    }
-        //
-        //}
-        //else
-        //{
-        //    // attack the player when in range
-        //    path = null;
-        //    rb.velocity = Vector2.zero;
-        //    animator.SetBool("isFollowing", false);
-        //    bossAttackLogic(distanceToPlayer);
-        //}
+        else
+        {
+            // attack the player when in range
+            path = null;
+            rb.velocity = Vector2.zero;
+            animator.SetBool("isFollowing", false);
+            bossAttackLogic(distanceToPlayer);
+        }
     }
 
     private void bossAttackLogic(float dist)
