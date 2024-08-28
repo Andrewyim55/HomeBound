@@ -18,7 +18,6 @@ public class Pathfinding : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this);
         InitializeGrid();
     }
 

@@ -34,13 +34,13 @@ public class XPNLevel : MonoBehaviour
         LevelUpPanelScript = LevelUpScreen.GetComponent<LevelUpPanel>();
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             gainXP(10);
         }
-    }
+    }*/
 
     public void gainXP(float experience)
     {
