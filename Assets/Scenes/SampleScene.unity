@@ -716,6 +716,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 235657557}
   m_CullTransparentMesh: 0
+--- !u!1 &250712221
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 250712222}
+  - component: {fileID: 250712224}
+  - component: {fileID: 250712223}
+  m_Layer: 5
+  m_Name: Timer Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &250712222
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250712221}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1796563066}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -80, y: 180}
+  m_SizeDelta: {x: 160, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &250712223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250712221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 585188cdc4600544eb408bee749e4b3a, type: 3}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &250712224
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250712221}
+  m_CullTransparentMesh: 0
 --- !u!1 &293618950
 GameObject:
   m_ObjectHideFlags: 0
@@ -15676,6 +15754,11 @@ PrefabInstance:
       propertyPath: ammoCount
       value: 
       objectReference: {fileID: 651080418}
+    - target: {fileID: 3226799406029820611, guid: 158916433150f5949a4c112a216095f1,
+        type: 3}
+      propertyPath: timerText
+      value: 
+      objectReference: {fileID: 250712223}
     - target: {fileID: 3226799406029820611, guid: 158916433150f5949a4c112a216095f1,
         type: 3}
       propertyPath: healthText
@@ -33471,6 +33554,7 @@ RectTransform:
   - {fileID: 526955249}
   - {fileID: 651080417}
   - {fileID: 1491571948}
+  - {fileID: 250712222}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -33846,12 +33930,12 @@ MonoBehaviour:
   - {fileID: 1999391287}
   - {fileID: 1857377799}
   itemSprites:
-  - {fileID: 2020055091839791569, guid: 3d39a1ca9ccc59740b865370ea8cb7d0, type: 3}
-  - {fileID: 2881655999765225791, guid: 3d39a1ca9ccc59740b865370ea8cb7d0, type: 3}
-  - {fileID: -2519624897654106960, guid: 3d39a1ca9ccc59740b865370ea8cb7d0, type: 3}
-  - {fileID: 5866580483785869697, guid: 3d39a1ca9ccc59740b865370ea8cb7d0, type: 3}
+  - {fileID: -2756084850538976132, guid: c7b71a3da37aa274ab566374df8a7930, type: 3}
+  - {fileID: -7814516228573837349, guid: c7b71a3da37aa274ab566374df8a7930, type: 3}
+  - {fileID: -1307370215801154799, guid: c7b71a3da37aa274ab566374df8a7930, type: 3}
+  - {fileID: -8347771061071260041, guid: c7b71a3da37aa274ab566374df8a7930, type: 3}
   - {fileID: 4565449861219673537, guid: 3d39a1ca9ccc59740b865370ea8cb7d0, type: 3}
-  - {fileID: -6184050716912831369, guid: 3d39a1ca9ccc59740b865370ea8cb7d0, type: 3}
+  - {fileID: -94682360294270492, guid: c7b71a3da37aa274ab566374df8a7930, type: 3}
 --- !u!1 &1921280275
 GameObject:
   m_ObjectHideFlags: 0
