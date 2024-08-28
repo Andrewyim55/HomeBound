@@ -546,7 +546,9 @@ public class Player : MonoBehaviour
     public void Restart()
     {
         print("Trying to restart");
-        transform.position.Set(0, 0, 0);
+        animator.ResetTrigger("Death");
+        animator.SetTrigger("Respawn");
+        transform.position = Vector3.zero;
         health = 50f;
         maxHealth = health;
         timeAlive = 0f;
@@ -560,8 +562,6 @@ public class Player : MonoBehaviour
         canDash = true;
         isDashing = false;
         originalMaterial = sr.material;
-        animator.ResetTrigger("Death");
-        animator.SetTrigger("Respawn");
         GetComponent<BoxCollider2D>().enabled = true;
     }
 }
