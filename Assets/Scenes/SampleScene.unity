@@ -13211,6 +13211,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3226799406029820611, guid: 158916433150f5949a4c112a216095f1,
+        type: 3}
+      propertyPath: pistolPrefab
+      value: 
+      objectReference: {fileID: 8351643915669449116, guid: 9c2e0256286573e47ba269b80b49ea35,
+        type: 3}
     - target: {fileID: 3226799406029820637, guid: 158916433150f5949a4c112a216095f1,
         type: 3}
       propertyPath: m_RootOrder

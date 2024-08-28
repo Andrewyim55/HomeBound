@@ -102,6 +102,9 @@ public class PauseScript : MonoBehaviour
     public void QuitGame()
     {
         SceneManager.LoadScene("Main Menu");
+        Player.instance.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+
+        Player.instance.isRestart = true;
     }
     public void SetPaused(bool pause)
     {

@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip pickUpClip;
     [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] protected GameObject damagePopUpPrefab;
+    [SerializeField] protected GameObject pistolPrefab;
 
     [Header("Attributes")]
     [SerializeField] private float health;
@@ -92,7 +93,6 @@ public class Player : MonoBehaviour
         walkAudioSource.clip = walkClip;
         walkAudioSource.loop = false;
         walkAudioSource.volume = SoundManager.instance.GetSFXVol();
-        
     }
     private void Update()
     {
@@ -545,6 +545,7 @@ public class Player : MonoBehaviour
     }
     public void Restart()
     {
+        GetComponent<SpriteRenderer>().enabled = true;
         print("Trying to restart");
         animator.ResetTrigger("Death");
         animator.SetTrigger("Respawn");
@@ -563,5 +564,23 @@ public class Player : MonoBehaviour
         isDashing = false;
         originalMaterial = sr.material;
         GetComponent<BoxCollider2D>().enabled = true;
+        if(weapon != null)
+        {
+            Destroy(weapon.gameObject);
+            GameObject pistol = Instantiate(pistolPrefab, transform.position, Quaternion.identity);
+            pistol.GetComponent<SpriteRenderer>().enabled = true;
+            weapon = pistol.GetComponent<Weapon>();
+            weapon.transform.SetParent(aimArm.transform);
+            weapon.transform.localPosition = new Vector3(0, 0, 0);
+            weapon.GetComponent<BoxCollider2D>().enabled = false;
+            weapon.transform.eulerAngles = aimArm.transform.eulerAngles;
+            weapon.bulletDmg *= increasedDmg;
+            weapon.reloadSpeed *= reloadSpd;
+
+            float magazineSizeFloat = (float)weapon.magSize;
+            magazineSizeFloat *= ammoPercentage;
+            weapon.magSize = Mathf.RoundToInt(magazineSizeFloat);
+        }
+       
     }
 }

@@ -1668,6 +1668,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691397994}
   m_CullTransparentMesh: 0
+--- !u!82 &718656773 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 855175706179752574, guid: 034acbe8e3f992245a39bdaaaf64ed5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2099954748}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &767620988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1702,6 +1708,12 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 3
   m_ColliderType: 1
+--- !u!82 &885324647 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 855175705793838940, guid: 034acbe8e3f992245a39bdaaaf64ed5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 2099954748}
+  m_PrefabAsset: {fileID: 0}
 --- !u!213 &913957731
 Sprite:
   m_ObjectHideFlags: 0
@@ -2440,6 +2452,16 @@ PrefabInstance:
       propertyPath: MainUI
       value: 
       objectReference: {fileID: 1773326069}
+    - target: {fileID: 8401738427026339814, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
+        type: 3}
+      propertyPath: BGMSource
+      value: 
+      objectReference: {fileID: 718656773}
+    - target: {fileID: 8401738427026339814, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
+        type: 3}
+      propertyPath: SFXSource
+      value: 
+      objectReference: {fileID: 885324647}
     - target: {fileID: 8401738427026339815, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
         type: 3}
       propertyPath: m_Name
