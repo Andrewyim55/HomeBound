@@ -557,6 +557,5 @@ public class Player : MonoBehaviour
         canDash = true;
         isDashing = false;
         originalMaterial = sr.material;
-        UpdateHealthBar();
     }
 }

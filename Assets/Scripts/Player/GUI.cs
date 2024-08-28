@@ -30,5 +30,6 @@ public class GUI : MonoBehaviour
         Player.instance.ammoCount = ammoCount;
         Player.instance.gameObject.GetComponent<SkillCD>().CooldownImage = cooldownImage;
         Player.instance.skillCDAnimator = cooldownImage.GetComponent<Animator>();
+        Player.instance.UpdateHealthBar();
     }
 }
