@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
     [SerializeField] public Text ammoCount;
     [SerializeField] public Animator skillCDAnimator;
 
+    public bool isRestart;
     private void Awake()
     {
         if (instance != null)
@@ -99,6 +100,11 @@ public class Player : MonoBehaviour
         {
             rb.velocity = Vector3.zero;
             return;
+        }
+        if (isRestart)
+        {
+            isRestart = false;
+            Restart();
         }
         // Increment the timeAlive by deltaTime each frame
         timeAlive += Time.deltaTime;
@@ -534,5 +540,23 @@ public class Player : MonoBehaviour
 
         // You can handle additional logic here, such as saving the time or displaying a "Game Over" screen
         Debug.Log($"Player survived for {timeAlive} seconds.");
+    }
+    public void Restart()
+    {
+        print("Trying to restart");
+        health = 50f;
+        maxHealth = health;
+        timeAlive = 0f;
+        dashReduce = 1f;
+        reloadSpd = 1f;
+        increasedDmg = 1f;
+        ammoPercentage = 1f;
+        Time.timeScale = 1f;
+        deathScreenUI.SetActive(false);
+        isAlive = true;
+        canDash = true;
+        isDashing = false;
+        originalMaterial = sr.material;
+        UpdateHealthBar();
     }
 }

@@ -12,7 +12,6 @@ public class PauseScript : MonoBehaviour
     private bool isPaused = false;
     private bool isSettings = false;
     public static PauseScript instance;
-
     void Awake()
     {
         if (FindObjectOfType<EventSystem>() == null)
@@ -79,6 +78,7 @@ public class PauseScript : MonoBehaviour
         print("Restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         pauseMenuUI.SetActive(false);
+        Player.instance.isRestart = true;
     }
 
     public void Pause()
