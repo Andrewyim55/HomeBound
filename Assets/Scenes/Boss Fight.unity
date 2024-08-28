@@ -9139,6 +9139,18 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
+      propertyPath: fireBallClip
+      value: 
+      objectReference: {fileID: 8300000, guid: fc689125f9fc07640854de6c34283896, type: 3}
+    - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
+      propertyPath: SummoningClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 95c9d6905eb837d48a645b419c842a45, type: 3}
+    - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
+      propertyPath: summoningClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 95c9d6905eb837d48a645b419c842a45, type: 3}
+    - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
       propertyPath: attackCoolDown
       value: 3
       objectReference: {fileID: 0}
@@ -9146,6 +9158,10 @@ PrefabInstance:
       propertyPath: attackWaitTime
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
+      propertyPath: dashAttackClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a710e92c7c69b94db8f78b3b37af303, type: 3}
     - target: {fileID: 985239684, guid: f8d2e2f56f0f10e46b135fe010df6796, type: 3}
       propertyPath: followDistance
       value: 6

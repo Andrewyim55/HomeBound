@@ -51,6 +51,12 @@ public class ReaperBoss : Enemy
 
     [Header("VoiceLines References")]
     [SerializeField] private AudioClip explosionClip;
+    [SerializeField] private AudioClip summoningClip;
+
+    [Header("Sound Effects")]
+    [SerializeField] private AudioClip fireBallClip;
+    [SerializeField] private AudioClip dashAttackClip;
+
 
     private bool isAttacking = false;
     private Transform bossTransform;
@@ -136,7 +142,7 @@ public class ReaperBoss : Enemy
             {
                 if (dist > chargeDistance)
                 {
-                    if (Random.value < 0.5f)
+                    if (Random.value < 0.3f)
                     {
                         isAttacking = true;
                         StartCoroutine(SummonMinions());
@@ -177,6 +183,8 @@ public class ReaperBoss : Enemy
 
     IEnumerator SummonMinions()
     {
+        SoundManager.instance.PlaySfx(summoningClip, transform);
+        yield return new WaitForSeconds(1.1f);
         animator.SetTrigger("summon");
         attackWaitTime = animator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
@@ -222,6 +230,7 @@ public class ReaperBoss : Enemy
 
     IEnumerator ChargeAttack()
     {
+        SoundManager.instance.PlaySfx(dashAttackClip, transform);
         animator.SetTrigger("charge");
         GetComponent<Collider2D>().isTrigger = true;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
@@ -246,6 +255,7 @@ public class ReaperBoss : Enemy
         animator.SetTrigger("rangeAttack");
         attackWaitTime = animator.GetCurrentAnimatorStateInfo(0).length * 2;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
+        SoundManager.instance.PlaySfx(fireBallClip, transform);
         if (superCharge)
         {
             // Loop through each fire point and spawn one ShadowBall
