@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Weapon weapon;
-    [SerializeField] private Image healthBarImage;
     [SerializeField] private GameObject aimArm;
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Animator animator;
@@ -19,7 +18,6 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip walkClip;
     [SerializeField] private AudioClip pickUpClip;
     [SerializeField] private AudioSource walkAudioSource;
-    [SerializeField] private Text ammoCount;
     [SerializeField] protected GameObject damagePopUpPrefab;
 
     [Header("Attributes")]
@@ -49,23 +47,33 @@ public class Player : MonoBehaviour
     private float increasedDmg;
     private float reloadSpd;
     private float dashReduce;
-    private Animator skillCDAnimator;
-
-    [Header("UI")]
-    [SerializeField] private Text healthText;
-    [SerializeField] private Image weaponDisplay;
-    [SerializeField] private Image cooldownImage;
-    [SerializeField] private GameObject deathScreenUI;
-    [SerializeField] private GameObject LevelUpUI;
-    [SerializeField] private Text timerText;
     private float timeAlive = 0f;
     // store the weapon that the player is able to pick up
     private Weapon nearbyWeapon;
 
+    [Header("UI")]
+    [SerializeField] public Text healthText;
+    [SerializeField] public Image weaponDisplay;
+    [SerializeField] public Image cooldownImage;
+    [SerializeField] public GameObject deathScreenUI;
+    [SerializeField] public GameObject LevelUpUI;
+    [SerializeField] public Text timerText;
+    [SerializeField] public Image healthBarImage;
+    [SerializeField] public Text ammoCount;
+    [SerializeField] public Animator skillCDAnimator;
+
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     void Start()
@@ -74,7 +82,7 @@ public class Player : MonoBehaviour
         reloadSpd = 1f;
         increasedDmg = 1f;
         ammoPercentage = 1f;
-        Time.timeScale = 1f;    
+        Time.timeScale = 1f;
         deathScreenUI.SetActive(false);
         isAlive = true;
         canDash = true;
@@ -84,7 +92,6 @@ public class Player : MonoBehaviour
         walkAudioSource.loop = false;
         walkAudioSource.volume = SoundManager.instance.GetSFXVol();
         UpdateHealthBar();
-        StartCoroutine(TimerCoroutine());
     }
     private void Update()
     {
@@ -93,6 +100,10 @@ public class Player : MonoBehaviour
             rb.velocity = Vector3.zero;
             return;
         }
+        // Increment the timeAlive by deltaTime each frame
+        timeAlive += Time.deltaTime;
+        // Update the timer UI
+        UpdateTimerUI();
 
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -122,8 +133,9 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Reload"))
+        if (Input.GetButtonDown("Reload") && ammoCount.text != null)
         {
+            weapon.StopFire();
             weapon.SetReloading(true);
             ammoCount.text = "Reloading";
         }
@@ -136,7 +148,7 @@ public class Player : MonoBehaviour
         {
             pickUpWeapon();
         }
-        if (weapon != null)
+        if (weapon != null && ammoCount.text != null)
         {
             ammoCount.text = weapon.magazineSize + "/" + weapon.magSize;
         }
@@ -247,7 +259,6 @@ public class Player : MonoBehaviour
         animator.ResetTrigger("Dash"); 
         tr.emitting = false;
         isDashing = false;
-        skillCDAnimator = cooldownImage.GetComponent<Animator>();
         skillCDAnimator.SetBool("isCoolDown", true);
         //skillCD.dashCooldown(dashingCooldown);
         yield return new WaitForSeconds(dashingCooldown);
@@ -438,7 +449,6 @@ public class Player : MonoBehaviour
                 ammoPercentage += value;
             }
         }
-        StartCoroutine(TimerCoroutine());
     }
     public bool GetAlive()
     {
@@ -507,26 +517,14 @@ public class Player : MonoBehaviour
         minPickupSpeed = originalMinPickupSpeed;
         maxPickupSpeed = originalMaxPickupSpeed;
     }
-    private IEnumerator TimerCoroutine()
-    {
-        while (isAlive  && !LevelUpUI.activeSelf)
-        {
-            // Increment the timeAlive by deltaTime each frame
-            timeAlive += Time.deltaTime;
-
-            // Update the timer UI
-            UpdateTimerUI();
-
-            yield return null; // Wait for the next frame
-        }
-    }
     private void UpdateTimerUI()
     {
         // Update the timer UI (e.g., minutes:seconds:milliseconds format)
         int minutes = Mathf.FloorToInt(timeAlive / 60);
         int seconds = Mathf.FloorToInt(timeAlive % 60);
         int milliseconds = Mathf.FloorToInt((timeAlive * 1000) % 1000);
-        timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:000}";
+        if(timerText.text != null)
+            timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:000}";
     }
 
     public void PlayerDied()

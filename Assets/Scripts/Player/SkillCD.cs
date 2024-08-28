@@ -8,6 +8,7 @@ public class SkillCD : MonoBehaviour
     public Image CooldownImage;
     private float CDtime = 0f;
     private float elapsedTime = 0f;
+    private GUI gui;
 
     void Update()
     {
