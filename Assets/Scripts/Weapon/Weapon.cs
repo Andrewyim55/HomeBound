@@ -45,14 +45,17 @@ public class Weapon : MonoBehaviour
     }
     private void Update()
     {
-        if (PauseScript.instance.GetPaused())
+        if (PauseScript.instance != null)
         {
-            audioSource.Pause();
-            return;
-        }
-        else if(!PauseScript.instance.GetPaused())
-        {
-            audioSource.UnPause();
+            if (PauseScript.instance.GetPaused())
+            {
+                audioSource.Pause();
+                return;
+            }
+            else if (!PauseScript.instance.GetPaused())
+            {
+                audioSource.UnPause();
+            }
         }
 
         if (magazineSize <= 0 && !isReloading)

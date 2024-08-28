@@ -19,6 +19,7 @@ public class DifficultyManager : MonoBehaviour
 
     void Start()
     {
+        Player.instance.GetComponent<SpriteRenderer>().enabled = true;
         enemySpawner.SetSpawnInterval(initialSpawnInterval);
         nextReductionTime = spawnIntervalReductionRate;
     }

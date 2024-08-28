@@ -13,13 +13,16 @@ public class SkillCD : MonoBehaviour
     void Update()
     {
         elapsedTime += Time.deltaTime;
-        if (elapsedTime >= CDtime)
+        if(CooldownImage != null )
         {
-            CooldownImage.fillAmount = 1;
-        }
-        else
-        {
-            CooldownImage.fillAmount = elapsedTime / CDtime;
+            if (elapsedTime >= CDtime)
+            {
+                CooldownImage.fillAmount = 1;
+            }
+            else
+            {
+                CooldownImage.fillAmount = elapsedTime / CDtime;
+            }
         }
     }
 

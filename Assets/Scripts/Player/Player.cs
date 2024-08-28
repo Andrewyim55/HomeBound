@@ -156,7 +156,7 @@ public class Player : MonoBehaviour
         {
             pickUpWeapon();
         }
-        if (weapon != null && ammoCount.text != null)
+        if (weapon != null && ammoCount != null)
         {
             ammoCount.text = weapon.magazineSize + "/" + weapon.magSize;
         }
@@ -531,7 +531,7 @@ public class Player : MonoBehaviour
         int minutes = Mathf.FloorToInt(timeAlive / 60);
         int seconds = Mathf.FloorToInt(timeAlive % 60);
         int milliseconds = Mathf.FloorToInt((timeAlive * 1000) % 1000);
-        if(timerText.text != null)
+        if(timerText != null)
             timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:000}";
     }
 
@@ -545,7 +545,6 @@ public class Player : MonoBehaviour
     }
     public void Restart()
     {
-        GetComponent<SpriteRenderer>().enabled = true;
         print("Trying to restart");
         animator.ResetTrigger("Death");
         animator.SetTrigger("Respawn");
