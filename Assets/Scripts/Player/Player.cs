@@ -58,6 +58,11 @@ public class Player : MonoBehaviour
     // store the weapon that the player is able to pick up
     private Weapon nearbyWeapon;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
     void Start()
     {
         dashReduce = 1f;
