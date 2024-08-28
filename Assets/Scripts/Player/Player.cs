@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    public static Player instance;
+
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Weapon weapon;
@@ -62,7 +64,8 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        if (instance == null)
+            instance = this;
     }
 
     void Start()

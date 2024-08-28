@@ -31,18 +31,32 @@ public class PauseScript : MonoBehaviour
 
     void Update()
     {
+        if(isPaused)
+        {
+            Time.timeScale = 0f;
+        }
+        else if(!isPaused)
+        {
+            Time.timeScale = 1f;
+        }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (!isSettings) // not in settings
             {
-                if (isPaused)
-                {
-                    Resume();
-                }
-                else
+                if (!pauseMenuUI.activeSelf)
                 {
                     Pause();
                 }
+                else
+                {
+                    if (!XPNLevel.instance.isLeveling)
+                    {
+                        Resume();
+                    }
+                    pauseMenuUI.SetActive(false);
+                }
+
             }
             else //in settings
             {
@@ -57,21 +71,18 @@ public class PauseScript : MonoBehaviour
     {
         print("Resume");
         pauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
         isPaused = false;
     }
 
     public void RestartGame()
     {
         print("Restart");
-        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         pauseMenuUI.SetActive(false);
     }
 
-    void Pause()
+    public void Pause()
     {
-        Time.timeScale = 0f;
         print("Pause");
         pauseMenuUI.SetActive(true);
         

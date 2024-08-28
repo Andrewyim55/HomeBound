@@ -2,11 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UI;
-using static UnityEngine.GraphicsBuffer;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -44,7 +46,7 @@ public abstract class Enemy : MonoBehaviour
         maxHealth = health;
         isAlive = true;
         loot = GetComponent<Loot>();
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = Player.instance.gameObject.transform;
         pathfinding = GameObject.FindGameObjectWithTag("Map").GetComponent<Pathfinding>();
         if (target.GetComponent<Player>().GetAlive())
         {
@@ -57,10 +59,12 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmosSelected()
     {
         DrawGizmos();
     }
+#endif
 
     protected virtual void Update()
     {
@@ -203,6 +207,7 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
     protected virtual void DrawGizmos()
     {
         Handles.color = Color.red;
@@ -220,6 +225,8 @@ public abstract class Enemy : MonoBehaviour
             }
         }
     }
+#endif
+
     public IEnumerator Die()
     {
         if(isAlive)

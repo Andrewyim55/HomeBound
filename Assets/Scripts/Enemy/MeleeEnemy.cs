@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 public class MeleeEnemy : Enemy
 {
     [Header("Charge Attack Attributes")]
@@ -54,6 +56,7 @@ public class MeleeEnemy : Enemy
         yield return new WaitForSeconds(chargeCooldown);
     }
 
+#if UNITY_EDITOR
     protected override void DrawGizmos()
     {
         base.DrawGizmos();
@@ -62,4 +65,5 @@ public class MeleeEnemy : Enemy
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, chargeDistance);
     }
+#endif
 }

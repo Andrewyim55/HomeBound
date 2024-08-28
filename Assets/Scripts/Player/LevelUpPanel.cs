@@ -12,16 +12,12 @@ public class LevelUpPanel : MonoBehaviour
     [SerializeField] public Image[] itemImage;
     [SerializeField] public Text[] itemTexts;
     [SerializeField] public Text[] descriptionTexts;
-    [SerializeField] private GameObject PlayerScreen;
     [SerializeField] private Sprite[] itemSprites; //images
 
-    private Player playerScript;
     private (string Name, string Description, float Value, Sprite Image)[] items;
 
     void Start()
     {
-
-        playerScript = PlayerScreen.GetComponent<Player>();
         items = new (string, string, float, Sprite)[]
         {
             ("Max Health", "Max HP increase by 5", 5, itemSprites[0] ),
@@ -63,6 +59,6 @@ public class LevelUpPanel : MonoBehaviour
 
     void OnItemButtonClick(string Name, float Value)
     {
-        playerScript.levelUp(Name, Value);
+        Player.instance.levelUp(Name, Value);
     }
 }

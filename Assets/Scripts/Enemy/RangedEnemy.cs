@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class RangedEnemy : Enemy
 {
     [Header("Range Attack References")]
@@ -16,14 +20,12 @@ public class RangedEnemy : Enemy
     [SerializeField] private float attackCooldown;
     [SerializeField] private float shootingDistance;
 
-    private float fireTime;
     private bool isShooting;
     private float attackCooldownTimer;
 
     protected override void Start()
     {
         base.Start();
-        fireTime = 0;
         attackCooldownTimer = -attackCooldown;
     }
 
@@ -79,7 +81,7 @@ public class RangedEnemy : Enemy
         animator.ResetTrigger("isAttacking");
         yield return new WaitForSeconds(attackCooldown);
     }
-
+#if UNITY_EDITOR
     protected override void DrawGizmos()
     {
         base.DrawGizmos();
@@ -87,4 +89,5 @@ public class RangedEnemy : Enemy
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, shootingDistance);
     }
+#endif
 }

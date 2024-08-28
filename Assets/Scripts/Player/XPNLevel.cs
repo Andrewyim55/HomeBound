@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class XPNLevel : MonoBehaviour
 {
+    public static XPNLevel instance;
+
     [Header("Level and XP Attributes")]
     [SerializeField] private Text XPText;
     [SerializeField] private Text LevelText;
@@ -18,45 +20,58 @@ public class XPNLevel : MonoBehaviour
     private int XPLevel = 1;
     private float currentXP;
     private float maxExperience = 100;
+    private float levelEXPNeeded;
+    public bool isLeveling;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (instance == null)
+            instance = this;
+        levelEXPNeeded = maxExperience * XPLevel;
         currentXP = 0;
         UpdateXPBar();
         LevelUpPanelScript = LevelUpScreen.GetComponent<LevelUpPanel>();
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (Input.GetMouseButtonDown(0))
         {
-           gainXP(10);
+            gainXP(10);
         }
     }
+
     public void gainXP(float experience)
     {
 
         currentXP += experience;
-        if (currentXP >= maxExperience)
+        if (currentXP >= levelEXPNeeded)
         {
-            PauseScript.instance.SetPaused(true);
-            SoundManager.instance.PlaySfx(LevelUpClip,transform);
-            StartCoroutine(LevelUpPanelScript.UpdateLevelUpUI());
-
-            currentXP = 0;
-            XPLevel += 1;
-            LevelText.text = XPLevel.ToString();
-            Time.timeScale = 0f;
-            
+            isLeveling = true;
+            LevelUP();
         }
-        currentXP = Mathf.Clamp(currentXP, 0, maxExperience);
+        currentXP = Mathf.Clamp(currentXP, 0, levelEXPNeeded);
         UpdateXPBar();
+    }
+
+    private void LevelUP()
+    {
+        PauseScript.instance.SetPaused(true);
+        SoundManager.instance.PlaySfx(LevelUpClip, transform);
+        StartCoroutine(LevelUpPanelScript.UpdateLevelUpUI());
+
+        currentXP = 0;
+        XPLevel += 1;
+        levelEXPNeeded = maxExperience * XPLevel;
+        LevelText.text = XPLevel.ToString();
+        PauseScript.instance.SetPaused(true);
     }
 
     private void UpdateXPBar()
     {
-        XPText.text = currentXP.ToString() + " / 100";
-        float fillAmount = currentXP / maxExperience; // Calculate the fill amount as a fraction of current health over max health
+        XPText.text = currentXP.ToString() + " / " + levelEXPNeeded;
+        float fillAmount = currentXP / levelEXPNeeded; // Calculate the fill amount as a fraction of current health over max health
         xpBarImage.fillAmount = fillAmount; // Set the fill amount of the health bar image
     }
 }

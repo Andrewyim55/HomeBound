@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
 using UnityEngine;
-
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 public class ReaperBoss : Enemy
 {
     [Header("Ranged Attack References")]
@@ -350,6 +352,8 @@ public class ReaperBoss : Enemy
         // Apply the new scale
         sr.transform.localScale = localScale;
     }
+
+#if UNITY_EDITOR
     protected override void DrawGizmos()
     {
         base.DrawGizmos();
@@ -372,4 +376,5 @@ public class ReaperBoss : Enemy
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(transform.position, followDistance);
     }
+#endif
 }
