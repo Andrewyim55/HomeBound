@@ -20,6 +20,7 @@ public class GUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        deathScreenUI.SetActive(false);
         Player.instance.healthText = healthText;
         Player.instance.weaponDisplay = weaponDisplay;
         Player.instance.cooldownImage = cooldownImage;

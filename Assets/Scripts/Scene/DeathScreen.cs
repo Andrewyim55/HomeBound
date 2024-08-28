@@ -19,8 +19,11 @@ public class DeathScreen : MonoBehaviour
     public void NewGame()
     {
         print("New Game");
+        Player.instance.isRestart = true;
+        print(Player.instance.isRestart);
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        
     }
 
     public void QuitGame()

@@ -84,7 +84,7 @@ public class Player : MonoBehaviour
         increasedDmg = 1f;
         ammoPercentage = 1f;
         Time.timeScale = 1f;
-        deathScreenUI.SetActive(false);
+       
         isAlive = true;
         canDash = true;
         isDashing = false;
@@ -92,20 +92,22 @@ public class Player : MonoBehaviour
         walkAudioSource.clip = walkClip;
         walkAudioSource.loop = false;
         walkAudioSource.volume = SoundManager.instance.GetSFXVol();
-        UpdateHealthBar();
+        
     }
     private void Update()
     {
+        if (isRestart)
+        {
+            print("player update restart");
+            isRestart = false;
+            Restart();
+        }
         if (!isAlive)
         {
             rb.velocity = Vector3.zero;
             return;
         }
-        if (isRestart)
-        {
-            isRestart = false;
-            Restart();
-        }
+        
         // Increment the timeAlive by deltaTime each frame
         timeAlive += Time.deltaTime;
         // Update the timer UI
@@ -544,6 +546,7 @@ public class Player : MonoBehaviour
     public void Restart()
     {
         print("Trying to restart");
+        transform.position.Set(0, 0, 0);
         health = 50f;
         maxHealth = health;
         timeAlive = 0f;
@@ -557,5 +560,8 @@ public class Player : MonoBehaviour
         canDash = true;
         isDashing = false;
         originalMaterial = sr.material;
+        animator.ResetTrigger("Death");
+        animator.SetTrigger("Respawn");
+        GetComponent<BoxCollider2D>().enabled = true;
     }
 }
