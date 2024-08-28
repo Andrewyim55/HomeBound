@@ -351,6 +351,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8003825772723653518, guid: 158916433150f5949a4c112a216095f1,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 158916433150f5949a4c112a216095f1, type: 3}
 --- !u!4 &147150980 stripped
@@ -5882,7 +5887,7 @@ PrefabInstance:
         type: 3}
       propertyPath: LevelUpScreen
       value: 
-      objectReference: {fileID: 527992604}
+      objectReference: {fileID: 1087450945}
     - target: {fileID: 5958692978127666675, guid: 0610043b6f5217347bec5d478db2a6f4,
         type: 3}
       propertyPath: LevelUpUI
@@ -8025,6 +8030,12 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1087450945 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8265425027568201158, guid: 0e09e1a1dc6addf4ea59658a801968d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1048273362}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1221372349 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8265425026758243367, guid: 0e09e1a1dc6addf4ea59658a801968d0,
@@ -8952,6 +8963,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1816022342007569132, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
+        type: 3}
+      propertyPath: pathFinding
+      value: 
+      objectReference: {fileID: 187065275}
     - target: {fileID: 1816022342007569133, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
         type: 3}
       propertyPath: m_RootOrder
@@ -9007,6 +9023,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1816022342007569135, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
+        type: 3}
+      propertyPath: pathFinding
+      value: 
+      objectReference: {fileID: 187065275}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 546b67cd11c76fa4bb0d683dc893a8a3, type: 3}
 --- !u!1001 &1940100316

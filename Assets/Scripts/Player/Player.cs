@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
     private float dashReduce;
     private float timeAlive = 0f;
     // store the weapon that the player is able to pick up
-    private Weapon nearbyWeapon;
+    public Weapon nearbyWeapon;
 
     [Header("UI")]
     [SerializeField] public Text healthText;
@@ -283,6 +283,8 @@ public class Player : MonoBehaviour
             {
                 Destroy(weapon.gameObject);
             }
+            Debug.Log(nearbyWeapon);
+            Debug.Log(weapon);
             weapon = nearbyWeapon;
             SpriteRenderer weaponSpriteRenderer = weapon.GetComponent<SpriteRenderer>();
 
