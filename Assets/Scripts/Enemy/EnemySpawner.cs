@@ -9,12 +9,13 @@ public class EnemySpawner : MonoBehaviour
 
     [Header("Enemy Prefabs")]
     [SerializeField] private List<GameObject> enemyPrefab;
+    [SerializeField] private List<GameObject> elitePrefab;
 
     [Header("Attributes")]
-    [SerializeField] float spawnInterval = 2f;
     [SerializeField] private float spawnDistanceMin = 5f;
     [SerializeField] private float spawnDistanceMax = 10f;
 
+    private float spawnInterval;
     private Transform playerTransform;
     private int totalWeight;
     // Start is called before the first frame update
@@ -79,5 +80,15 @@ public class EnemySpawner : MonoBehaviour
         Vector3 spawnDirection = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0).normalized;
         Vector3 spawnPosition = playerTransform.position + spawnDirection * spawnDistance;
         return spawnPosition;
+    }
+
+    public void SetSpawnInterval(float newInterval)
+    {
+        spawnInterval = newInterval;
+    }
+
+    public float GetSpawnInterval()
+    {
+        return spawnInterval;
     }
 }
