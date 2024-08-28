@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Exp
   - GUI
+  - Boss
   layers:
   - Default
   - TransparentFX

@@ -253,6 +253,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3226799406029820611, guid: 158916433150f5949a4c112a216095f1,
         type: 3}
+      propertyPath: bossDeathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 54460879b92e52b46866b6425511c0e2, type: 3}
+    - target: {fileID: 3226799406029820611, guid: 158916433150f5949a4c112a216095f1,
+        type: 3}
       propertyPath: cooldownImage
       value: 
       objectReference: {fileID: 0}
@@ -9178,6 +9183,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BossEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 9219559029784114998, guid: f8d2e2f56f0f10e46b135fe010df6796,
+        type: 3}
+      propertyPath: m_TagString
+      value: Boss
       objectReference: {fileID: 0}
     - target: {fileID: 9219559029784115000, guid: f8d2e2f56f0f10e46b135fe010df6796,
         type: 3}

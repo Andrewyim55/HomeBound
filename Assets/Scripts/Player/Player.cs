@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip dashClip;
     [SerializeField] private AudioClip walkClip;
     [SerializeField] private AudioClip pickUpClip;
+    [SerializeField] private AudioClip bossDeathClip;
     [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] protected GameObject damagePopUpPrefab;
     [SerializeField] protected GameObject pistolPrefab;
@@ -329,6 +330,11 @@ public class Player : MonoBehaviour
     {
         isAlive = false;
         animator.SetTrigger("Death");
+         if(GameObject.FindObjectOfType<ReaperBoss>() !=null)
+         {
+            SoundManager.instance.PlaySfx(bossDeathClip, transform);
+            Debug.Log("Boss sound");
+         }
         if(weapon != null)
         {
             Destroy(weapon.gameObject);
@@ -541,7 +547,7 @@ public class Player : MonoBehaviour
     {
         // Stop the timer when the player dies
         isAlive = false;
-
+       
         // You can handle additional logic here, such as saving the time or displaying a "Game Over" screen
         Debug.Log($"Player survived for {timeAlive} seconds.");
     }
