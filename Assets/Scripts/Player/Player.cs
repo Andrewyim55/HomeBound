@@ -55,6 +55,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Image cooldownImage;
     [SerializeField] private GameObject deathScreenUI;
     [SerializeField] private GameObject LevelUpUI;
+    [SerializeField] private Text timerText;
+    private float timeAlive = 0f;
     // store the weapon that the player is able to pick up
     private Weapon nearbyWeapon;
 
@@ -79,6 +81,7 @@ public class Player : MonoBehaviour
         walkAudioSource.loop = false;
         walkAudioSource.volume = SoundManager.instance.GetSFXVol();
         UpdateHealthBar();
+        StartCoroutine(TimerCoroutine());
     }
     private void Update()
     {
@@ -432,7 +435,7 @@ public class Player : MonoBehaviour
                 ammoPercentage += value;
             }
         }
-
+        StartCoroutine(TimerCoroutine());
     }
     public bool GetAlive()
     {
@@ -500,5 +503,35 @@ public class Player : MonoBehaviour
         pickupRadius = originalPickupRadius;
         minPickupSpeed = originalMinPickupSpeed;
         maxPickupSpeed = originalMaxPickupSpeed;
+    }
+    private IEnumerator TimerCoroutine()
+    {
+        while (isAlive  && !LevelUpUI.activeSelf)
+        {
+            // Increment the timeAlive by deltaTime each frame
+            timeAlive += Time.deltaTime;
+
+            // Update the timer UI
+            UpdateTimerUI();
+
+            yield return null; // Wait for the next frame
+        }
+    }
+    private void UpdateTimerUI()
+    {
+        // Update the timer UI (e.g., minutes:seconds:milliseconds format)
+        int minutes = Mathf.FloorToInt(timeAlive / 60);
+        int seconds = Mathf.FloorToInt(timeAlive % 60);
+        int milliseconds = Mathf.FloorToInt((timeAlive * 1000) % 1000);
+        timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:000}";
+    }
+
+    public void PlayerDied()
+    {
+        // Stop the timer when the player dies
+        isAlive = false;
+
+        // You can handle additional logic here, such as saving the time or displaying a "Game Over" screen
+        Debug.Log($"Player survived for {timeAlive} seconds.");
     }
 }
