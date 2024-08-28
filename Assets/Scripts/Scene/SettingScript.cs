@@ -17,21 +17,21 @@ public class SettingScript : MonoBehaviour
     private void Start()
     {
         settingsUI.SetActive(false);
-        BGMSlider.value = BGMSource.volume;
-        SFXSlider.value = SFXSource.volume;
+        BGMSlider.value = SoundManager.instance.GetBGMVol();
+        SFXSlider.value = SoundManager.instance.GetSFXVol();
         BGMSlider.onValueChanged.AddListener(ChangeBGMVolume);
         SFXSlider.onValueChanged.AddListener(ChangeSFXVolume);
     }
     public void ChangeBGMVolume(float value)
     {
-        BGMSource.volume = value;
+        SoundManager.instance.SetBGMVol(value);
         PlayerPrefs.SetFloat("BGMVolume", value);
     }
 
     // Method to change SFX volume
     public void ChangeSFXVolume(float value)
     {
-        SFXSource.volume = value;
+        SoundManager.instance.SetSFXVol(value);
         PlayerPrefs.SetFloat("SFXVolume", value);
     }
 

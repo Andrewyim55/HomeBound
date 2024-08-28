@@ -19,8 +19,15 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (instance == null)
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
             instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         PlayBgm();
     }
 
@@ -50,5 +57,14 @@ public class SoundManager : MonoBehaviour
     public float GetSFXVol()
     {
         return sfxVol;
+    }
+    public void SetBGMVol(float vol)
+    {
+        bgmSource.volume = vol;
+        bgmVol = vol;
+    }
+    public void SetSFXVol(float vol)
+    {
+        sfxVol = vol;
     }
 }
