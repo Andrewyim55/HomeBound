@@ -572,6 +572,7 @@ MonoBehaviour:
   healthBarImage: {fileID: 5958692978409824154}
   ammoCount: {fileID: 5958692976857329519}
   skillCDAnimator: {fileID: 0}
+  CooldownImage: {fileID: 0}
 --- !u!1 &5958692978179182368
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,17 +886,17 @@ PrefabInstance:
     - target: {fileID: 7798124907065035140, guid: f22c352df3bfc9142b6de7de0b540fa0,
         type: 3}
       propertyPath: m_Color.b
-      value: 0.17254902
+      value: 0.17101279
       objectReference: {fileID: 0}
     - target: {fileID: 7798124907065035140, guid: f22c352df3bfc9142b6de7de0b540fa0,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.59607846
+      value: 0.5943396
       objectReference: {fileID: 0}
     - target: {fileID: 7798124907065035140, guid: f22c352df3bfc9142b6de7de0b540fa0,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.19607843
+      value: 0.19524792
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f22c352df3bfc9142b6de7de0b540fa0, type: 3}

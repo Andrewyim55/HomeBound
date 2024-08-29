@@ -518,7 +518,10 @@ public class Player : MonoBehaviour
         increasedDmg = 1f;
         ammoPercentage = 1f;
         Time.timeScale = 1f;
-        GUI.instance.deathScreenUI.SetActive(false);
+        if(GUI.instance != null)
+        {
+            GUI.instance.deathScreenUI.SetActive(false);
+        }
         isAlive = true;
         canDash = true;
         isDashing = false;

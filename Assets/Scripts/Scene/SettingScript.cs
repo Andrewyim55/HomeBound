@@ -8,9 +8,6 @@ public class SettingScript : MonoBehaviour
     [SerializeField] private GameObject MainUI;
     [SerializeField] private GameObject settingsUI;
 
-    [Header("Audio")]
-    [SerializeField] private AudioSource BGMSource;
-    [SerializeField] private AudioSource SFXSource;
     [SerializeField] private Slider BGMSlider;
     [SerializeField] private Slider SFXSlider;
 

@@ -9,6 +9,8 @@ using UnityEngine.Tilemaps;
 
 public class Pathfinding : MonoBehaviour
 {
+    public static Pathfinding instance;
+
     private List<Tilemap> tilemaps;
     private List<Node> openList;
     private List<Node> closedList;
@@ -18,6 +20,15 @@ public class Pathfinding : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+
+            instance = this;
+        }
         InitializeGrid();
     }
 

@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class BreakablesSpawner : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private Pathfinding pathFinding;
-
     [Header("Breakable prefab")]
     [SerializeField] private GameObject breakablePrefab;
 
@@ -20,14 +17,22 @@ public class BreakablesSpawner : MonoBehaviour
     [SerializeField] private int maxBreakables = 5;
     
 
-    private Transform playerTransform;
     private List<GameObject> breakablesInScene = new List<GameObject>();
+    private bool isSpawning;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerTransform = FindObjectOfType<Player>().transform;
-        StartCoroutine(SpawnBreakableRoutine());
+        isSpawning = false;
+    }
+
+    private void Update()
+    {
+        if(!isSpawning)
+        {
+            isSpawning = true;
+            StartCoroutine(SpawnBreakableRoutine());
+        }
     }
 
     private IEnumerator SpawnBreakableRoutine()
@@ -55,7 +60,7 @@ public class BreakablesSpawner : MonoBehaviour
         for (int i = 0; i < spawnAttempts; i++) 
         {
             spawnPosition = GetSpawnPosition();
-            Node spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+            Node spawnNode = Pathfinding.instance.grid.GetGridObject(spawnPosition);
             if (spawnNode != null && spawnNode.nodeType == Node.NodeType.FLOOR)
             {
                 if (IsValidSpawnPosition(spawnPosition))
@@ -86,10 +91,11 @@ public class BreakablesSpawner : MonoBehaviour
 
     private Vector3 GetSpawnPosition()
     {
+        Debug.Log(Player.instance);
         float spawnDistance = Random.Range(spawnDistanceMin, spawnDistanceMax);
         float spawnAngle = Random.Range(0f, 360f);
         Vector3 spawnDirection = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0).normalized;
-        Vector3 spawnPosition = playerTransform.position + spawnDirection * spawnDistance;
+        Vector3 spawnPosition = Player.instance.transform.position + spawnDirection * spawnDistance;
         return spawnPosition;
     }
 

@@ -10,8 +10,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject settingsUI;
     public void PlayGame()
     {
-        SceneManager.LoadScene("SampleScene");
-
+        GameLogic.instance.NewGame();
     }
     public void Settings()
     {
@@ -20,7 +19,6 @@ public class MainMenu : MonoBehaviour
     }
     public void Tutorial()
     {
-        SceneManager.LoadScene("Tutorial");
-
+        GameLogic.instance.ChangeScene(4);
     }
 }

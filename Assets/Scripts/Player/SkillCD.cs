@@ -12,7 +12,7 @@ public class SkillCD : MonoBehaviour
     void Update()
     {
         elapsedTime += Time.deltaTime;
-        if(GUI.instance.CooldownImage != null )
+        if(GUI.instance != null )
         {
             if (elapsedTime >= CDtime)
             {

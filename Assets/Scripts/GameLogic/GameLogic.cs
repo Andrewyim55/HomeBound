@@ -45,10 +45,15 @@ public class GameLogic : MonoBehaviour
 
     public void NewGame()
     {
-        Player.instance.gameObject.SetActive(true);
         SoundManager.instance.PlayBgm(1);
-        Player.instance.Restart();
+        if (Player.instance != null)
+        {
+            Destroy(Player.instance.gameObject);
+        }
         ChangeScene(2);
+        GetComponent<EnemySpawner>().enabled = true;
+        GetComponent<BreakablesSpawner>().enabled = true;
+        GetComponent<DifficultyManager>().enabled = true;
         Time.timeScale = 1f;
     }
 

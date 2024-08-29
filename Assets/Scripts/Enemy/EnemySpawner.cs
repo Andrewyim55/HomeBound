@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("References")]
-    [SerializeField] private Pathfinding pathFinding;
-
     [Header("Enemy Prefabs")]
     [SerializeField] private List<GameObject> enemyPrefab;
     [SerializeField] private List<GameObject> elitePrefab;
@@ -16,7 +13,6 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float spawnDistanceMax = 10f;
 
     private float spawnInterval;
-    private Transform playerTransform;
     private int totalWeight;
     private float eliteChance;
     private int eliteTotalWeight;
@@ -24,7 +20,6 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerTransform = FindObjectOfType<Player>().transform;
         totalWeight = 0;
         // Get the total weightage for the enemy spawning
         for (int i = 0; i < enemyPrefab.Count; i++)
@@ -53,15 +48,15 @@ public class EnemySpawner : MonoBehaviour
     // Spawn enemy at a random position around the player
     private void SpawnEnemy()
     {
-        if(pathFinding != null)
+        if(Pathfinding.instance != null)
         {
             GameObject enemyToSpawn = ChooseEnemyType();
             Vector3 spawnPosition = GetSpawnPosition();
-            Node spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+            Node spawnNode = Pathfinding.instance.grid.GetGridObject(spawnPosition);
             while (spawnNode == null || spawnNode.nodeType != Node.NodeType.FLOOR)
             {
                 spawnPosition = GetSpawnPosition();
-                spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+                spawnNode = Pathfinding.instance.grid.GetGridObject(spawnPosition);
             }
             Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
         }
@@ -120,7 +115,7 @@ public class EnemySpawner : MonoBehaviour
         float spawnDistance = Random.Range(spawnDistanceMin, spawnDistanceMax);
         float spawnAngle = Random.Range(0f, 360f);
         Vector3 spawnDirection = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0).normalized;
-        Vector3 spawnPosition = playerTransform.position + spawnDirection * spawnDistance;
+        Vector3 spawnPosition = Player.instance.transform.position + spawnDirection * spawnDistance;
         return spawnPosition;
     }
 
