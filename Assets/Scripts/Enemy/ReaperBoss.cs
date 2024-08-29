@@ -94,7 +94,6 @@ public class ReaperBoss : Enemy
         {
             if (attackWaitTime <= 0)
             {
-                Debug.Log("following");
                 pathUpdateTimer += Time.deltaTime;
                 if (pathUpdateTimer >= pathUpdateInterval)
                 {
@@ -107,7 +106,6 @@ public class ReaperBoss : Enemy
             }
             else
             {
-                Debug.Log("attackWaitTime" + attackWaitTime);
                 attackWaitTime -= Time.deltaTime;
             }
         
@@ -126,15 +124,27 @@ public class ReaperBoss : Enemy
     {
         if (!isAttacking)
         {
+            // Increment the attack counter
+            if (superChargeCounter <= 0)
+            {
+                superChargeCounter = attacksTillSuperCharge;
+                superCharge = true;
+            }
             if (dist > shootingDistance)
             {
-                isAttacking = true;
-                StartCoroutine(SummonMinions());
-                return;
+                if (Random.value < 0.3f)
+                {
+                    StartCoroutine(SummonMinions());
+                    return;
+                }
+                else
+                {
+                    StartCoroutine(RangedAttack());
+                    return;
+                }
             }
             else if (dist <= meleeDistance)
             {
-                isAttacking = true;
                 StartCoroutine(BasicAttack());
                 return;
             }
@@ -144,13 +154,11 @@ public class ReaperBoss : Enemy
                 {
                     if (Random.value < 0.3f)
                     {
-                        isAttacking = true;
                         StartCoroutine(SummonMinions());
                         return;
                     }
                     else
                     {
-                        isAttacking = true;
                         StartCoroutine(RangedAttack());
                         return;
                     }
@@ -158,24 +166,14 @@ public class ReaperBoss : Enemy
 
                 if (Random.value < 0.5f)
                 {
-                    isAttacking = true;
                     StartCoroutine(ChargeAttack());
                     return;
                 }
                 else
                 {
-                    isAttacking = true;
                     StartCoroutine(AOEAttack());
                     return;
                 }
-            }
-
-            // Increment the attack counter
-            superChargeCounter--;
-            if (superChargeCounter <= 0)
-            {
-                superChargeCounter = attacksTillSuperCharge;
-                superCharge = true;
             }
         }
     }
@@ -183,6 +181,8 @@ public class ReaperBoss : Enemy
 
     IEnumerator SummonMinions()
     {
+        superChargeCounter--;
+        isAttacking = true;
         SoundManager.instance.PlaySfx(summoningClip, transform);
         yield return new WaitForSeconds(1.1f);
         animator.SetTrigger("summon");
@@ -230,6 +230,8 @@ public class ReaperBoss : Enemy
 
     IEnumerator ChargeAttack()
     {
+        superChargeCounter--;
+        isAttacking = true;
         SoundManager.instance.PlaySfx(dashAttackClip, transform);
         animator.SetTrigger("charge");
         GetComponent<Collider2D>().isTrigger = true;
@@ -252,6 +254,8 @@ public class ReaperBoss : Enemy
     // Bosses ranged attackl
     IEnumerator RangedAttack()
     {
+        superChargeCounter--;
+        isAttacking = true;
         animator.SetTrigger("rangeAttack");
         attackWaitTime = animator.GetCurrentAnimatorStateInfo(0).length * 2;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 2);
@@ -295,6 +299,8 @@ public class ReaperBoss : Enemy
 
     IEnumerator AOEAttack()
     {
+        superChargeCounter--;
+        isAttacking = true;
         SoundManager.instance.PlaySfx(explosionClip, transform);
         animator.SetTrigger("special");
         yield return new WaitForSeconds(0.5f);
@@ -309,6 +315,8 @@ public class ReaperBoss : Enemy
 
     IEnumerator BasicAttack()
     {
+        superChargeCounter--;
+        isAttacking = true;
         animator.SetTrigger("attack");
         attackWaitTime = 0.5f;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length / 4);

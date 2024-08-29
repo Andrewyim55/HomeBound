@@ -238,10 +238,9 @@ public abstract class Enemy : MonoBehaviour
 
             isAlive = false;
             animator.SetTrigger("Death");
-            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
             rb.velocity = Vector3.zero;
-            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-
+            yield return new WaitForSeconds(2f);
             Destroy(gameObject);
         }
     }
