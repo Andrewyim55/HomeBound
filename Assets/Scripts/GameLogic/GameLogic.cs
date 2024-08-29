@@ -50,7 +50,7 @@ public class GameLogic : MonoBehaviour
         {
             Destroy(Player.instance.gameObject);
         }
-        ChangeScene(2);
+        ChangeScene(1);
         GetComponent<EnemySpawner>().enabled = true;
         GetComponent<BreakablesSpawner>().enabled = true;
         GetComponent<DifficultyManager>().enabled = true;
@@ -59,8 +59,16 @@ public class GameLogic : MonoBehaviour
 
     public void MainMenu()
     {
-        ChangeScene(1);
-        Player.instance.gameObject.SetActive(false);
+        SoundManager.instance.PlayBgm(0);
+        ChangeScene(0);
+        if (Player.instance != null)
+        {
+            Destroy(Player.instance.gameObject);
+        }
+        ChangeScene(2);
+        GetComponent<EnemySpawner>().enabled = false;
+        GetComponent<BreakablesSpawner>().enabled = false;
+        GetComponent<DifficultyManager>().enabled = false;
     }
 
     private void Update()
