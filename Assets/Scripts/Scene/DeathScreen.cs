@@ -22,8 +22,8 @@ public class DeathScreen : MonoBehaviour
         Player.instance.isRestart = true;
         print(Player.instance.isRestart);
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        
+        SoundManager.instance.PlayBgm(1);
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void QuitGame()

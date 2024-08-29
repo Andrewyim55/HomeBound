@@ -574,20 +574,20 @@ public class Player : MonoBehaviour
         if(weapon != null)
         {
             Destroy(weapon.gameObject);
-            GameObject pistol = Instantiate(pistolPrefab, transform.position, Quaternion.identity);
-            pistol.GetComponent<SpriteRenderer>().enabled = true;
-            weapon = pistol.GetComponent<Weapon>();
-            weapon.transform.SetParent(aimArm.transform);
-            weapon.transform.localPosition = new Vector3(0, 0, 0);
-            weapon.GetComponent<BoxCollider2D>().enabled = false;
-            weapon.transform.eulerAngles = aimArm.transform.eulerAngles;
-            weapon.bulletDmg *= increasedDmg;
-            weapon.reloadSpeed *= reloadSpd;
-
-            float magazineSizeFloat = (float)weapon.magSize;
-            magazineSizeFloat *= ammoPercentage;
-            weapon.magSize = Mathf.RoundToInt(magazineSizeFloat);
         }
-       
+        GameObject pistol = Instantiate(pistolPrefab, transform.position, Quaternion.identity);
+        pistol.GetComponent<SpriteRenderer>().enabled = true;
+        weapon = pistol.GetComponent<Weapon>();
+        weapon.transform.SetParent(aimArm.transform);
+        weapon.transform.localPosition = new Vector3(0, 0, 0);
+        weapon.GetComponent<BoxCollider2D>().enabled = false;
+        weapon.transform.eulerAngles = aimArm.transform.eulerAngles;
+        weapon.bulletDmg *= increasedDmg;
+        weapon.reloadSpeed *= reloadSpd;
+
+        float magazineSizeFloat = (float)weapon.magSize;
+        magazineSizeFloat *= ammoPercentage;
+        weapon.magSize = Mathf.RoundToInt(magazineSizeFloat);
+
     }
 }

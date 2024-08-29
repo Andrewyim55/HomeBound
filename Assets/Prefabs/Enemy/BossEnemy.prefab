@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 193001968}
   m_LocalRotation: {x: -0.003275526, y: -0, z: -0, w: 0.99999464}
   m_LocalPosition: {x: -0.036, y: -0.015, z: 1}
-  m_LocalScale: {x: 5.435572, y: 5.435572, z: 1.358893}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 9219559029784115000}
   m_RootOrder: 3
@@ -146,9 +146,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0036384293, y: 0}
+  m_Offset: {x: 0.008695078, y: 0}
   serializedVersion: 2
-  m_Radius: 0.26350567
+  m_Radius: 0.25844905
 --- !u!114 &290834262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,7 +417,7 @@ GameObject:
   - component: {fileID: 773933227}
   m_Layer: 11
   m_Name: BossEnemy
-  m_TagString: Enemy
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -557,12 +557,12 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   damagePopUpPrefab: {fileID: 1305485594197436244, guid: c730fd3f7896f6a4f9549c12feb48c07,
     type: 3}
-  health: 500
-  dmg: 10
+  health: 600
+  dmg: 20
   attackRange: 2.75
-  moveSpeed: 2
+  moveSpeed: 2.5
   spawnWeight: 0
-  attackWaitTime: 0
+  attackWaitTime: 1
   firePoints:
   - {fileID: 1553874357}
   - {fileID: 2081244464}
@@ -584,21 +584,25 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 256
-  attacksTillSuperCharge: 5
-  attackCoolDown: 2
+  attacksTillSuperCharge: 2
+  followDistance: 6
+  attackCoolDown: 1.5
   attackPoint: {fileID: 1146758321}
   attackDistance: 1
   meleeDistance: 1.28
   bulletDmg: 10
-  fireForce: 3
-  shootingDistance: 6
+  fireForce: 10
+  shootingDistance: 5
   spawnDistance: 3
   spawnAmount: 5
   chargeDistance: 3.75
   chargeSpeed: 6
   explostionEffect: {fileID: 193001968}
-  explostionDmg: 20
+  explostionDmg: 25
   explosionClip: {fileID: 8300000, guid: f43480232e584ad4ab7410fb3c7747a9, type: 3}
+  summoningClip: {fileID: 8300000, guid: 95c9d6905eb837d48a645b419c842a45, type: 3}
+  fireBallClip: {fileID: 8300000, guid: fc689125f9fc07640854de6c34283896, type: 3}
+  dashAttackClip: {fileID: 8300000, guid: 6a710e92c7c69b94db8f78b3b37af303, type: 3}
 --- !u!60 &773933227
 PolygonCollider2D:
   m_ObjectHideFlags: 0

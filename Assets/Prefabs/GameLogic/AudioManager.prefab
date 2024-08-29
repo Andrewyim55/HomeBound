@@ -303,6 +303,8 @@ MonoBehaviour:
     type: 3}
   bgmSource: {fileID: 855175706179752574}
   bgmClip:
+  - {fileID: 8300000, guid: 268c03675e7a15644b2882202bd9d1bc, type: 3}
   - {fileID: 8300000, guid: 4438cefde35e8ad41b6602ba017e508d, type: 3}
+  - {fileID: 8300000, guid: 394e542c8df7b4543881ee1ef6088acb, type: 3}
   bgmVol: 0
   sfxVol: 0.15

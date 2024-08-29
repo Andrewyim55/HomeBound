@@ -28,14 +28,14 @@ public class SoundManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        PlayBgm();
+        PlayBgm(0);
     }
 
-    public void PlayBgm()
+    public void PlayBgm(int clip)
     {
         if (bgmClip == null)
             return;
-        bgmSource.clip = bgmClip[0];
+        bgmSource.clip = bgmClip[clip];
         bgmSource.volume = bgmVol;
         bgmSource.Play();
     }
