@@ -18,6 +18,9 @@ public class EnemySpawner : MonoBehaviour
     private float spawnInterval;
     private Transform playerTransform;
     private int totalWeight;
+    private float eliteChance;
+    private int eliteTotalWeight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,12 @@ public class EnemySpawner : MonoBehaviour
         {
             totalWeight += enemyPrefab[i].GetComponent<Enemy>().GetSpawnWeight();
         }
+
+        for (int i = 0; i < elitePrefab.Count; i++)
+        {
+            eliteTotalWeight += elitePrefab[i].GetComponent<Enemy>().GetSpawnWeight();
+        }
+
         StartCoroutine(SpawnEnemyRoutine());
     }
 
@@ -58,6 +67,20 @@ public class EnemySpawner : MonoBehaviour
     // Method to choose the enemy type based on spawn factors
     private GameObject ChooseEnemyType()
     {
+        int spawnRoll = Random.Range(0, 100);
+        if (spawnRoll <= eliteChance)
+        {
+            return ChooseEliteEnemy(); 
+        }
+        else
+        {
+            return ChooseNormalEnemy(); 
+        }
+    }
+
+
+    private GameObject ChooseNormalEnemy()
+    {
         int spawnNum = Random.Range(0, totalWeight);
         int currentWeight = 0;
         for (int i = 0; i < enemyPrefab.Count; i++)
@@ -70,6 +93,22 @@ public class EnemySpawner : MonoBehaviour
             }
         }
         return enemyPrefab[enemyPrefab.Count - 1];
+    }
+
+    private GameObject ChooseEliteEnemy()
+    {
+        int spawnNum = Random.Range(0, eliteTotalWeight);
+        int currentWeight = 0;
+        for (int i = 0; i < elitePrefab.Count; i++)
+        {
+            currentWeight += elitePrefab[i].GetComponent<Enemy>().GetSpawnWeight();
+
+            if (spawnNum < currentWeight)
+            {
+                return elitePrefab[i];
+            }
+        }
+        return elitePrefab[elitePrefab.Count - 1];
     }
 
     // Get a random spawn position around player
@@ -90,5 +129,10 @@ public class EnemySpawner : MonoBehaviour
     public float GetSpawnInterval()
     {
         return spawnInterval;
+    }
+
+    public void SetEliteChance(float newChance)
+    {
+        eliteChance = newChance;
     }
 }

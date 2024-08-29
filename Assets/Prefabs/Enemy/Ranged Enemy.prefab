@@ -384,7 +384,7 @@ MonoBehaviour:
   damagePopUpPrefab: {fileID: 1305485594197436244, guid: c730fd3f7896f6a4f9549c12feb48c07,
     type: 3}
   health: 4
-  dmg: 2
+  dmg: 4
   attackRange: 2
   moveSpeed: 1.5
   spawnWeight: 15

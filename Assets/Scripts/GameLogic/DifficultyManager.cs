@@ -7,12 +7,18 @@ public class DifficultyManager : MonoBehaviour
     [Header("References")]
     [SerializeField] private EnemySpawner enemySpawner; // Reference to the EnemySpawner script
 
-    [Header("Spawn Timing and Difficulty")]
+    [Header("Spawn Timing")]
     [SerializeField] private float initialSpawnInterval = 2f;
     [SerializeField] private float minSpawnInterval = 0.2f;
-    [SerializeField] private float spawnIntervalStep = 0.3f;
+    [SerializeField] private float spawnIntervalStep = 0.2f;
     [SerializeField] private float spawnIntervalReductionRate = 30;
-    [SerializeField] private float gameDuration = 7f;
+
+    [Header("Elite spawning")]
+    [SerializeField] private float initialEliteChance = 5f;
+    [SerializeField] private float maxEliteChance = 20f;
+
+    [Header("Game length")]
+    [SerializeField] private float gameDuration = 5f;
 
     private float elapsedTime = 0f;
     private float nextReductionTime = 0f;
@@ -21,12 +27,16 @@ public class DifficultyManager : MonoBehaviour
     {
         Player.instance.GetComponent<SpriteRenderer>().enabled = true;
         enemySpawner.SetSpawnInterval(initialSpawnInterval);
+        enemySpawner.SetEliteChance(initialEliteChance);
         nextReductionTime = spawnIntervalReductionRate;
     }
 
     void Update()
     {
         elapsedTime += Time.deltaTime;
+
+        float eliteIncreaseDuration = gameDuration*60;
+        float eliteChance = Mathf.Lerp(initialEliteChance, maxEliteChance, Mathf.Clamp01(elapsedTime / eliteIncreaseDuration));
 
         if (elapsedTime >= nextReductionTime)
         {

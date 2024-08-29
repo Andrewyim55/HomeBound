@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816022342007569130}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.012180008, y: 0.64745915, z: -3.3850527}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -49,7 +49,9 @@ MonoBehaviour:
   enemyPrefab:
   - {fileID: 4060631292738436701, guid: 214961e346c18cc4d97b9e646cde615d, type: 3}
   - {fileID: 5166914298691396457, guid: 4075a87906154f841b8f093258c04440, type: 3}
-  elitePrefab: []
+  elitePrefab:
+  - {fileID: 3480039643588034754, guid: 399df79ac43c3d148ba50ecf85a20dc7, type: 3}
+  - {fileID: 7127728822040535181, guid: 9255eb7056ef7ef4f83597541b1fd1d8, type: 3}
   spawnDistanceMin: 5
   spawnDistanceMax: 10
 --- !u!114 &1816022342007569135
@@ -89,6 +91,8 @@ MonoBehaviour:
   enemySpawner: {fileID: 1816022342007569132}
   initialSpawnInterval: 2
   minSpawnInterval: 0.2
-  spawnIntervalStep: 0.3
-  spawnIntervalReductionRate: 10
-  gameDuration: 7
+  spawnIntervalStep: 0.2
+  spawnIntervalReductionRate: 30
+  initialEliteChance: 5
+  maxEliteChance: 25
+  gameDuration: 5
