@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class SkillCD : MonoBehaviour
 {
-    public Image CooldownImage;
     private float CDtime = 0f;
     private float elapsedTime = 0f;
     private GUI gui;
@@ -13,15 +12,15 @@ public class SkillCD : MonoBehaviour
     void Update()
     {
         elapsedTime += Time.deltaTime;
-        if(CooldownImage != null )
+        if(GUI.instance.CooldownImage != null )
         {
             if (elapsedTime >= CDtime)
             {
-                CooldownImage.fillAmount = 1;
+                GUI.instance.CooldownImage.fillAmount = 1;
             }
             else
             {
-                CooldownImage.fillAmount = elapsedTime / CDtime;
+                GUI.instance.CooldownImage.fillAmount = elapsedTime / CDtime;
             }
         }
     }

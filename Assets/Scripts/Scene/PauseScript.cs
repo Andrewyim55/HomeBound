@@ -78,7 +78,7 @@ public class PauseScript : MonoBehaviour
         print("Restart");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         pauseMenuUI.SetActive(false);
-        Player.instance.isRestart = true;
+        GameLogic.instance.NewGame();
     }
 
     public void Pause()
@@ -101,10 +101,7 @@ public class PauseScript : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneManager.LoadScene("Main Menu");
-        Player.instance.gameObject.GetComponent<SpriteRenderer>().enabled = false;
-
-        Player.instance.isRestart = true;
+        GameLogic.instance.MainMenu();
     }
     public void SetPaused(bool pause)
     {

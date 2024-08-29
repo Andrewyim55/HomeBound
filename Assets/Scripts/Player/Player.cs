@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] protected GameObject damagePopUpPrefab;
     [SerializeField] protected GameObject pistolPrefab;
+    [SerializeField] public Animator skillCDAnimator;
+
 
     [Header("Attributes")]
     [SerializeField] private float health;
@@ -49,22 +51,9 @@ public class Player : MonoBehaviour
     private float increasedDmg;
     private float reloadSpd;
     private float dashReduce;
-    private float timeAlive = 0f;
     // store the weapon that the player is able to pick up
     public Weapon nearbyWeapon;
 
-    [Header("UI")]
-    [SerializeField] public Text healthText;
-    [SerializeField] public Image weaponDisplay;
-    [SerializeField] public Image cooldownImage;
-    [SerializeField] public GameObject deathScreenUI;
-    [SerializeField] public GameObject LevelUpUI;
-    [SerializeField] public Text timerText;
-    [SerializeField] public Image healthBarImage;
-    [SerializeField] public Text ammoCount;
-    [SerializeField] public Animator skillCDAnimator;
-
-    public bool isRestart;
     private void Awake()
     {
         if (instance != null)
@@ -97,22 +86,11 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        if (isRestart)
-        {
-            print("player update restart");
-            isRestart = false;
-            Restart();
-        }
         if (!isAlive)
         {
             rb.velocity = Vector3.zero;
             return;
         }
-        
-        // Increment the timeAlive by deltaTime each frame
-        timeAlive += Time.deltaTime;
-        // Update the timer UI
-        UpdateTimerUI();
 
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -142,11 +120,10 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Reload") && ammoCount.text != null)
+        if (Input.GetButtonDown("Reload"))
         {
             weapon.StopFire();
             weapon.SetReloading(true);
-            ammoCount.text = "Reloading";
         }
 
         if (Input.GetButtonDown("Jump") && canDash)
@@ -157,11 +134,6 @@ public class Player : MonoBehaviour
         {
             pickUpWeapon();
         }
-        if (weapon != null && ammoCount != null)
-        {
-            ammoCount.text = weapon.magazineSize + "/" + weapon.magSize;
-        }
-        
         AttractNearbyPickups();
         
         // Update Animator parameters
@@ -224,18 +196,11 @@ public class Player : MonoBehaviour
     public void TakeDmg(float _dmg)
     {
         health -= _dmg;
-        UpdateHealthBar();
         StartCoroutine(flashEffect());
         if (health <= 0 && isAlive)
         {
             StartCoroutine(Die());
         }
-    }
-    public void UpdateHealthBar()
-    {
-        float fillAmount = health / maxHealth;
-        healthBarImage.fillAmount = fillAmount;
-        healthText.text = health + "/" +maxHealth;
     }
 
     // Iframes after taking damage
@@ -284,17 +249,13 @@ public class Player : MonoBehaviour
             {
                 Destroy(weapon.gameObject);
             }
-            Debug.Log(nearbyWeapon);
-            Debug.Log(weapon);
             weapon = nearbyWeapon;
+
             SpriteRenderer weaponSpriteRenderer = weapon.GetComponent<SpriteRenderer>();
 
             if (weaponSpriteRenderer != null)
             {
                 weaponSpriteRenderer.enabled = true;
-                weaponDisplay.sprite = weaponSpriteRenderer.sprite;
-                weaponDisplay.color = new Color32(255, 255, 255, 255);
-
             }
 
             Transform childTransform = weapon.transform.Find("Sprite Anim");
@@ -319,8 +280,6 @@ public class Player : MonoBehaviour
             float magazineSizeFloat = (float)weapon.magSize;
             magazineSizeFloat *= ammoPercentage;
             weapon.magSize = Mathf.RoundToInt(magazineSizeFloat);
-
-
             /// ==========================================================================================================================================
         }
     }
@@ -344,7 +303,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         Time.timeScale = 0f;
-        deathScreenUI.SetActive(true);
+        GUI.instance.deathScreenUI.SetActive(true);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -393,7 +352,7 @@ public class Player : MonoBehaviour
         {
             PauseScript.instance.SetPaused(false);
             moveSpeed += value;
-            LevelUpUI.SetActive(false);
+            GUI.instance.LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
         }
         else if (type == "Max Health")
@@ -401,14 +360,13 @@ public class Player : MonoBehaviour
             PauseScript.instance.SetPaused(false);
             health += value;
             maxHealth += value;
-            LevelUpUI.SetActive(false);
+            GUI.instance.LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
-            UpdateHealthBar();
         }
         else if (type == "Damage")
         {
             PauseScript.instance.SetPaused(false);
-            LevelUpUI.SetActive(false);
+            GUI.instance.LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
             if (weapon != null)
             {
@@ -424,7 +382,7 @@ public class Player : MonoBehaviour
         else if (type == "Reload Speed")
         {
             PauseScript.instance.SetPaused(false);
-            LevelUpUI.SetActive(false);
+            GUI.instance.LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
             if (weapon != null)
             {
@@ -440,7 +398,7 @@ public class Player : MonoBehaviour
         else if (type == "Dash Cooldown")
         {
             PauseScript.instance.SetPaused(false);
-            LevelUpUI.SetActive(false);
+            GUI.instance.LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
             dashingCooldown *= dashReduce;
             dashReduce += value;
@@ -449,7 +407,7 @@ public class Player : MonoBehaviour
         else if (type == "Ammo Count")
         {
             PauseScript.instance.SetPaused(false);
-            LevelUpUI.SetActive(false);
+            GUI.instance.LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
             if (weapon != null)
             {
@@ -533,15 +491,6 @@ public class Player : MonoBehaviour
         minPickupSpeed = originalMinPickupSpeed;
         maxPickupSpeed = originalMaxPickupSpeed;
     }
-    private void UpdateTimerUI()
-    {
-        // Update the timer UI (e.g., minutes:seconds:milliseconds format)
-        int minutes = Mathf.FloorToInt(timeAlive / 60);
-        int seconds = Mathf.FloorToInt(timeAlive % 60);
-        int milliseconds = Mathf.FloorToInt((timeAlive * 1000) % 1000);
-        if(timerText != null)
-            timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:000}";
-    }
 
     public void PlayerDied()
     {
@@ -549,23 +498,27 @@ public class Player : MonoBehaviour
         isAlive = false;
        
         // You can handle additional logic here, such as saving the time or displaying a "Game Over" screen
-        Debug.Log($"Player survived for {timeAlive} seconds.");
+        Debug.Log($"Player survived for {GameLogic.instance.GameTime} seconds.");
     }
+
+    public Weapon GetWeapon()
+    {
+        return weapon;
+    }
+
     public void Restart()
     {
-        print("Trying to restart");
         animator.ResetTrigger("Death");
         animator.SetTrigger("Respawn");
         transform.position = Vector3.zero;
         health = 50f;
         maxHealth = health;
-        timeAlive = 0f;
         dashReduce = 1f;
         reloadSpd = 1f;
         increasedDmg = 1f;
         ammoPercentage = 1f;
         Time.timeScale = 1f;
-        deathScreenUI.SetActive(false);
+        GUI.instance.deathScreenUI.SetActive(false);
         isAlive = true;
         canDash = true;
         isDashing = false;

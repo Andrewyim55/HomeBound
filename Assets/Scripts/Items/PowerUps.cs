@@ -38,7 +38,7 @@ public class PowerUps : MonoBehaviour
                 case powerUp.health:
                     float hp = player.GetHealth() + healAmt;
                     player.SetHealth(Mathf.Min(hp, player.GetMaxHealth()));
-                    player.UpdateHealthBar();
+                    GUI.instance.UpdateHealthBar();
                     break;
 
                 case powerUp.speed:

@@ -18,17 +18,11 @@ public class DeathScreen : MonoBehaviour
     }
     public void NewGame()
     {
-        print("New Game");
-        Player.instance.isRestart = true;
-        print(Player.instance.isRestart);
-        Time.timeScale = 1f;
-        SoundManager.instance.PlayBgm(1);
-        SceneManager.LoadScene("SampleScene");
+        GameLogic.instance.NewGame();
     }
 
     public void QuitGame()
     {
-        SceneManager.LoadScene("Main Menu");
-
+        GameLogic.instance.ChangeScene(1);
     }
 }

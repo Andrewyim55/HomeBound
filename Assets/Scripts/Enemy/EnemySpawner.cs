@@ -53,15 +53,18 @@ public class EnemySpawner : MonoBehaviour
     // Spawn enemy at a random position around the player
     private void SpawnEnemy()
     {
-        GameObject enemyToSpawn = ChooseEnemyType();
-        Vector3 spawnPosition = GetSpawnPosition();
-        Node spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
-        while (spawnNode == null || spawnNode.nodeType != Node.NodeType.FLOOR)
+        if(pathFinding != null)
         {
-            spawnPosition = GetSpawnPosition();
-            spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+            GameObject enemyToSpawn = ChooseEnemyType();
+            Vector3 spawnPosition = GetSpawnPosition();
+            Node spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+            while (spawnNode == null || spawnNode.nodeType != Node.NodeType.FLOOR)
+            {
+                spawnPosition = GetSpawnPosition();
+                spawnNode = pathFinding.grid.GetGridObject(spawnPosition);
+            }
+            Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
         }
-        Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
     }
 
     // Method to choose the enemy type based on spawn factors
