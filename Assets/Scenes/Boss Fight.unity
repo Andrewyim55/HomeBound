@@ -128,6 +128,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3226799406029820611, guid: 158916433150f5949a4c112a216095f1,
+        type: 3}
+      propertyPath: bossDeathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 54460879b92e52b46866b6425511c0e2, type: 3}
     - target: {fileID: 3226799406029820637, guid: 158916433150f5949a4c112a216095f1,
         type: 3}
       propertyPath: m_RootOrder
