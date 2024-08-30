@@ -34,9 +34,9 @@ public class Player : MonoBehaviour
     [SerializeField] TrailRenderer tr;
     [SerializeField] private float flashDuration;
     [SerializeField] private float experience;
-    [SerializeField] public float level;
-    [SerializeField] public float maxExperience;
-
+    [SerializeField] private float level;
+    [SerializeField] private float maxExperience;
+    [SerializeField] public bool isLeveling;
     [Header("Pickup attributes")]
     [SerializeField] private float pickupRadius = 1f;
     [SerializeField] float minPickupSpeed = 0.2f;
@@ -46,7 +46,6 @@ public class Player : MonoBehaviour
     private Vector2 mousePos;
     private bool canDash;
     private bool isDashing;
-    //private SkillCD skillCD;
     private bool isAlive;
     private Material originalMaterial;
 
@@ -80,8 +79,9 @@ public class Player : MonoBehaviour
         Time.timeScale = 1f;
         experience = 0f;
         maxExperience = 100f;
-        level = 1f;
-
+        level = 1;
+        GUI.instance.UpdateXPBar();
+        GUI.instance.updateDashAnimator();
         isAlive = true;
         canDash = true;
         isDashing = false;
@@ -89,6 +89,7 @@ public class Player : MonoBehaviour
         walkAudioSource.clip = walkClip;
         walkAudioSource.loop = false;
         walkAudioSource.volume = SoundManager.instance.GetSFXVol();
+
     }
     private void Update()
     {
@@ -292,6 +293,7 @@ public class Player : MonoBehaviour
     // If player die, call this function
     private IEnumerator Die()
     {
+        Time.timeScale = 0f;
         isAlive = false;
         animator.SetTrigger("Death");
          if(GameObject.FindObjectOfType<ReaperBoss>() !=null)
@@ -304,11 +306,36 @@ public class Player : MonoBehaviour
             Destroy(weapon.gameObject);
         }
         GetComponent<BoxCollider2D>().enabled = false;
+        
         rb.velocity = Vector3.zero;
-        yield return new WaitForSeconds(1);
 
-        Time.timeScale = 0f;
+        //StopAllEnemies();   
+        yield return new WaitForSeconds(1);
+        
         GUI.instance.deathScreenUI.SetActive(true);
+    }
+
+    private void StopAllEnemies()
+    {
+        // Find all objects with the "enemy" tag
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        // Loop through each enemy
+        foreach (GameObject enemy in enemies)
+        {
+            // Get the Rigidbody component
+            Rigidbody rb = enemy.GetComponent<Rigidbody>();
+
+            if (rb != null)
+            {
+                // Set the velocity to zero
+                rb.velocity = Vector3.zero;
+            }
+            else
+            {
+                Debug.LogWarning($"No Rigidbody found on {enemy.name}");
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -516,8 +543,11 @@ public class Player : MonoBehaviour
         experience += value;
         if (experience >= levelEXPNeeded)
         {
-            //isLeveling = true;
+            experience = 0;
+            level += 1;
+            isLeveling = true;
             GUI.instance.LevelUP();
+            
         }
         
         GUI.instance.UpdateXPBar();
@@ -527,5 +557,24 @@ public class Player : MonoBehaviour
     {
         float levelEXPNeeded = maxExperience * level;
         return (experience, levelEXPNeeded, level);
+    }
+    public bool getStatus()
+    {
+        return isAlive;
+    }
+
+    private void Win()
+    {
+        Time.timeScale = 0f;
+        isAlive = false;
+        if (weapon != null)
+        {
+            Destroy(weapon.gameObject);
+        }
+        GetComponent<BoxCollider2D>().enabled = false;
+
+        rb.velocity = Vector3.zero;
+
+        GUI.instance.winScreenUI.SetActive(true);
     }
 }

@@ -55,6 +55,7 @@ public abstract class Enemy : MonoBehaviour
         }
         else
         {
+            rb.velocity = Vector3.zero;
             animator.SetBool("target", false);
         }
     }

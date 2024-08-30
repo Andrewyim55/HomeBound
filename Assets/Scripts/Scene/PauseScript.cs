@@ -49,7 +49,7 @@ public class PauseScript : MonoBehaviour
                 }
                 else
                 {
-                    if (!XPNLevel.instance.isLeveling)
+                    if (!Player.instance.isLeveling)
                     {
                         Resume();
                     }

@@ -22,6 +22,7 @@ public class GUI : MonoBehaviour
     [SerializeField] public Text ammoCount;
     [SerializeField] public Animator skillCDAnimator;
     [SerializeField] public Image CooldownImage;
+    [SerializeField] public GameObject winScreenUI;
 
     private void Awake()
     {
@@ -41,16 +42,15 @@ public class GUI : MonoBehaviour
     void Start()
     {
         deathScreenUI.SetActive(false);
-        Player.instance.skillCDAnimator = cooldownImage.GetComponent<Animator>();
+        UpdatePlayerWeapon();
     }
     private void Update()
     {
-        if (Player.instance != null)
-        {
-            print(Player.instance);
-        }
         UpdateHealthBar();
-        UpdateTimerUI();
+        if (Player.instance.getStatus())
+        {
+            UpdateTimerUI();
+        }
     }
 
     public void UpdateHealthBar()
@@ -75,7 +75,7 @@ public class GUI : MonoBehaviour
 
     private void UpdatePlayerWeapon()
     {
-        if(Player.instance.GetWeapon() != null)
+        if (Player.instance.GetWeapon() != null)
         {
             weaponDisplay.sprite = Player.instance.GetWeapon().gameObject.GetComponent<SpriteRenderer>().sprite;
         }
@@ -95,8 +95,13 @@ public class GUI : MonoBehaviour
     {
         (float experience,float xpNeeded, float level) = Player.instance.GetExperience();
         xpText.text = experience + " / " + xpNeeded;
+        levelText.text = level.ToString();
         float currentXP = Mathf.Clamp(experience, 0, xpNeeded);
         float fillAmount = currentXP / xpNeeded; // Calculate the fill amount as a fraction of current health over max health
         xpBarImage.fillAmount = fillAmount; // Set the fill amount of the health bar image
+    }
+    public void updateDashAnimator()
+    {
+        Player.instance.skillCDAnimator = cooldownImage.GetComponent<Animator>();
     }
 }

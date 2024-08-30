@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-
-public class DeathScreen : MonoBehaviour
+using UnityEngine.SceneManagement;
+public class EndScreen : MonoBehaviour
 {
-    public GameObject deathScreenUI;
+    public GameObject panel;
     void Awake()
     {
         if (FindObjectOfType<EventSystem>() == null)
@@ -18,11 +17,13 @@ public class DeathScreen : MonoBehaviour
     }
     public void NewGame()
     {
+        panel.SetActive(false);
         GameLogic.instance.NewGame();
     }
 
     public void QuitGame()
     {
+        panel.SetActive(false);
         GameLogic.instance.ChangeScene(1);
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 public class LevelUpPanel : MonoBehaviour
 {
     public static LevelUpPanel instance;
+
     [Header("Level Up UI")]
     [SerializeField] public GameObject ButtonUI;
     [SerializeField] public Button[] itemButtons;
@@ -16,7 +17,19 @@ public class LevelUpPanel : MonoBehaviour
     [SerializeField] private Sprite[] itemSprites; //images
 
     private (string Name, string Description, float Value, Sprite Image)[] items;
-
+    void Awake()
+    {
+        // If there is no instance set yet, set this instance
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Optional: Keeps this instance alive across scenes
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject); // If another instance already exists, destroy this one
+        }
+    }
     void Start()
     {
         items = new (string, string, float, Sprite)[]
@@ -56,6 +69,10 @@ public class LevelUpPanel : MonoBehaviour
             }
         }
         yield return new WaitForSecondsRealtime(1.2f);
+    }
+    public void testing()
+    {
+        print("canttt");
     }
 
     void OnItemButtonClick(string Name, float Value)

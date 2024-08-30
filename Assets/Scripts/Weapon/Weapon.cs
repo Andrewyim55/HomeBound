@@ -37,6 +37,7 @@ public class Weapon : MonoBehaviour
             return;
         audioSource.volume = SoundManager.instance.GetSFXVol();
         magazineSize--;
+
     }
 
     public virtual void StopFire()
