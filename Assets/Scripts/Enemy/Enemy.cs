@@ -71,6 +71,11 @@ public abstract class Enemy : MonoBehaviour
     {
         if (!target.GetComponent<Player>().GetAlive() || !isAlive)
         {
+            if (path != null)
+            {
+                path = null;
+                rb.velocity = Vector3.zero;
+            }
             return;
         }
 
@@ -102,6 +107,7 @@ public abstract class Enemy : MonoBehaviour
             Attack();
             animator.SetBool("isFollowing", false);
         }
+        
     }
 
     protected void FollowPath()

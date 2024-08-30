@@ -43,6 +43,7 @@ public class GUI : MonoBehaviour
     {
         deathScreenUI.SetActive(false);
         UpdatePlayerWeapon();
+        UpdateAmmoCount();
     }
     private void Update()
     {
@@ -50,6 +51,7 @@ public class GUI : MonoBehaviour
         if (Player.instance.getStatus())
         {
             UpdateTimerUI();
+            UpdateAmmoCount();
         }
     }
 
@@ -103,5 +105,9 @@ public class GUI : MonoBehaviour
     public void updateDashAnimator()
     {
         Player.instance.skillCDAnimator = cooldownImage.GetComponent<Animator>();
+    }
+    public void UpdateAmmoCount()
+    {
+        ammoCount.text = Player.instance.GetWeapon().magazineSize + "/" + Player.instance.GetWeapon().magSize;
     }
 }
