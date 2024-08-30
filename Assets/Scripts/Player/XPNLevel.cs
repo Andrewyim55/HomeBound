@@ -12,8 +12,6 @@ public class XPNLevel : MonoBehaviour
     [SerializeField] private Text LevelText;
     [SerializeField] private Image xpBarImage;
     [SerializeField] private GameObject LevelUpScreen;
-    [SerializeField] public GameObject ButtonUI;
-    [SerializeField] public GameObject TextUI;
     [SerializeField] protected AudioClip LevelUpClip;
 
     private LevelUpPanel LevelUpPanelScript;
@@ -30,7 +28,7 @@ public class XPNLevel : MonoBehaviour
             instance = this;
         levelEXPNeeded = maxExperience * XPLevel;
         currentXP = 0;
-        UpdateXPBar();
+        //UpdateXPBar();
         LevelUpPanelScript = LevelUpScreen.GetComponent<LevelUpPanel>();
     }
 
@@ -42,7 +40,7 @@ public class XPNLevel : MonoBehaviour
         }
     }*/
 
-    public void gainXP(float experience)
+ /*   public void gainXP(float experience)
     {
 
         currentXP += experience;
@@ -53,9 +51,9 @@ public class XPNLevel : MonoBehaviour
         }
         currentXP = Mathf.Clamp(currentXP, 0, levelEXPNeeded);
         UpdateXPBar();
-    }
+    }*/
 
-    private void LevelUP()
+    /*private void LevelUP()
     {
         PauseScript.instance.SetPaused(true);
         SoundManager.instance.PlaySfx(LevelUpClip, transform);
@@ -66,12 +64,12 @@ public class XPNLevel : MonoBehaviour
         levelEXPNeeded = maxExperience * XPLevel;
         LevelText.text = XPLevel.ToString();
         PauseScript.instance.SetPaused(true);
-    }
+    }*/
 
-    private void UpdateXPBar()
+    /*private void UpdateXPBar()
     {
         XPText.text = currentXP.ToString() + " / " + levelEXPNeeded;
         float fillAmount = currentXP / levelEXPNeeded; // Calculate the fill amount as a fraction of current health over max health
         xpBarImage.fillAmount = fillAmount; // Set the fill amount of the health bar image
-    }
+    }*/
 }

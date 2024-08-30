@@ -33,6 +33,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float dashingCooldown;
     [SerializeField] TrailRenderer tr;
     [SerializeField] private float flashDuration;
+    [SerializeField] private float experience;
+    [SerializeField] public float level;
+    [SerializeField] public float maxExperience;
 
     [Header("Pickup attributes")]
     [SerializeField] private float pickupRadius = 1f;
@@ -75,7 +78,10 @@ public class Player : MonoBehaviour
         increasedDmg = 1f;
         ammoPercentage = 1f;
         Time.timeScale = 1f;
-       
+        experience = 0f;
+        maxExperience = 100f;
+        level = 1f;
+
         isAlive = true;
         canDash = true;
         isDashing = false;
@@ -234,7 +240,6 @@ public class Player : MonoBehaviour
         tr.emitting = false;
         isDashing = false;
         skillCDAnimator.SetBool("isCoolDown", true);
-        //skillCD.dashCooldown(dashingCooldown);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
         skillCDAnimator.SetBool("isCoolDown", false);
@@ -347,7 +352,6 @@ public class Player : MonoBehaviour
 
     public void levelUp(string type, float value)
     {
-        print("lvlingup");
         if (type == "Speed")
         {
             PauseScript.instance.SetPaused(false);
@@ -506,44 +510,22 @@ public class Player : MonoBehaviour
         return weapon;
     }
 
-    public void Restart()
+    public void gainXP(float value)
     {
-        animator.ResetTrigger("Death");
-        animator.SetTrigger("Respawn");
-        transform.position = Vector3.zero;
-        health = 50f;
-        maxHealth = health;
-        dashReduce = 1f;
-        reloadSpd = 1f;
-        increasedDmg = 1f;
-        ammoPercentage = 1f;
-        Time.timeScale = 1f;
-        if(GUI.instance != null)
+        float levelEXPNeeded = maxExperience * level;
+        experience += value;
+        if (experience >= levelEXPNeeded)
         {
-            GUI.instance.deathScreenUI.SetActive(false);
+            //isLeveling = true;
+            GUI.instance.LevelUP();
         }
-        isAlive = true;
-        canDash = true;
-        isDashing = false;
-        originalMaterial = sr.material;
-        GetComponent<BoxCollider2D>().enabled = true;
-        if(weapon != null)
-        {
-            Destroy(weapon.gameObject);
-        }
-        GameObject pistol = Instantiate(pistolPrefab, transform.position, Quaternion.identity);
-        pistol.GetComponent<SpriteRenderer>().enabled = true;
-        weapon = pistol.GetComponent<Weapon>();
-        weapon.transform.SetParent(aimArm.transform);
-        weapon.transform.localPosition = new Vector3(0, 0, 0);
-        weapon.GetComponent<BoxCollider2D>().enabled = false;
-        weapon.transform.eulerAngles = aimArm.transform.eulerAngles;
-        weapon.bulletDmg *= increasedDmg;
-        weapon.reloadSpeed *= reloadSpd;
+        
+        GUI.instance.UpdateXPBar();
+    }
 
-        float magazineSizeFloat = (float)weapon.magSize;
-        magazineSizeFloat *= ammoPercentage;
-        weapon.magSize = Mathf.RoundToInt(magazineSizeFloat);
-
+    public (float experience, float xpNeeded, float level) GetExperience()
+    {
+        float levelEXPNeeded = maxExperience * level;
+        return (experience, levelEXPNeeded, level);
     }
 }

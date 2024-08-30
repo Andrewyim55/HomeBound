@@ -50,11 +50,12 @@ public class GameLogic : MonoBehaviour
         {
             Destroy(Player.instance.gameObject);
         }
-        ChangeScene(1);
+        ChangeScene(2);
         GetComponent<EnemySpawner>().enabled = true;
         GetComponent<BreakablesSpawner>().enabled = true;
         GetComponent<DifficultyManager>().enabled = true;
         Time.timeScale = 1f;
+        GameTime = 0f;
     }
 
     public void MainMenu()

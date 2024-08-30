@@ -76,7 +76,8 @@ public class PauseScript : MonoBehaviour
     public void RestartGame()
     {
         print("Restart");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        isPaused = false;
+        //GameLogic.instance.ChangeScene(2);
         pauseMenuUI.SetActive(false);
         GameLogic.instance.NewGame();
     }

@@ -30,7 +30,6 @@ public class PowerUps : MonoBehaviour
         if (other.tag == "Player")
         {
             Player player = other.GetComponent<Player>();
-            XPNLevel xpSystem = FindObjectOfType<XPNLevel>();
             SoundManager.instance.PlaySfx(pickupClip, transform);
 
             switch (type)
@@ -58,7 +57,7 @@ public class PowerUps : MonoBehaviour
                     break;
 
                 case powerUp.exp:
-                    xpSystem.gainXP(expAmt);
+                    player.gainXP(expAmt);
                     break;
             }
             Destroy(gameObject);

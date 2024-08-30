@@ -6,6 +6,7 @@ using System.Linq;
 
 public class LevelUpPanel : MonoBehaviour
 {
+    public static LevelUpPanel instance;
     [Header("Level Up UI")]
     [SerializeField] public GameObject ButtonUI;
     [SerializeField] public Button[] itemButtons;
