@@ -17,7 +17,7 @@ public class BreakablesSpawner : MonoBehaviour
     [SerializeField] private int maxBreakables = 5;
     
 
-    private List<GameObject> breakablesInScene = new List<GameObject>();
+    public List<GameObject> breakablesInScene = new List<GameObject>();
     private bool isSpawning;
 
     // Start is called before the first frame update

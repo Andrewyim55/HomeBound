@@ -55,6 +55,7 @@ public class GameLogic : MonoBehaviour
         GetComponent<BreakablesSpawner>().enabled = true;
         GetComponent<DifficultyManager>().enabled = true;
         Time.timeScale = 1f;
+        GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
         GameTime = 0f;
     }
 
