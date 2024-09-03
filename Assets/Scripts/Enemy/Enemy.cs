@@ -212,6 +212,11 @@ public abstract class Enemy : MonoBehaviour
         {
             collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
         }
+        if (collision.gameObject.layer == 10)
+        {
+            isInWall = true;
+        }
+
     }
 
 #if UNITY_EDITOR
