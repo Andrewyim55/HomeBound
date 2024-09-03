@@ -200,7 +200,7 @@ public abstract class Enemy : MonoBehaviour
         {
             collision.gameObject.GetComponent<Player>().TakeDmg(dmg);
         }
-        else if(collision.gameObject.layer == 10)
+        if(collision.gameObject.layer == 10)
         {
             isInWall = true;
         }
