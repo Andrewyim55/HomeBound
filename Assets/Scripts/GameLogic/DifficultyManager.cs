@@ -17,9 +17,6 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] private float initialEliteChance = 5f;
     [SerializeField] private float maxEliteChance = 20f;
 
-    [Header("Game length")]
-    [SerializeField] private float gameDuration = 5f;
-
     private float elapsedTime = 0f;
     private float nextReductionTime = 0f;
 
@@ -34,7 +31,7 @@ public class DifficultyManager : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
 
-        float eliteIncreaseDuration = gameDuration*60;
+        float eliteIncreaseDuration = GameLogic.instance.gameTime * 60;
         float eliteChance = Mathf.Lerp(initialEliteChance, maxEliteChance, Mathf.Clamp01(elapsedTime / eliteIncreaseDuration));
 
         if (elapsedTime >= nextReductionTime)
@@ -45,12 +42,5 @@ public class DifficultyManager : MonoBehaviour
             enemySpawner.SetSpawnInterval(newSpawnInterval);
             nextReductionTime += spawnIntervalReductionRate;
         }
-
-
-        if (elapsedTime*60 >= gameDuration)
-        {
-            // boss fight transition
-        }
-
     }
 }

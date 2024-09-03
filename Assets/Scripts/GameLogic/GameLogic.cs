@@ -7,7 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameLogic : MonoBehaviour
 {
     public static GameLogic instance;
-    public float GameTime;
+    public float gameTime;
+    public float timeToBoss;
 
     private void Awake()
     {
@@ -56,7 +57,7 @@ public class GameLogic : MonoBehaviour
         GetComponent<DifficultyManager>().enabled = true;
         Time.timeScale = 1f;
         GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
-        GameTime = 0f;
+        gameTime = 0f;
     }
 
     public void MainMenu()
@@ -73,9 +74,21 @@ public class GameLogic : MonoBehaviour
         GetComponent<DifficultyManager>().enabled = false;
     }
 
+    // function will change to the boss scene
+    public void BossScene()
+    {
+        ChangeScene(3);
+    }
+
     private void Update()
     {
         // Increment the timeAlive by deltaTime each frame
-        GameTime += Time.deltaTime;
+        gameTime += Time.deltaTime;
+
+        if(gameTime >= timeToBoss)
+        {
+            BossScene();
+        }
+
     }
 }

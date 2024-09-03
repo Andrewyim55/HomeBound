@@ -149,6 +149,10 @@ public class Pathfinding : MonoBehaviour
         Node startNode = grid.GetGridObject(startX, startY);
         Node endNode = grid.GetGridObject(endX, endY);
 
+        if (startNode.nodeType == Node.NodeType.WALL || !IsNodeWalkable(startNode, enemyColliderRadius))
+        {
+            startNode = GetClosestWalkableNode(startNode, enemyColliderRadius);
+        }
         // If end node is a wall, find the closest walkable node
         if (endNode.nodeType == Node.NodeType.WALL || !IsNodeWalkable(endNode, enemyColliderRadius))
         {

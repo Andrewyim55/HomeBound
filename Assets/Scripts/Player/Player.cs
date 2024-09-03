@@ -523,15 +523,6 @@ public class Player : MonoBehaviour
         maxPickupSpeed = originalMaxPickupSpeed;
     }
 
-    public void PlayerDied()
-    {
-        // Stop the timer when the player dies
-        isAlive = false;
-       
-        // You can handle additional logic here, such as saving the time or displaying a "Game Over" screen
-        Debug.Log($"Player survived for {GameLogic.instance.GameTime} seconds.");
-    }
-
     public Weapon GetWeapon()
     {
         return weapon;

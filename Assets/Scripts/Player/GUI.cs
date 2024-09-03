@@ -52,6 +52,7 @@ public class GUI : MonoBehaviour
         {
             UpdateTimerUI();
             UpdateAmmoCount();
+            UpdatePlayerWeapon();
         }
     }
 
@@ -68,9 +69,9 @@ public class GUI : MonoBehaviour
     private void UpdateTimerUI()
     {
         // Update the timer UI (e.g., minutes:seconds:milliseconds format)
-        int minutes = Mathf.FloorToInt(GameLogic.instance.GameTime / 60);
-        int seconds = Mathf.FloorToInt(GameLogic.instance.GameTime % 60);
-        int milliseconds = Mathf.FloorToInt((GameLogic.instance.GameTime * 1000) % 1000);
+        int minutes = Mathf.FloorToInt(GameLogic.instance.gameTime / 60);
+        int seconds = Mathf.FloorToInt(GameLogic.instance.gameTime % 60);
+        int milliseconds = Mathf.FloorToInt((GameLogic.instance.gameTime * 1000) % 1000);
         if (timerText != null)
             timerText.text = $"{minutes:00}:{seconds:00}:{milliseconds:000}";
     }
