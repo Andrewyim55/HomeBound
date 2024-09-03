@@ -43,12 +43,8 @@ public class MeleeEnemy : Enemy
         float animWaitTime = 0.5f;
         animator.SetTrigger("isAttacking");
         yield return new WaitForSeconds(animWaitTime);
-        while (Time.time < chargeEndTime + animWaitTime)
+        while (Time.time < chargeEndTime + animWaitTime && !isInWall)
         {
-            if(isInWall)
-            {
-                rb.velocity = Vector3.zero;
-            }
             rb.velocity = chargeDirection * chargeSpeed;
             yield return null;
         }
