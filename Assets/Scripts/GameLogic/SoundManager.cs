@@ -11,7 +11,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("Sounds References")]
     [SerializeField] private AudioSource soundObj;
-    [SerializeField] AudioSource bgmSource;
+    [SerializeField] public AudioSource bgmSource;
     [SerializeField] AudioClip[] bgmClip;
     [SerializeField] private float bgmVol;
     [SerializeField] private float sfxVol;

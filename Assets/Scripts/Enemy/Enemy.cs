@@ -252,6 +252,7 @@ public abstract class Enemy : MonoBehaviour
             {
                 GUI.instance.winScreenUI.SetActive(true);
                 PauseScript.instance.SetPaused(true);
+                SoundManager.instance.bgmSource.Stop();
                 SoundManager.instance.PlaySfx(GameLogic.instance.victoryClip, transform);
             }
 
