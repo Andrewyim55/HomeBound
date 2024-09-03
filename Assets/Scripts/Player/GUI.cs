@@ -23,6 +23,9 @@ public class GUI : MonoBehaviour
     [SerializeField] public Animator skillCDAnimator;
     [SerializeField] public Image CooldownImage;
     [SerializeField] public GameObject winScreenUI;
+    [SerializeField] public GameObject bossHealthBarPanel;
+    [SerializeField] public Image bossHealthBarImage;
+    [SerializeField] public AudioClip levelUpClip;
 
     private void Awake()
     {
@@ -32,9 +35,7 @@ public class GUI : MonoBehaviour
         }
         else
         {
-
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
     }
 
@@ -48,11 +49,20 @@ public class GUI : MonoBehaviour
     private void Update()
     {
         UpdateHealthBar();
-        if (Player.instance.getStatus())
+        if (Player.instance != null)
         {
             UpdateTimerUI();
             UpdateAmmoCount();
             UpdatePlayerWeapon();
+        }
+
+        if(GameLogic.instance.isBossScene)
+        {
+            if(bossHealthBarPanel != null)
+            {
+                bossHealthBarPanel.SetActive(true);
+                UpdateBossHealthBar();
+            }
         }
     }
 
@@ -63,6 +73,20 @@ public class GUI : MonoBehaviour
             float fillAmount = Player.instance.GetHealth() / Player.instance.GetMaxHealth();
             healthBarImage.fillAmount = fillAmount;
             healthText.text = Player.instance.GetHealth() + "/" + Player.instance.GetMaxHealth();
+        }
+    }
+
+    public void UpdateBossHealthBar()
+    {
+        GameObject boss = GameObject.FindGameObjectWithTag("Boss");
+        if (boss != null)
+        {
+            float fillAmount = boss.GetComponent<ReaperBoss>().GetHealth() / boss.GetComponent<ReaperBoss>().GetMaxHealth();
+            bossHealthBarImage.fillAmount = fillAmount;
+        }
+        else
+        {
+            bossHealthBarPanel.SetActive(false);
         }
     }
 
@@ -87,12 +111,11 @@ public class GUI : MonoBehaviour
     public void LevelUP()
     {
         PauseScript.instance.SetPaused(true);
-        //SoundManager.instance.PlaySfx(LevelUpClip, transform);
+        SoundManager.instance.PlaySfx(levelUpClip, transform);
         StartCoroutine(LevelUpPanel.instance.UpdateLevelUpUI());
         (float experience, float xpNeeded, float level) = Player.instance.GetExperience();
         xpText.text = experience + " / " + xpNeeded;
         levelText.text = level.ToString();
-        PauseScript.instance.SetPaused(true);
     }
     public void UpdateXPBar()
     {
@@ -103,10 +126,7 @@ public class GUI : MonoBehaviour
         float fillAmount = currentXP / xpNeeded; // Calculate the fill amount as a fraction of current health over max health
         xpBarImage.fillAmount = fillAmount; // Set the fill amount of the health bar image
     }
-    public void updateDashAnimator()
-    {
-        Player.instance.skillCDAnimator = cooldownImage.GetComponent<Animator>();
-    }
+
     public void UpdateAmmoCount()
     {
         ammoCount.text = Player.instance.GetWeapon().magazineSize + "/" + Player.instance.GetWeapon().magSize;

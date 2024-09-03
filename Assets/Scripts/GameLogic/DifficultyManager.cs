@@ -43,4 +43,14 @@ public class DifficultyManager : MonoBehaviour
             nextReductionTime += spawnIntervalReductionRate;
         }
     }
+
+    public void Reset()
+    {
+        initialSpawnInterval = 2f;
+        minSpawnInterval = 0.2f;
+        spawnIntervalStep = 0.2f;
+        spawnIntervalReductionRate = 30;
+        initialEliteChance = 5f;
+        maxEliteChance = 20f;
+    }
 }

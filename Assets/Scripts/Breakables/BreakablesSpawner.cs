@@ -91,7 +91,6 @@ public class BreakablesSpawner : MonoBehaviour
 
     private Vector3 GetSpawnPosition()
     {
-        Debug.Log(Player.instance);
         float spawnDistance = Random.Range(spawnDistanceMin, spawnDistanceMax);
         float spawnAngle = Random.Range(0f, 360f);
         Vector3 spawnDirection = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0).normalized;

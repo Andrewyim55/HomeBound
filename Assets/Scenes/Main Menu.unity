@@ -1340,11 +1340,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameLogic
       objectReference: {fileID: 0}
-    - target: {fileID: 1816022342007569132, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1816022342007569133, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
         type: 3}
       propertyPath: m_RootOrder
@@ -1398,16 +1393,6 @@ PrefabInstance:
     - target: {fileID: 1816022342007569133, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1816022342007569134, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1816022342007569135, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
-        type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1870,12 +1855,6 @@ MonoBehaviour:
   m_InstancedGameObject: {fileID: 0}
   m_Flags: 3
   m_ColliderType: 1
---- !u!82 &885324647 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 855175705793838940, guid: 034acbe8e3f992245a39bdaaaf64ed5f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2099954748}
-  m_PrefabAsset: {fileID: 0}
 --- !u!213 &913957731
 Sprite:
   m_ObjectHideFlags: 0
@@ -2624,7 +2603,7 @@ PrefabInstance:
         type: 3}
       propertyPath: SFXSource
       value: 
-      objectReference: {fileID: 885324647}
+      objectReference: {fileID: 0}
     - target: {fileID: 8401738427026339815, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
         type: 3}
       propertyPath: m_Name

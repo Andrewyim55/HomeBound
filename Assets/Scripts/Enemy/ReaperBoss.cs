@@ -80,13 +80,17 @@ public class ReaperBoss : Enemy
     // Update is called once per frame
     protected override void Update()
     {
-        bossFlipSprite();
-        //if(!isAttacking)
-        //{
-        //    isAttacking = true;
-        //    StartCoroutine(AOEAttack());
-        //}
+        if (!target.GetComponent<Player>().GetAlive())
+        {
+            if (path != null)
+            {
+                path = null;
+                rb.velocity = Vector3.zero;
+            }
+            return;
+        }
 
+        bossFlipSprite();
 
         float distanceToPlayer = Vector2.Distance(transform.position, target.position);
         
@@ -207,7 +211,6 @@ public class ReaperBoss : Enemy
                 spawnNode = pathfinding.grid.GetGridObject(spawnPosition);
             }
             Instantiate(enemyToSpawn, spawnPosition, Quaternion.identity);
-            Debug.Log(enemyToSpawn.name);
         }
 
         animator.ResetTrigger("summon");

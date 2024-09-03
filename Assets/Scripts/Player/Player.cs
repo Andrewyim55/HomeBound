@@ -21,7 +21,6 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] protected GameObject damagePopUpPrefab;
     [SerializeField] protected GameObject pistolPrefab;
-    [SerializeField] public Animator skillCDAnimator;
 
 
     [Header("Attributes")]
@@ -81,7 +80,6 @@ public class Player : MonoBehaviour
         maxExperience = 100f;
         level = 1;
         GUI.instance.UpdateXPBar();
-        GUI.instance.updateDashAnimator();
         isAlive = true;
         canDash = true;
         isDashing = false;
@@ -115,6 +113,7 @@ public class Player : MonoBehaviour
         {
             if (weapon != null && !weapon.GetReloading() && !PauseScript.instance.GetPaused())
             {
+                gainXP(20);
                 weapon.Fire();
             }
         }
@@ -240,10 +239,10 @@ public class Player : MonoBehaviour
         animator.ResetTrigger("Dash"); 
         tr.emitting = false;
         isDashing = false;
-        skillCDAnimator.SetBool("isCoolDown", true);
+        GUI.instance.skillCDAnimator.SetBool("isCoolDown", true);
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
-        skillCDAnimator.SetBool("isCoolDown", false);
+        GUI.instance.skillCDAnimator.SetBool("isCoolDown", false);
     }
 
     private void pickUpWeapon()
@@ -538,7 +537,6 @@ public class Player : MonoBehaviour
             level += 1;
             isLeveling = true;
             GUI.instance.LevelUP();
-            
         }
         
         GUI.instance.UpdateXPBar();

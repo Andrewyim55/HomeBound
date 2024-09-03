@@ -11494,6 +11494,16 @@ PrefabInstance:
       propertyPath: skillCDAnimator
       value: 
       objectReference: {fileID: 1897310613}
+    - target: {fileID: 6914264941344219990, guid: 1c9cdd55a360c394a94c3e86917fa45f,
+        type: 3}
+      propertyPath: bossHealthBarImage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6914264941344219990, guid: 1c9cdd55a360c394a94c3e86917fa45f,
+        type: 3}
+      propertyPath: bossHealthBarPanel
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6914264941479213685, guid: 1c9cdd55a360c394a94c3e86917fa45f,
         type: 3}
       propertyPath: m_AnchorMax.x

@@ -274,4 +274,9 @@ public abstract class Enemy : MonoBehaviour
         DamagePopUp damagePopUp = damagePopUpTransform.GetComponent<DamagePopUp>();
         damagePopUp.SetValue(dmgAmount);
     }
+
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
 }

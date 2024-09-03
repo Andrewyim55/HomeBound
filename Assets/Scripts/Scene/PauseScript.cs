@@ -86,7 +86,6 @@ public class PauseScript : MonoBehaviour
     {
         print("Pause");
         pauseMenuUI.SetActive(true);
-        
         isPaused = true;
     }
     public void Settings()

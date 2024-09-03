@@ -10,8 +10,8 @@ public class GameLogic : MonoBehaviour
     public static GameLogic instance;
     public float gameTime;
     public float timeToBoss;
-
-    private bool isBossScene;
+    public bool isBossScene;
+    private bool isInGame;
 
     private void Awake()
     {
@@ -26,6 +26,7 @@ public class GameLogic : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
         isBossScene = false;
+        isInGame = false;
     }
 
     // 1 is main mene, 2 is sample scene, 3 is boss fight, 4 is tutorial
@@ -34,15 +35,19 @@ public class GameLogic : MonoBehaviour
         switch (sceneNum)
         {
             case 1:
+                SoundManager.instance.PlayBgm(0);
                 SceneManager.LoadScene("Main Menu");
                 break;
             case 2:
+                SoundManager.instance.PlayBgm(1);
                 SceneManager.LoadScene("SampleScene");
                 break;
             case 3:
+                SoundManager.instance.PlayBgm(2);
                 SceneManager.LoadScene("Boss Fight");
                 break;
             case 4:
+                SoundManager.instance.PlayBgm(0);
                 SceneManager.LoadScene("Tutorial");
                 break;
         }
@@ -59,10 +64,12 @@ public class GameLogic : MonoBehaviour
         GetComponent<EnemySpawner>().enabled = true;
         GetComponent<BreakablesSpawner>().enabled = true;
         GetComponent<DifficultyManager>().enabled = true;
+        GetComponent<DifficultyManager>().Reset();
         Time.timeScale = 1f;
         GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
         gameTime = 0f;
         isBossScene = false;
+        isInGame = true;
     }
 
     public void MainMenu()
@@ -78,17 +85,24 @@ public class GameLogic : MonoBehaviour
         GetComponent<BreakablesSpawner>().enabled = false;
         GetComponent<DifficultyManager>().enabled = false;
         isBossScene = false;
+        isInGame = false;
     }
 
     // function will change to the boss scene
     public void BossScene()
     {
+        GetComponent<EnemySpawner>().enabled = false;
+        GetComponent<DifficultyManager>().enabled = false;
+        GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
         ChangeScene(3);
     }
 
     private void Update()
     {
         // Increment the timeAlive by deltaTime each frame
+        if (!isInGame)
+            return;
+
         gameTime += Time.deltaTime;
 
         if (gameTime >= timeToBoss && !isBossScene)
