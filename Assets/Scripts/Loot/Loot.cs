@@ -57,11 +57,6 @@ public class Loot : MonoBehaviour
         if (items.Length > 0)
         {
             int randomIndex = Random.Range(0, items.Length);
-
-            while (items[randomIndex].GetComponent<Weapon>() == Player.instance.GetWeapon())
-            {
-                randomIndex = Random.Range(0, items.Length);
-            }
             GameObject droppedItem = Instantiate(items[randomIndex], transform.position, Quaternion.identity);
         }
     }
