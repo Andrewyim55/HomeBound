@@ -30581,11 +30581,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameLogic
       objectReference: {fileID: 0}
-    - target: {fileID: 1816022342007569132, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
-        type: 3}
-      propertyPath: pathFinding
-      value: 
-      objectReference: {fileID: 231699193}
     - target: {fileID: 1816022342007569133, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
         type: 3}
       propertyPath: m_RootOrder
@@ -30640,26 +30635,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1816022342007569135, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
-        type: 3}
-      propertyPath: pathFinding
-      value: 
-      objectReference: {fileID: 231699193}
-    - target: {fileID: 7440107141890411306, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
-        type: 3}
-      propertyPath: settingsUI
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7440107141890411306, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
-        type: 3}
-      propertyPath: timeToBoss
-      value: 300
-      objectReference: {fileID: 0}
-    - target: {fileID: 7440107141890411306, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
-        type: 3}
-      propertyPath: pauseMenuUI
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 546b67cd11c76fa4bb0d683dc893a8a3, type: 3}

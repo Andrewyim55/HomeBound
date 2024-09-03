@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b629c4412ad5342971dea3bb13bf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameTime: 0
+  timeToBoss: 300
 --- !u!114 &1816022342007569132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,7 +60,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c4bfe2c25c8c045a6d6e0e6b60729e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathFinding: {fileID: 0}
   enemyPrefab:
   - {fileID: 4060631292738436701, guid: 214961e346c18cc4d97b9e646cde615d, type: 3}
   - {fileID: 5166914298691396457, guid: 4075a87906154f841b8f093258c04440, type: 3}
@@ -79,7 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ad1b5275db939342b469bbb4eb3a194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathFinding: {fileID: 0}
   breakablePrefab: {fileID: 2388162441153644792, guid: 6ccaded6ed5c7d542aeb160629d92b4c,
     type: 3}
   spawnIntervalMin: 10
@@ -89,6 +89,7 @@ MonoBehaviour:
   minSpawnDistance: 2
   spawnAttempts: 10
   maxBreakables: 5
+  breakablesInScene: []
 --- !u!114 &1816022342007569134
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,4 +109,3 @@ MonoBehaviour:
   spawnIntervalReductionRate: 30
   initialEliteChance: 5
   maxEliteChance: 25
-  gameDuration: 5

@@ -87,6 +87,7 @@ public class GameLogic : MonoBehaviour
 
         if(gameTime >= timeToBoss)
         {
+            Debug.Log("BOss");
             BossScene();
         }
 
