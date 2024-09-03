@@ -248,6 +248,11 @@ public abstract class Enemy : MonoBehaviour
                 loot.DropLoot();
             }
 
+            if(tag == "Boss")
+            {
+                GUI.instance.winScreenUI.SetActive(true);
+            }
+
             isAlive = false;
             animator.SetTrigger("Death");
             GetComponent<Collider2D>().enabled = false;
