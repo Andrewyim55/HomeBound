@@ -453,6 +453,7 @@ public class Player : MonoBehaviour
                 ammoPercentage += value;
             }
         }
+        isLeveling = false;
     }
     public bool GetAlive()
     {
