@@ -90,10 +90,10 @@ public class GameLogic : MonoBehaviour
     {
         // Increment the timeAlive by deltaTime each frame
         gameTime += Time.deltaTime;
-        isBossScene = true;
 
         if (gameTime >= timeToBoss && !isBossScene)
         {
+            isBossScene = true;
             BossScene();
         }
     }
