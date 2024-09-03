@@ -30653,6 +30653,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7440107141890411306, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
         type: 3}
+      propertyPath: timeToBoss
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440107141890411306, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
+        type: 3}
       propertyPath: pauseMenuUI
       value: 
       objectReference: {fileID: 0}
