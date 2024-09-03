@@ -16,11 +16,13 @@ public class EnemySpawner : MonoBehaviour
     private int totalWeight;
     private float eliteChance;
     private int eliteTotalWeight;
+    private float timer;
 
     // Start is called before the first frame update
     void Start()
     {
         totalWeight = 0;
+        timer = 0;
         // Get the total weightage for the enemy spawning
         for (int i = 0; i < enemyPrefab.Count; i++)
         {
@@ -31,17 +33,15 @@ public class EnemySpawner : MonoBehaviour
         {
             eliteTotalWeight += elitePrefab[i].GetComponent<Enemy>().GetSpawnWeight();
         }
-
-        StartCoroutine(SpawnEnemyRoutine());
     }
 
-    // Coroutine for spawning enemies at intervals
-    private IEnumerator SpawnEnemyRoutine()
+    private void Update()
     {
-        while (true)
+        timer += Time.deltaTime;
+        if(timer > spawnInterval)
         {
             SpawnEnemy();
-            yield return new WaitForSeconds(spawnInterval);
+            timer = 0;
         }
     }
 
