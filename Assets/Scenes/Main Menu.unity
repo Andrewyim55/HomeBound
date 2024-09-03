@@ -1400,6 +1400,11 @@ PrefabInstance:
       propertyPath: timeToBoss
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 7440107141890411306, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
+        type: 3}
+      propertyPath: victoryClip
+      value: 
+      objectReference: {fileID: 8300000, guid: f9678715b1e66b84c8045b8fbc5ed0be, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 546b67cd11c76fa4bb0d683dc893a8a3, type: 3}
 --- !u!1 &511347292

@@ -46,8 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16b629c4412ad5342971dea3bb13bf63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  victoryClip: {fileID: 8300000, guid: f9678715b1e66b84c8045b8fbc5ed0be, type: 3}
   gameTime: 0
-  timeToBoss: 300
+  timeToBoss: 100
   isBossScene: 0
 --- !u!114 &1816022342007569132
 MonoBehaviour:
