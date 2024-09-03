@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameLogic : MonoBehaviour
 {
+    [SerializeField] public AudioClip victoryClip;
     public static GameLogic instance;
     public float gameTime;
     public float timeToBoss;
