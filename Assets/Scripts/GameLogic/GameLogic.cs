@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -9,6 +10,8 @@ public class GameLogic : MonoBehaviour
     public static GameLogic instance;
     public float gameTime;
     public float timeToBoss;
+
+    private bool isBossScene;
 
     private void Awake()
     {
@@ -22,6 +25,7 @@ public class GameLogic : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+        isBossScene = false;
     }
 
     // 1 is main mene, 2 is sample scene, 3 is boss fight, 4 is tutorial
@@ -58,6 +62,7 @@ public class GameLogic : MonoBehaviour
         Time.timeScale = 1f;
         GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
         gameTime = 0f;
+        isBossScene = false;
     }
 
     public void MainMenu()
@@ -72,6 +77,7 @@ public class GameLogic : MonoBehaviour
         GetComponent<EnemySpawner>().enabled = false;
         GetComponent<BreakablesSpawner>().enabled = false;
         GetComponent<DifficultyManager>().enabled = false;
+        isBossScene = false;
     }
 
     // function will change to the boss scene
@@ -84,12 +90,11 @@ public class GameLogic : MonoBehaviour
     {
         // Increment the timeAlive by deltaTime each frame
         gameTime += Time.deltaTime;
+        isBossScene = true;
 
-        if(gameTime >= timeToBoss)
+        if (gameTime >= timeToBoss && !isBossScene)
         {
-            Debug.Log("BOss");
             BossScene();
         }
-
     }
 }
