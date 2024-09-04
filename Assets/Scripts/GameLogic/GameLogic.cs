@@ -104,7 +104,13 @@ public class GameLogic : MonoBehaviour
         if (!isInGame)
             return;
 
-        gameTime += Time.deltaTime;
+        if(Player.instance != null)
+        {
+            if(Player.instance.getStatus())
+            {
+                gameTime += Time.deltaTime;
+            }
+        }
 
         if (gameTime >= timeToBoss && !isBossScene)
         {
