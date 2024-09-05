@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,6 +56,7 @@ public class Player : MonoBehaviour
     private float dashReduce;
     // store the weapon that the player is able to pick up
     public Weapon nearbyWeapon;
+    private bool onExit;
 
     private void Awake()
     {
@@ -72,6 +74,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        onExit = false;
         dashReduce = 1f;
         reloadSpd = 1f;
         increasedDmg = 1f;
@@ -137,7 +140,11 @@ public class Player : MonoBehaviour
         {
             StartCoroutine(Dash());
         }
-        if(Input.GetButtonDown("Pickup"))
+        if(Input.GetButtonDown("Pickup") && onExit)
+        {
+            GameLogic.instance.MainMenu();
+        }
+        else if(Input.GetButtonDown("Pickup"))
         {
             pickUpWeapon();
         }
@@ -347,6 +354,10 @@ public class Player : MonoBehaviour
         {
             nearbyWeapon = collidedWeapon;
         }
+        if(collision.gameObject.layer == 17)
+        {
+            onExit = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -355,6 +366,10 @@ public class Player : MonoBehaviour
         if (collidedWeapon == nearbyWeapon)
         {
             nearbyWeapon = null;  // Clear the nearby weapon reference when leaving the collider
+        }
+        if (collision.gameObject.layer == 17)
+        {
+            onExit = false;
         }
     }
 
