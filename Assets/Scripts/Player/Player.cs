@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     [SerializeField] private AudioClip walkClip;
     [SerializeField] private AudioClip pickUpClip;
     [SerializeField] private AudioClip bossDeathClip;
+    [SerializeField] private AudioClip deathSound;
     [SerializeField] private AudioSource walkAudioSource;
     [SerializeField] protected GameObject damagePopUpPrefab;
     [SerializeField] protected GameObject pistolPrefab;
@@ -295,11 +296,13 @@ public class Player : MonoBehaviour
         Time.timeScale = 0f;
         isAlive = false;
         animator.SetTrigger("Death");
-         if(GameObject.FindObjectOfType<ReaperBoss>() !=null)
-         {
-            SoundManager.instance.PlaySfx(bossDeathClip, transform);
-            Debug.Log("Boss sound");
-         }
+        SoundManager.instance.PlaySfx(deathSound, transform);
+        SoundManager.instance.bgmSource.Stop();
+        if(GameObject.FindObjectOfType<ReaperBoss>() !=null)
+        {
+           SoundManager.instance.PlaySfx(bossDeathClip, transform);
+           Debug.Log("Boss sound");
+        }
         if(weapon != null)
         {
             Destroy(weapon.gameObject);

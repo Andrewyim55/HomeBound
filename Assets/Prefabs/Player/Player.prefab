@@ -62,6 +62,7 @@ MonoBehaviour:
   walkClip: {fileID: 8300000, guid: a7fb1ee7191d09749b98a3ecf8d461b5, type: 3}
   pickUpClip: {fileID: 8300000, guid: 9b992ca7405dec6499aab5e9e1f9bc69, type: 3}
   bossDeathClip: {fileID: 8300000, guid: 54460879b92e52b46866b6425511c0e2, type: 3}
+  deathSound: {fileID: 8300000, guid: 66207a93ec6631349b483a46fd18bc4d, type: 3}
   walkAudioSource: {fileID: 231996369}
   damagePopUpPrefab: {fileID: 0}
   pistolPrefab: {fileID: 8351643915669449116, guid: 9c2e0256286573e47ba269b80b49ea35,
