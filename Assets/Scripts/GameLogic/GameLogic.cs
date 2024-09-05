@@ -81,7 +81,7 @@ public class GameLogic : MonoBehaviour
         {
             Destroy(Player.instance.gameObject);
         }
-        ChangeScene(2);
+        ChangeScene(1);
         GetComponent<EnemySpawner>().enabled = false;
         GetComponent<BreakablesSpawner>().enabled = false;
         GetComponent<DifficultyManager>().enabled = false;
