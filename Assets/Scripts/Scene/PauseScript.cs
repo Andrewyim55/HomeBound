@@ -68,14 +68,14 @@ public class PauseScript : MonoBehaviour
 
     public void Resume()
     {
-        print("Resume");
+        SoundManager.instance.playButtonSound();
         pauseMenuUI.SetActive(false);
         isPaused = false;
     }
 
     public void RestartGame()
     {
-        print("Restart");
+        SoundManager.instance.playButtonSound();
         isPaused = false;
         //GameLogic.instance.ChangeScene(2);
         pauseMenuUI.SetActive(false);
@@ -84,7 +84,8 @@ public class PauseScript : MonoBehaviour
 
     public void Pause()
     {
-        print("Pause");
+        SoundManager.instance.playButtonSound();
+
         pauseMenuUI.SetActive(true);
         isPaused = true;
     }

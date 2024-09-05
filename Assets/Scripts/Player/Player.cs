@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
         {
             if (weapon != null && !weapon.GetReloading() && !PauseScript.instance.GetPaused())
             {
-                gainXP(20);
+                //gainXP(20);
                 weapon.Fire();
             }
         }

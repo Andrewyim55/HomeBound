@@ -77,6 +77,7 @@ public class LevelUpPanel : MonoBehaviour
 
     void OnItemButtonClick(string Name, float Value)
     {
+        SoundManager.instance.playButtonSound();
         Player.instance.levelUp(Name, Value);
     }
 }

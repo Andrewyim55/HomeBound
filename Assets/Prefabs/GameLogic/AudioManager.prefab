@@ -180,3 +180,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 394e542c8df7b4543881ee1ef6088acb, type: 3}
   bgmVol: 0.15
   sfxVol: 0.15
+  buttonClick: {fileID: 8300000, guid: b039f12888816ca4796b6832fe1fbb0e, type: 3}

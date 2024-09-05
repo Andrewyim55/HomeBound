@@ -10,15 +10,18 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject settingsUI;
     public void PlayGame()
     {
+        SoundManager.instance.playButtonSound();
         GameLogic.instance.NewGame();
     }
     public void Settings()
     {
+        SoundManager.instance.playButtonSound();
         MainUI.SetActive(false);
         settingsUI.SetActive(true);
     }
     public void Tutorial()
     {
+        SoundManager.instance.playButtonSound();
         GameLogic.instance.ChangeScene(4);
     }
 }

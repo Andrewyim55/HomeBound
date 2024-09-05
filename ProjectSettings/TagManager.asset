@@ -10,6 +10,7 @@ TagManager:
   - Exp
   - GUI
   - Boss
+  - SpawnPoint
   layers:
   - Default
   - TransparentFX

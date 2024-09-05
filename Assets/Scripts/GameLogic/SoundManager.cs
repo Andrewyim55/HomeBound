@@ -15,6 +15,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] AudioClip[] bgmClip;
     [SerializeField] private float bgmVol;
     [SerializeField] private float sfxVol;
+    [SerializeField] private AudioClip buttonClick;
 
     // Start is called before the first frame update
     void Awake()
@@ -48,6 +49,11 @@ public class SoundManager : MonoBehaviour
         audioSource.Play();
         float clipLength = audioSource.clip.length;
         Destroy(audioSource.gameObject, clipLength);
+    }
+
+    public void playButtonSound()
+    {
+        PlaySfx(buttonClick, transform);
     }
 
     public float GetBGMVol()

@@ -34,6 +34,7 @@ public class SettingScript : MonoBehaviour
 
     public void CloseSettings()
     {
+        SoundManager.instance.playButtonSound();
         MainUI.SetActive(true);
         settingsUI.SetActive(false);
 

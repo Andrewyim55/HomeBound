@@ -96,6 +96,7 @@ public class GameLogic : MonoBehaviour
         GetComponent<DifficultyManager>().enabled = false;
         GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
         ChangeScene(3);
+        Player.instance.transform.position = GameObject.FindGameObjectWithTag("SpawnPoint").transform.position;
     }
 
     private void Update()
