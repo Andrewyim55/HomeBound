@@ -24,6 +24,6 @@ public class EndScreen : MonoBehaviour
     public void QuitGame()
     {
         panel.SetActive(false);
-        GameLogic.instance.ChangeScene(1);
+        GameLogic.instance.MainMenu();
     }
 }
