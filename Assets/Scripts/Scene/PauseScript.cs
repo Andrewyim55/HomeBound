@@ -103,6 +103,7 @@ public class PauseScript : MonoBehaviour
     public void QuitGame()
     {
         pauseMenuUI.SetActive(false);
+        print("quit");
         GameLogic.instance.ChangeScene(1);
     }
     public void SetPaused(bool pause)
