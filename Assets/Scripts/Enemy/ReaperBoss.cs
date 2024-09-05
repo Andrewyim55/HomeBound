@@ -80,6 +80,8 @@ public class ReaperBoss : Enemy
     // Update is called once per frame
     protected override void Update()
     {
+        if (target == null)
+            return;
         if (!target.GetComponent<Player>().GetAlive())
         {
             if (path != null)

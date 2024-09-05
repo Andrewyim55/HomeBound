@@ -31,6 +31,9 @@ public class RangedEnemy : Enemy
 
     protected override void Update()
     {
+        if (target == null)
+            return;
+
         base.Update();
         flipSprite();
     }

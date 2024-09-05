@@ -77,7 +77,6 @@ public class PauseScript : MonoBehaviour
     {
         SoundManager.instance.playButtonSound();
         isPaused = false;
-        //GameLogic.instance.ChangeScene(2);
         pauseMenuUI.SetActive(false);
         GameLogic.instance.NewGame();
     }
@@ -97,14 +96,15 @@ public class PauseScript : MonoBehaviour
     }
     public void outOfSettings()
     {
+        SoundManager.instance.playButtonSound();
         isSettings = false;
     }
 
     public void QuitGame()
     {
+        SoundManager.instance.playButtonSound();
         pauseMenuUI.SetActive(false);
-        print("quit");
-        GameLogic.instance.ChangeScene(1);
+        GameLogic.instance.MainMenu();
     }
     public void SetPaused(bool pause)
     {

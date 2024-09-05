@@ -69,6 +69,9 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
+        if(target == null)
+            return;
+
         if (!target.GetComponent<Player>().GetAlive() || !isAlive)
         {
             if (path != null)

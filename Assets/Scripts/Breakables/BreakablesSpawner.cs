@@ -19,35 +19,33 @@ public class BreakablesSpawner : MonoBehaviour
 
     public List<GameObject> breakablesInScene = new List<GameObject>();
     private bool isSpawning;
+    private float randomInterval;
+    private float spawningTime;
 
     // Start is called before the first frame update
     void Start()
     {
         isSpawning = false;
+        randomInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
     }
 
     private void Update()
     {
-        if(!isSpawning)
-        {
-            isSpawning = true;
-            StartCoroutine(SpawnBreakableRoutine());
-        }
-    }
+        if (Player.instance == null)
+            return;
 
-    private IEnumerator SpawnBreakableRoutine()
-    {
-        while (true)
+        spawningTime += Time.deltaTime;
+        Debug.Log(randomInterval + "|||" + spawningTime);
+        if(spawningTime >= randomInterval)
         {
-            // only spawn breakables if not at max amount
             if (breakablesInScene.Count < maxBreakables)
             {
                 SpawnBreakable();
+                spawningTime = 0;
+                randomInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
             }
-            // wait for random interval before spawning next breakable
-            float randomInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
-            yield return new WaitForSeconds(randomInterval);
         }
+
     }
 
     // spawn breakable at random position around the player

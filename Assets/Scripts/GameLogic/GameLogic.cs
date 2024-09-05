@@ -37,7 +37,6 @@ public class GameLogic : MonoBehaviour
         switch (sceneNum)
         {
             case 1:
-                print("mainmenu");
                 anim.SetTrigger("Start");
                 GetComponent<EnemySpawner>().enabled = false;
                 GetComponent<BreakablesSpawner>().enabled = false;

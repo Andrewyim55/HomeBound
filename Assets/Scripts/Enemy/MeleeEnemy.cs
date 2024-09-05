@@ -22,6 +22,9 @@ public class MeleeEnemy : Enemy
 
     protected override void Update()
     {
+        if (target == null)
+            return;
+
         base.Update();
         flipSprite();
     }
