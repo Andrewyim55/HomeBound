@@ -22,6 +22,6 @@ public class MainMenu : MonoBehaviour
     public void Tutorial()
     {
         SoundManager.instance.playButtonSound();
-        GameLogic.instance.ChangeScene(4);
+        GameLogic.instance.TutorialScene();
     }
 }

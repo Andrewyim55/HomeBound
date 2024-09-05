@@ -47,7 +47,12 @@ public class GameLogic : MonoBehaviour
                 yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Main Menu");
                 SoundManager.instance.PlayBgm(0);
+                if (Player.instance != null)
+                {
+                    Destroy(Player.instance.gameObject);
+                }
                 anim.SetTrigger("End");
+
                 break;
             case 2:
                 anim.SetTrigger("Start");
@@ -82,6 +87,7 @@ public class GameLogic : MonoBehaviour
                 Player.instance.transform.position = new UnityEngine.Vector3(3.8f, -3f, 0);
                 break;
             case 4:
+                Debug.Log("TUT");
                 anim.SetTrigger("Start");
                 yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Tutorial");
@@ -98,10 +104,6 @@ public class GameLogic : MonoBehaviour
 
     public void MainMenu()
     {
-        if (Player.instance != null)
-        {
-            Destroy(Player.instance.gameObject);
-        }
         StartCoroutine(ChangeScene(1));
     }
 
@@ -109,6 +111,11 @@ public class GameLogic : MonoBehaviour
     public void BossScene()
     {
         StartCoroutine(ChangeScene(3));
+    }
+    
+    public void TutorialScene()
+    {
+        StartCoroutine(ChangeScene(4));
     }
 
     private void Update()
