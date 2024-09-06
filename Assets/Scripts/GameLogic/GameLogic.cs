@@ -84,12 +84,13 @@ public class GameLogic : MonoBehaviour
                 GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
                 yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Boss Fight");
+                yield return new WaitForSecondsRealtime(1f);
+                Player.instance.transform.position = new UnityEngine.Vector3(3.8f, -3f, 0);
                 SetPaused(true);
                 SoundManager.instance.PlayBgm(2);
                 anim.SetTrigger("End");
-                yield return new WaitForSecondsRealtime(1f);
+                yield return new WaitForSecondsRealtime(3f);
                 SetPaused(false);
-                Player.instance.transform.position = new UnityEngine.Vector3(3.8f, -3f, 0);
                 break;
             case 4:
                 Debug.Log("TUT");

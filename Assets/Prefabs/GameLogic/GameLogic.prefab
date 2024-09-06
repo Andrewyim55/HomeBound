@@ -165,6 +165,7 @@ MonoBehaviour:
   gameTime: 0
   timeToBoss: 210
   isBossScene: 0
+  isSettings: 0
 --- !u!114 &1816022342007569132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +206,7 @@ MonoBehaviour:
   spawnDistanceMax: 10
   minSpawnDistance: 2
   spawnAttempts: 10
-  maxBreakables: 5
+  maxBreakables: 10
   breakablesInScene: []
 --- !u!114 &1816022342007569134
 MonoBehaviour:
