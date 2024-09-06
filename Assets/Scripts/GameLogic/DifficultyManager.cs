@@ -46,14 +46,17 @@ public class DifficultyManager : MonoBehaviour
 
     public void Reset()
     {
-        elapsedTime = 0f;
-        spawnIntervalReductionRate = 30;
-        nextReductionTime = spawnIntervalReductionRate;
         initialSpawnInterval = 2f;
         minSpawnInterval = 0.2f;
         spawnIntervalStep = 0.2f;
+        spawnIntervalReductionRate = 30;
         initialEliteChance = 5f;
         maxEliteChance = 20f;
+        elapsedTime = 0f;
+        nextReductionTime = 0f;
+        enemySpawner.SetSpawnInterval(initialSpawnInterval);
+        enemySpawner.SetEliteChance(initialEliteChance);
+        nextReductionTime = spawnIntervalReductionRate;
         enemySpawner.Reset();
     }
 }
