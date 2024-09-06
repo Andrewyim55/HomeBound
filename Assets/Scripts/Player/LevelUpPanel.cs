@@ -23,7 +23,6 @@ public class LevelUpPanel : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Optional: Keeps this instance alive across scenes
         }
         else if (instance != this)
         {

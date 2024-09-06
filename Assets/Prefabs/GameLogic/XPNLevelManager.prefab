@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7798124905749553651}
-  - component: {fileID: 7798124905749553650}
   m_Layer: 5
   m_Name: XPNLevelManager
   m_TagString: Untagged
@@ -41,25 +40,6 @@ RectTransform:
   m_AnchoredPosition: {x: 460, y: 410.8}
   m_SizeDelta: {x: 330, y: 50}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &7798124905749553650
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7798124905749553652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb86d0dd959a4e94e8b4204c93051653, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  XPText: {fileID: 7798124906776350897}
-  LevelText: {fileID: 7798124906321247076}
-  xpBarImage: {fileID: 7798124906049093657}
-  LevelUpScreen: {fileID: 0}
-  ButtonUI: {fileID: 0}
-  TextUI: {fileID: 0}
-  LevelUpClip: {fileID: 8300000, guid: 017e9367870fda84eb287d1746e2ee5e, type: 3}
 --- !u!1 &7798124906049093659
 GameObject:
   m_ObjectHideFlags: 0

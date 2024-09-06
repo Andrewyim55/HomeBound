@@ -18,14 +18,12 @@ public class BreakablesSpawner : MonoBehaviour
     
 
     public List<GameObject> breakablesInScene = new List<GameObject>();
-    private bool isSpawning;
     private float randomInterval;
     private float spawningTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        isSpawning = false;
         randomInterval = Random.Range(spawnIntervalMin, spawnIntervalMax);
     }
 
@@ -35,7 +33,6 @@ public class BreakablesSpawner : MonoBehaviour
             return;
 
         spawningTime += Time.deltaTime;
-        Debug.Log(randomInterval + "|||" + spawningTime);
         if(spawningTime >= randomInterval)
         {
             if (breakablesInScene.Count < maxBreakables)
