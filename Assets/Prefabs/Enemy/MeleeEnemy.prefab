@@ -230,7 +230,7 @@ MonoBehaviour:
   healthBar: {fileID: 486081282472838272}
   damagePopUpPrefab: {fileID: 1305485594197436244, guid: c730fd3f7896f6a4f9549c12feb48c07,
     type: 3}
-  health: 10
+  health: 12
   dmg: 5
   attackRange: 1.5
   moveSpeed: 1.5

@@ -262,7 +262,7 @@ MonoBehaviour:
   reloadingClip: {fileID: 8300000, guid: 78b59e5cf6a5ebf4bb57f0364738ea5f, type: 3}
   audioSource: {fileID: 1201892983}
   fireForce: 10
-  bulletDmg: 1
+  bulletDmg: 2
   magazineSize: 60
   reloadSpeed: 2
   fireRate: 10

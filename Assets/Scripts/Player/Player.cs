@@ -57,6 +57,7 @@ public class Player : MonoBehaviour
     // store the weapon that the player is able to pick up
     public Weapon nearbyWeapon;
     private bool onExit;
+    private float originalSpeed;
 
     private void Awake()
     {
@@ -91,6 +92,7 @@ public class Player : MonoBehaviour
         walkAudioSource.clip = walkClip;
         walkAudioSource.loop = false;
         walkAudioSource.volume = SoundManager.instance.GetSFXVol();
+        originalSpeed = moveSpeed;
 
     }
     private void Update()
@@ -399,6 +401,7 @@ public class Player : MonoBehaviour
         if (type == "Speed")
         {
             PauseScript.instance.SetPaused(false);
+            originalSpeed += value;
             moveSpeed += value;
             GUI.instance.LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
@@ -513,7 +516,6 @@ public class Player : MonoBehaviour
 
     private IEnumerator SpeedBoostCoroutine(float multiplier, float duration)
     {
-        float originalSpeed = moveSpeed;
         moveSpeed *= multiplier;
         yield return new WaitForSeconds(duration);
         moveSpeed = originalSpeed;

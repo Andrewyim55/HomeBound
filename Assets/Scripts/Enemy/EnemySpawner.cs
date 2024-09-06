@@ -133,4 +133,9 @@ public class EnemySpawner : MonoBehaviour
     {
         eliteChance = newChance;
     }
+
+    public void Reset()
+    {
+        timer = 0;
+    }
 }

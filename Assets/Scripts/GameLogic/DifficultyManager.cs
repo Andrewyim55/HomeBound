@@ -54,5 +54,6 @@ public class DifficultyManager : MonoBehaviour
         spawnIntervalStep = 0.2f;
         initialEliteChance = 5f;
         maxEliteChance = 20f;
+        enemySpawner.Reset();
     }
 }
