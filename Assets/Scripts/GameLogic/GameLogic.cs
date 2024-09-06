@@ -68,6 +68,7 @@ public class GameLogic : MonoBehaviour
                 GetComponent<BreakablesSpawner>().enabled = true;
                 GetComponent<DifficultyManager>().enabled = true;
                 GetComponent<DifficultyManager>().Reset();
+                yield return new WaitForSecondsRealtime(1);
                 Time.timeScale = 1f;
                 GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
                 gameTime = 0f;
@@ -84,6 +85,8 @@ public class GameLogic : MonoBehaviour
                 SoundManager.instance.PlayBgm(2);
                 anim.SetTrigger("End");
                 Player.instance.transform.position = new UnityEngine.Vector3(3.8f, -3f, 0);
+                yield return new WaitForSecondsRealtime(2);
+                Time.timeScale = 1f;
                 break;
             case 4:
                 Debug.Log("TUT");
@@ -91,6 +94,8 @@ public class GameLogic : MonoBehaviour
                 yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Tutorial");
                 SoundManager.instance.PlayBgm(0);
+                yield return new WaitForSecondsRealtime(1);
+                Time.timeScale = 1f;
                 anim.SetTrigger("End");
                 break;
         }
