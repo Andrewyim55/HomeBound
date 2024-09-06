@@ -308,7 +308,7 @@ public class ReaperBoss : Enemy
         isAttacking = true;
         SoundManager.instance.PlaySfx(explosionClip, transform);
         animator.SetTrigger("special");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
         explostionEffect.GetComponent<Animator>().SetTrigger("explosion");
         yield return new WaitForSeconds(explostionEffect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length / 3);
         explostionEffect.GetComponent<Collider2D>().enabled = true;
