@@ -62,10 +62,13 @@ public class ReaperBoss : Enemy
     private Transform bossTransform;
     private float superChargeCounter;
     private bool superCharge;
+    private bool isSpawning;
 
     // Start is called before the first frame update
     protected override void Start()
     {
+        StartCoroutine(SpawnAnimation());
+        isSpawning = true;
         superCharge = false;
         superChargeCounter = attacksTillSuperCharge;
         explostionEffect.GetComponent<Explosion>().SetExplosionDmg(explostionDmg);
@@ -80,7 +83,7 @@ public class ReaperBoss : Enemy
     // Update is called once per frame
     protected override void Update()
     {
-        if (target == null)
+        if (target == null || isSpawning)
             return;
         if (!target.GetComponent<Player>().GetAlive())
         {
@@ -353,6 +356,15 @@ public class ReaperBoss : Enemy
         yield return new WaitForSeconds(attackCoolDown);
         isAttacking = false;
     }
+
+    private IEnumerator SpawnAnimation()
+    {
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        animator.SetTrigger("spawn");
+        yield return new WaitForSeconds(2f);
+        isSpawning = false;
+    }
+
     protected void bossFlipSprite()
     {
         // Rotation of weapon

@@ -57,7 +57,7 @@ public class GameLogic : MonoBehaviour
                 break;
             case 2:
                 anim.SetTrigger("Start");
-                yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
+                yield return new WaitForSecondsRealtime(1f);
                 SceneManager.LoadSceneAsync("SampleScene");
                 SoundManager.instance.PlayBgm(1);
                 if (Player.instance != null)
@@ -66,7 +66,7 @@ public class GameLogic : MonoBehaviour
                 }
                 SetPaused(true);
                 anim.SetTrigger("End");
-                yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
+                yield return new WaitForSecondsRealtime(1f);
                 SetPaused(false);
                 GetComponent<EnemySpawner>().enabled = true;
                 GetComponent<BreakablesSpawner>().enabled = true;
@@ -79,28 +79,22 @@ public class GameLogic : MonoBehaviour
                 break;
             case 3:
                 anim.SetTrigger("Start");
+                yield return new WaitForSecondsRealtime(1f);
                 GetComponent<EnemySpawner>().enabled = false;
                 GetComponent<DifficultyManager>().enabled = false;
-                GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
-                yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Boss Fight");
-                yield return new WaitForSecondsRealtime(1f);
-                Player.instance.transform.position = new UnityEngine.Vector3(3.8f, -3f, 0);
-                SetPaused(true);
                 SoundManager.instance.PlayBgm(2);
+                GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
+                Player.instance.transform.position = new UnityEngine.Vector3(3.8f, -2.5f, 0);
+                GameObject.FindGameObjectWithTag("MainCamera").transform.position = new UnityEngine.Vector3(3.8f, -2.5f, -2);
                 anim.SetTrigger("End");
-                yield return new WaitForSecondsRealtime(3f);
-                SetPaused(false);
+                yield return new WaitForSecondsRealtime(1f);
                 break;
             case 4:
                 Debug.Log("TUT");
                 anim.SetTrigger("Start");
                 yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Tutorial");
-                SoundManager.instance.PlayBgm(0);
-                GameLogic.instance.SetPaused(true);
-                yield return new WaitForSecondsRealtime(2f);
-                GameLogic.instance.SetPaused(false);
                 anim.SetTrigger("End");
                 break;
         }

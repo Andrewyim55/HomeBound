@@ -17,6 +17,7 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         target = Player.instance.gameObject.transform;
+        transform.position = target.position;
     }
 
     // Update is called once per frame
