@@ -240,6 +240,8 @@ public class Player : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < dashingTime)
         {
+            if (!isAlive)
+                yield break;
             rb.MovePosition(Vector2.Lerp(originalPosition, dashPosition, elapsed / dashingTime));
             elapsed += Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
