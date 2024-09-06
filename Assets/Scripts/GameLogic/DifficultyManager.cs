@@ -46,6 +46,8 @@ public class DifficultyManager : MonoBehaviour
 
     public void Reset()
     {
+        elapsedTime = 0f;
+        nextReductionTime = 0f;
         initialSpawnInterval = 2f;
         minSpawnInterval = 0.2f;
         spawnIntervalStep = 0.2f;
