@@ -46,14 +46,14 @@ public class Weapon : MonoBehaviour
     }
     private void Update()
     {
-        if (PauseScript.instance != null)
+        if (GameLogic.instance != null)
         {
-            if (PauseScript.instance.GetPaused())
+            if (GameLogic.instance.GetPaused())
             {
                 audioSource.Pause();
                 return;
             }
-            else if (!PauseScript.instance.GetPaused())
+            else if (!GameLogic.instance.GetPaused())
             {
                 audioSource.UnPause();
             }

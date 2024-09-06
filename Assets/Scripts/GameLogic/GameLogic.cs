@@ -14,6 +14,8 @@ public class GameLogic : MonoBehaviour
     public float timeToBoss;
     public bool isBossScene;
     private bool isInGame;
+    private bool isPaused = false;
+    public bool isSettings = false;
 
     private void Awake()
     {
@@ -62,14 +64,14 @@ public class GameLogic : MonoBehaviour
                 {
                     Destroy(Player.instance.gameObject);
                 }
-                yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
+                SetPaused(true);
                 anim.SetTrigger("End");
+                yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
+                SetPaused(false);
                 GetComponent<EnemySpawner>().enabled = true;
                 GetComponent<BreakablesSpawner>().enabled = true;
                 GetComponent<DifficultyManager>().enabled = true;
                 GetComponent<DifficultyManager>().Reset();
-                yield return new WaitForSecondsRealtime(1);
-                Time.timeScale = 1f;
                 GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
                 gameTime = 0f;
                 isBossScene = false;
@@ -82,11 +84,12 @@ public class GameLogic : MonoBehaviour
                 GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
                 yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Boss Fight");
+                SetPaused(true);
                 SoundManager.instance.PlayBgm(2);
                 anim.SetTrigger("End");
+                yield return new WaitForSecondsRealtime(1f);
+                SetPaused(false);
                 Player.instance.transform.position = new UnityEngine.Vector3(3.8f, -3f, 0);
-                yield return new WaitForSecondsRealtime(2);
-                Time.timeScale = 1f;
                 break;
             case 4:
                 Debug.Log("TUT");
@@ -94,8 +97,9 @@ public class GameLogic : MonoBehaviour
                 yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Tutorial");
                 SoundManager.instance.PlayBgm(0);
-                yield return new WaitForSecondsRealtime(1);
-                Time.timeScale = 1f;
+                GameLogic.instance.SetPaused(true);
+                yield return new WaitForSecondsRealtime(2f);
+                GameLogic.instance.SetPaused(false);
                 anim.SetTrigger("End");
                 break;
         }
@@ -128,7 +132,16 @@ public class GameLogic : MonoBehaviour
         if (!isInGame)
             return;
 
-        if(Player.instance != null)
+        if (isPaused)
+        {
+            Time.timeScale = 0f;
+        }
+        else if (!isPaused)
+        {
+            Time.timeScale = 1f;
+        }
+
+        if (Player.instance != null)
         {
             if(Player.instance.getStatus())
             {
@@ -142,4 +155,15 @@ public class GameLogic : MonoBehaviour
             BossScene();
         }
     }
+
+    public void SetPaused(bool pause)
+    {
+        isPaused = pause;
+    }
+
+    public bool GetPaused()
+    {
+        return isPaused;
+    }
+
 }

@@ -26,6 +26,8 @@ public class GUI : MonoBehaviour
     [SerializeField] public GameObject bossHealthBarPanel;
     [SerializeField] public Image bossHealthBarImage;
     [SerializeField] public AudioClip levelUpClip;
+    [SerializeField] private GameObject pauseMenuUI;
+    [SerializeField] private GameObject settingsUI;
 
     private void Awake()
     {
@@ -42,6 +44,7 @@ public class GUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        pauseMenuUI.SetActive(false);
         deathScreenUI.SetActive(false);
         UpdatePlayerWeapon();
         UpdateAmmoCount();
@@ -64,6 +67,70 @@ public class GUI : MonoBehaviour
                 UpdateBossHealthBar();
             }
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!GameLogic.instance.isSettings) // not in settings
+            {
+                if (!pauseMenuUI.activeSelf)
+                {
+                    Pause();
+                }
+                else
+                {
+                    if (!Player.instance.isLeveling)
+                    {
+                        Resume();
+                    }
+                    pauseMenuUI.SetActive(false);
+                }
+
+            }
+            else //in settings
+            {
+                GameLogic.instance.isSettings = false;
+                pauseMenuUI.SetActive(true);
+                settingsUI.SetActive(false);
+            }
+        }
+    }
+    public void Resume()
+    {
+        SoundManager.instance.playButtonSound();
+        pauseMenuUI.SetActive(false);
+        GameLogic.instance.SetPaused(false);
+    }
+
+    public void RestartGame()
+    {
+        SoundManager.instance.playButtonSound();
+        GameLogic.instance.SetPaused(false);
+        pauseMenuUI.SetActive(false);
+        GameLogic.instance.NewGame();
+    }
+
+    public void Pause()
+    {
+        SoundManager.instance.playButtonSound();
+
+        pauseMenuUI.SetActive(true);
+        GameLogic.instance.SetPaused(true);
+    }
+    public void Settings()
+    {
+        pauseMenuUI.SetActive(false);
+        settingsUI.SetActive(true);
+        GameLogic.instance.isSettings = true;
+    }
+    public void outOfSettings()
+    {
+        SoundManager.instance.playButtonSound();
+        GameLogic.instance.isSettings = false;
+    }
+    public void QuitGame()
+    {
+        SoundManager.instance.playButtonSound();
+        pauseMenuUI.SetActive(false);
+        GameLogic.instance.MainMenu();
     }
 
     public void UpdateHealthBar()
@@ -110,7 +177,7 @@ public class GUI : MonoBehaviour
 
     public void LevelUP()
     {
-        PauseScript.instance.SetPaused(true);
+        GameLogic.instance.SetPaused(true);
         SoundManager.instance.PlaySfx(levelUpClip, transform);
         StartCoroutine(LevelUpPanel.instance.UpdateLevelUpUI());
         (float experience, float xpNeeded, float level) = Player.instance.GetExperience();

@@ -203,10 +203,10 @@ RectTransform:
   m_Children:
   - {fileID: 6914264942318643523}
   - {fileID: 6914264941015898052}
-  - {fileID: 6914264941786993590}
   - {fileID: 6914264942680380661}
   - {fileID: 6914264942188802505}
   - {fileID: 6914264942082240985}
+  - {fileID: 6914264941786993590}
   m_Father: {fileID: 6914264941344219986}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1037,7 +1037,7 @@ RectTransform:
   - {fileID: 1614954069258056308}
   - {fileID: 140279166944367955}
   m_Father: {fileID: 6914264941344219986}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1360,7 +1360,7 @@ RectTransform:
   - {fileID: 6615607214518662728}
   - {fileID: 6914264940988547631}
   m_Father: {fileID: 6914264941344219986}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1523,7 +1523,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6914264941344219991}
+      - m_Target: {fileID: 6914264941344219990}
         m_MethodName: Settings
         m_Mode: 1
         m_Arguments:
@@ -1731,7 +1731,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6914264941344219991}
+      - m_Target: {fileID: 6914264941344219990}
         m_MethodName: RestartGame
         m_Mode: 1
         m_Arguments:
@@ -1861,7 +1861,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6914264941344219991}
+      - m_Target: {fileID: 6914264941344219990}
         m_MethodName: Resume
         m_Mode: 1
         m_Arguments:
@@ -2767,7 +2767,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6914264941344219991}
+      - m_Target: {fileID: 6914264941344219990}
         m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
@@ -3037,7 +3037,6 @@ GameObject:
   - component: {fileID: 6914264941344219987}
   - component: {fileID: 6914264941344219990}
   - component: {fileID: 6914264941344220072}
-  - component: {fileID: 6914264941344219991}
   m_Layer: 5
   m_Name: UI Canvas
   m_TagString: GUI
@@ -3060,9 +3059,9 @@ RectTransform:
   - {fileID: 6914264942427409865}
   - {fileID: 5582072580151925336}
   - {fileID: 6914264941563362956}
+  - {fileID: 1839728035790508091}
   - {fileID: 6914264941427748685}
   - {fileID: 6615607213934880816}
-  - {fileID: 1839728035790508091}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3157,9 +3156,11 @@ MonoBehaviour:
   skillCDAnimator: {fileID: 6914264942680380616}
   CooldownImage: {fileID: 6914264942680380662}
   winScreenUI: {fileID: 5123073693191510747}
-  bossHealthBarPanel: {fileID: 3654625179308351358}
-  bossHealthBarImage: {fileID: 1630230680706562572}
+  bossHealthBarPanel: {fileID: 0}
+  bossHealthBarImage: {fileID: 0}
   levelUpClip: {fileID: 8300000, guid: 017e9367870fda84eb287d1746e2ee5e, type: 3}
+  pauseMenuUI: {fileID: 6615607213934880819}
+  settingsUI: {fileID: 6914264942427409910}
 --- !u!114 &6914264941344220072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3176,20 +3177,6 @@ MonoBehaviour:
   settingsUI: {fileID: 6914264942427409910}
   BGMSlider: {fileID: 6914264942207856662}
   SFXSlider: {fileID: 6914264941146226362}
---- !u!114 &6914264941344219991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6914264941344219985}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6a9e12f54100cb40b7d1a078c085918, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenuUI: {fileID: 6615607213934880819}
-  settingsUI: {fileID: 6914264942427409910}
 --- !u!1 &6914264941362385285
 GameObject:
   m_ObjectHideFlags: 0
@@ -3571,7 +3558,7 @@ RectTransform:
   m_Children:
   - {fileID: 6914264942288733994}
   m_Father: {fileID: 6914264941344219986}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -3743,7 +3730,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -12.5, y: 0}
   m_SizeDelta: {x: 15, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3960,7 +3947,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0.8999939, y: -0.40000153}
   m_SizeDelta: {x: 20, y: -40}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4035,7 +4022,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0.8999939, y: -0.40000153}
   m_SizeDelta: {x: 20, y: -40}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -4095,7 +4082,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6914264941563362956
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4563,7 +4550,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8051164766314928142}
-  m_RootOrder: 2
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -4644,7 +4631,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -12.5, y: 0}
   m_SizeDelta: {x: 15, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5205,7 +5192,7 @@ RectTransform:
   - {fileID: 6914264941592625457}
   - {fileID: 6914264941362385286}
   m_Father: {fileID: 8051164766314928142}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
@@ -5417,7 +5404,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8051164766314928142}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -6107,7 +6094,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &6914264942427409865
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6343,7 +6330,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 8051164766314928142}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -7276,12 +7263,6 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 7798124905749553650, guid: f22c352df3bfc9142b6de7de0b540fa0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f22c352df3bfc9142b6de7de0b540fa0, type: 3}
---- !u!224 &6914264941015898052 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7798124905749553651, guid: f22c352df3bfc9142b6de7de0b540fa0,
-    type: 3}
-  m_PrefabInstance: {fileID: 3732611205649708599}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6914264941583387987 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7798124906321247076, guid: f22c352df3bfc9142b6de7de0b540fa0,
@@ -7306,6 +7287,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &6914264941015898052 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7798124905749553651, guid: f22c352df3bfc9142b6de7de0b540fa0,
+    type: 3}
+  m_PrefabInstance: {fileID: 3732611205649708599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &6914264941950363270 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7798124906776350897, guid: f22c352df3bfc9142b6de7de0b540fa0,

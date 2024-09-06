@@ -117,7 +117,7 @@ public class Player : MonoBehaviour
         // Attacking
         if (Input.GetMouseButtonDown(0))
         {
-            if (weapon != null && !weapon.GetReloading() && !PauseScript.instance.GetPaused())
+            if (weapon != null && !weapon.GetReloading() && !GameLogic.instance.GetPaused())
             {
                 //gainXP(20);
                 weapon.Fire();
@@ -126,7 +126,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
-            if (weapon != null && !weapon.GetReloading() && !PauseScript.instance.GetPaused())
+            if (weapon != null && !weapon.GetReloading() && !GameLogic.instance.GetPaused())
             {
                 weapon.StopFire();
             }
@@ -402,7 +402,7 @@ public class Player : MonoBehaviour
     {
         if (type == "Speed")
         {
-            PauseScript.instance.SetPaused(false);
+            GameLogic.instance.SetPaused(false);
             originalSpeed += value;
             moveSpeed += value;
             GUI.instance.LevelUpUI.SetActive(false);
@@ -410,7 +410,7 @@ public class Player : MonoBehaviour
         }
         else if (type == "Max Health")
         {
-            PauseScript.instance.SetPaused(false);
+            GameLogic.instance.SetPaused(false);
             health += value;
             maxHealth += value;
             GUI.instance.LevelUpUI.SetActive(false);
@@ -418,7 +418,7 @@ public class Player : MonoBehaviour
         }
         else if (type == "Damage")
         {
-            PauseScript.instance.SetPaused(false);
+            GameLogic.instance.SetPaused(false);
             GUI.instance.LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
             if (weapon != null)
@@ -434,7 +434,7 @@ public class Player : MonoBehaviour
         }
         else if (type == "Reload Speed")
         {
-            PauseScript.instance.SetPaused(false);
+            GameLogic.instance.SetPaused(false);
             GUI.instance.LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
             if (weapon != null)
@@ -450,7 +450,7 @@ public class Player : MonoBehaviour
         }
         else if (type == "Dash Cooldown")
         {
-            PauseScript.instance.SetPaused(false);
+            GameLogic.instance.SetPaused(false);
             GUI.instance.LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
             dashingCooldown *= dashReduce;
@@ -459,7 +459,7 @@ public class Player : MonoBehaviour
         }
         else if (type == "Ammo Count")
         {
-            PauseScript.instance.SetPaused(false);
+            GameLogic.instance.SetPaused(false);
             GUI.instance.LevelUpUI.SetActive(false);
             Time.timeScale = 1f;
             if (weapon != null)

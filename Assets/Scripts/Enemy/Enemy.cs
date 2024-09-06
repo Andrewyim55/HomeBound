@@ -254,7 +254,7 @@ public abstract class Enemy : MonoBehaviour
             if(tag == "Boss")
             {
                 GUI.instance.winScreenUI.SetActive(true);
-                PauseScript.instance.SetPaused(true);
+                GameLogic.instance.SetPaused(true);
                 SoundManager.instance.bgmSource.Stop();
                 SoundManager.instance.PlaySfx(GameLogic.instance.victoryClip, transform);
             }
