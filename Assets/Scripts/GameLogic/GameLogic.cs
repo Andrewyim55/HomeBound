@@ -52,6 +52,7 @@ public class GameLogic : MonoBehaviour
                 isBossScene = false;
                 isInGame = false;
                 isTutorial = false;
+                SetPaused(false);
                 yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Main Menu");
                 SoundManager.instance.PlayBgm(0);
