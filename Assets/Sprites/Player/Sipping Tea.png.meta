@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: d61ee6610a7a9184e9af584014bb61d1
+guid: d84ef6a16ef3eab4ab6f1b1b86f49804
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6726110405365452216
-    second: Buttons_all_01_0
+      213: 9121066324091032098
+    second: Sipping Tea_0
   - first:
-      213: -7047365779108028861
-    second: Buttons_all_01_1
+      213: 2532257203245182811
+    second: Sipping Tea_1
+  - first:
+      213: -8789833125109062790
+    second: Sipping Tea_2
+  - first:
+      213: -2448430868458271623
+    second: Sipping Tea_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -89,38 +95,29 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Buttons_all_01_0
+      name: Sipping Tea_0
       rect:
         serializedVersion: 2
-        x: 672
-        y: 224
-        width: 32
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8bdcdd7f6c1f75d50800000000000000
-      internalID: 6726110405365452216
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Buttons_all_01_1
-      rect:
-        serializedVersion: 2
-        x: 816
-        y: 256
-        width: 32
-        height: 13
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +125,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34e9506992ab23e90800000000000000
-      internalID: -7047365779108028861
+      spriteID: 222593c0f79849e70800000000000000
+      internalID: 9121066324091032098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sipping Tea_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5f6a578282642320800000000000000
+      internalID: 2532257203245182811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sipping Tea_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a73a9eed75d340680800000000000000
+      internalID: -8789833125109062790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sipping Tea_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97c8174f81d650ed0800000000000000
+      internalID: -2448430868458271623
       vertices: []
       indices: 
       edges: []
