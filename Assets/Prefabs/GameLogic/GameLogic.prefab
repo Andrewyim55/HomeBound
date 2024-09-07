@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5417688268224389683}
   - component: {fileID: 865168412781877718}
   - component: {fileID: 143915625}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   victoryClip: {fileID: 8300000, guid: f9678715b1e66b84c8045b8fbc5ed0be, type: 3}
+  startGameClip: {fileID: 8300000, guid: a290744f2c043c7499013492ce89a721, type: 3}
   anim: {fileID: 4229266797946654056}
   toBossSceneClip: {fileID: 8300000, guid: a290744f2c043c7499013492ce89a721, type: 3}
   gameText: survive till you get Home
@@ -263,7 +264,7 @@ GameObject:
   - component: {fileID: 5144422288506263491}
   - component: {fileID: 4262517230487214299}
   - component: {fileID: 4534027126480517943}
-  m_Layer: 5
+  m_Layer: 18
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
