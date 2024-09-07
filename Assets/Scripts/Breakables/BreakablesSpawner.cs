@@ -31,6 +31,8 @@ public class BreakablesSpawner : MonoBehaviour
     {
         if (Player.instance == null)
             return;
+        if (GameLogic.instance.isSceneChanging)
+            return;
 
         spawningTime += Time.deltaTime;
         if(spawningTime >= randomInterval)

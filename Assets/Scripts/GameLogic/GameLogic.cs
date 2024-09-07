@@ -91,6 +91,7 @@ public class GameLogic : MonoBehaviour
                 SceneManager.LoadSceneAsync("Boss Fight");
                 SoundManager.instance.PlayBgm(2);
                 GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
+                Player.instance.gameObject.GetComponent<Collider2D>().enabled = true;
                 Player.instance.transform.position = new UnityEngine.Vector3(3.8f, -2.5f, 0);
                 GameObject.FindGameObjectWithTag("MainCamera").transform.position = new UnityEngine.Vector3(3.8f, -2.5f, -2);
                 anim.SetTrigger("End");
@@ -157,6 +158,7 @@ public class GameLogic : MonoBehaviour
         {
             isSceneChanging = true;
             isBossScene = true;
+            Player.instance.gameObject.GetComponent<Collider2D>().enabled = false;
             StartCoroutine(ToBossScene());
         }
     }
@@ -175,7 +177,7 @@ public class GameLogic : MonoBehaviour
     IEnumerator ToBossScene()
     {
         SoundManager.instance.PlaySfx(toBossSceneClip, transform);
-        yield return new WaitForSeconds(toBossSceneClip.length + 1f);
+        yield return new WaitForSeconds(toBossSceneClip.length / 2);
         BossScene();
     }
 

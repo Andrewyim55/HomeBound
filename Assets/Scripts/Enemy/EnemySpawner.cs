@@ -37,6 +37,9 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
+        if (GameLogic.instance.isSceneChanging)
+            return;
+
         timer += Time.deltaTime;
         if(timer > spawnInterval)
         {
