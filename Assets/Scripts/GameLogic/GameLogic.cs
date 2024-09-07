@@ -16,6 +16,7 @@ public class GameLogic : MonoBehaviour
     private bool isInGame;
     private bool isPaused = false;
     public bool isSettings = false;
+    public bool isTutorial = false;
 
     private void Awake()
     {
@@ -45,6 +46,7 @@ public class GameLogic : MonoBehaviour
                 GetComponent<DifficultyManager>().enabled = false;
                 isBossScene = false;
                 isInGame = false;
+                isTutorial = false;
                 yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Main Menu");
                 SoundManager.instance.PlayBgm(0);
@@ -76,6 +78,7 @@ public class GameLogic : MonoBehaviour
                 gameTime = 0f;
                 isBossScene = false;
                 isInGame = true;
+                isTutorial = false;
                 break;
             case 3:
                 anim.SetTrigger("Start");
@@ -91,7 +94,7 @@ public class GameLogic : MonoBehaviour
                 yield return new WaitForSecondsRealtime(1f);
                 break;
             case 4:
-                Debug.Log("TUT");
+                isTutorial = true;
                 anim.SetTrigger("Start");
                 yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Tutorial");

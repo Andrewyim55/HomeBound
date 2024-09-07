@@ -54,6 +54,11 @@ public class GUI : MonoBehaviour
         UpdateHealthBar();
         if (Player.instance != null)
         {
+            if(GameLogic.instance.isTutorial)
+            {
+                timerText.gameObject.SetActive(false);
+            }
+
             UpdateTimerUI();
             UpdateAmmoCount();
             UpdatePlayerWeapon();
