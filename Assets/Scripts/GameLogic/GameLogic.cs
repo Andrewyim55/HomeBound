@@ -153,6 +153,7 @@ public class GameLogic : MonoBehaviour
         if (Player.instance != null)
         {
             if(Player.instance.getStatus())
+            if(Player.instance.getStatus() && !isSceneChanging)
             {
                 gameTime += Time.deltaTime;
             }
@@ -189,6 +190,9 @@ public class GameLogic : MonoBehaviour
     {
         SoundManager.instance.PlaySfx(startGameClip, transform);
         yield return new WaitForSeconds(startGameClip.length);
+        yield return new WaitForSeconds(startGameClip.length / 2);
+        anim.SetTrigger("End");
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         isSceneChanging = false;
     }
 }
