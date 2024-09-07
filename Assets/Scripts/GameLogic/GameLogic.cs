@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameLogic : MonoBehaviour
 {
     [SerializeField] public AudioClip victoryClip;
+    [SerializeField] public AudioClip startGameClip;
     [SerializeField] private Animator anim;
     [SerializeField] private AudioClip toBossSceneClip;
     [SerializeField] private string gameText;
@@ -35,7 +36,6 @@ public class GameLogic : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        isBossScene = false;
         isInGame = false;
     }
 
@@ -67,6 +67,7 @@ public class GameLogic : MonoBehaviour
                 objective = gameText;
                 yield return new WaitForSecondsRealtime(1f);
                 SceneManager.LoadSceneAsync("SampleScene");
+                isSceneChanging = true;
                 SoundManager.instance.PlayBgm(1);
                 if (Player.instance != null)
                 {
@@ -76,14 +77,13 @@ public class GameLogic : MonoBehaviour
                 anim.SetTrigger("End");
                 yield return new WaitForSecondsRealtime(1f);
                 SetPaused(false);
-                isSceneChanging = false;
                 GetComponent<EnemySpawner>().enabled = true;
                 GetComponent<BreakablesSpawner>().enabled = true;
                 GetComponent<DifficultyManager>().enabled = true;
                 GetComponent<DifficultyManager>().Reset();
                 GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
+                StartCoroutine(ToGameScene());
                 gameTime = 0f;
-                isBossScene = false;
                 isInGame = true;
                 isTutorial = false;
                 break;
@@ -185,5 +185,10 @@ public class GameLogic : MonoBehaviour
         yield return new WaitForSeconds(toBossSceneClip.length / 2);
         BossScene();
     }
-
+    IEnumerator ToGameScene()
+    {
+        SoundManager.instance.PlaySfx(startGameClip, transform);
+        yield return new WaitForSeconds(startGameClip.length);
+        isSceneChanging = false;
+    }
 }
