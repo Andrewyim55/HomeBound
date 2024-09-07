@@ -24,4 +24,11 @@ public class MainMenu : MonoBehaviour
         SoundManager.instance.playButtonSound();
         GameLogic.instance.TutorialScene();
     }
+    public void ExitGame()
+    {
+        StopAllCoroutines();
+        Resources.UnloadUnusedAssets();
+        System.GC.Collect();
+        Application.Quit();
+    }
 }
