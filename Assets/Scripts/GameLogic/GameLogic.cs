@@ -81,6 +81,7 @@ public class GameLogic : MonoBehaviour
                 GetComponent<DifficultyManager>().enabled = true;
                 GetComponent<DifficultyManager>().Reset();
                 GetComponent<BreakablesSpawner>().breakablesInScene.Clear();
+                isBossScene = false;
                 StartCoroutine(ToGameScene());
                 gameTime = 0f;
                 isInGame = true;
