@@ -37,7 +37,7 @@ public abstract class Enemy : MonoBehaviour
 
     protected float pathUpdateTimer;
     protected float pathUpdateInterval = 0.5f;
-    private bool isAlive;
+    public bool isAlive;
     private Loot loot;
     private float maxHealth;
 
@@ -256,20 +256,19 @@ public abstract class Enemy : MonoBehaviour
             {
                 loot.DropLoot();
             }
-
-            if(tag == "Boss")
-            {
-                GUI.instance.winScreenUI.SetActive(true);
-                GameLogic.instance.SetPaused(true);
-                SoundManager.instance.bgmSource.Stop();
-                SoundManager.instance.PlaySfx(GameLogic.instance.victoryClip, transform);
-            }
-
             isAlive = false;
             animator.SetTrigger("Death");
             GetComponent<Collider2D>().enabled = false;
             rb.velocity = Vector3.zero;
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+            if (tag == "Boss")
+            {
+                yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+                GUI.instance.winScreenUI.SetActive(true);
+                GameLogic.instance.SetPaused(true);
+                SoundManager.instance.bgmSource.Stop();
+                SoundManager.instance.PlaySfx(GameLogic.instance.victoryClip, transform);
+            }
             Destroy(gameObject);
         }
     }
