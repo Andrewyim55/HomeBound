@@ -260,11 +260,14 @@ public abstract class Enemy : MonoBehaviour
             animator.SetTrigger("Death");
             GetComponent<Collider2D>().enabled = false;
             rb.velocity = Vector3.zero;
+            if (tag == "Boss")
+            {
+                Player.instance.gameObject.GetComponent<Collider2D>().enabled = false;
+            }
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
             if (tag == "Boss")
             {
                 GameLogic.instance.isSceneChanging = true;
-                Player.instance.gameObject.GetComponent<Collider2D>().enabled = false;
                 yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
                 GUI.instance.winScreenUI.SetActive(true);
                 GameLogic.instance.isSceneChanging = false;
