@@ -263,8 +263,12 @@ public abstract class Enemy : MonoBehaviour
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
             if (tag == "Boss")
             {
+                GameLogic.instance.isSceneChanging = true;
+                Player.instance.gameObject.GetComponent<Collider2D>().enabled = false;
                 yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
                 GUI.instance.winScreenUI.SetActive(true);
+                GameLogic.instance.isSceneChanging = false;
+                Player.instance.gameObject.GetComponent<Collider2D>().enabled = true;
                 GameLogic.instance.SetPaused(true);
                 SoundManager.instance.bgmSource.Stop();
                 SoundManager.instance.PlaySfx(GameLogic.instance.victoryClip, transform);

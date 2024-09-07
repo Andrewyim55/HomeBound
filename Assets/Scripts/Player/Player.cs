@@ -319,6 +319,7 @@ public class Player : MonoBehaviour
         SoundManager.instance.bgmSource.Stop();
         if(GameObject.FindObjectOfType<ReaperBoss>() !=null)
         {
+           FindObjectOfType<ReaperBoss>().GetComponent<Collider2D>().enabled = false;
            SoundManager.instance.PlaySfx(bossDeathClip, transform);
            Debug.Log("Boss sound");
         }
