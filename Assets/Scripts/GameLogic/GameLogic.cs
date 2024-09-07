@@ -10,6 +10,8 @@ public class GameLogic : MonoBehaviour
     [SerializeField] public AudioClip victoryClip;
     [SerializeField] private Animator anim;
     [SerializeField] private AudioClip toBossSceneClip;
+    [SerializeField] private string gameText;
+    [SerializeField] private string bossText;
     public static GameLogic instance;
     public float gameTime;
     public float timeToBoss;
@@ -19,6 +21,7 @@ public class GameLogic : MonoBehaviour
     public bool isSettings = false;
     public bool isTutorial = false;
     public bool isSceneChanging = false;
+    public string objective;
 
     private void Awake()
     {
@@ -61,6 +64,7 @@ public class GameLogic : MonoBehaviour
                 break;
             case 2:
                 anim.SetTrigger("Start");
+                objective = gameText;
                 yield return new WaitForSecondsRealtime(1f);
                 SceneManager.LoadSceneAsync("SampleScene");
                 SoundManager.instance.PlayBgm(1);
@@ -85,6 +89,7 @@ public class GameLogic : MonoBehaviour
                 break;
             case 3:
                 anim.SetTrigger("Start");
+                objective = bossText;
                 yield return new WaitForSecondsRealtime(1f);
                 GetComponent<EnemySpawner>().enabled = false;
                 GetComponent<DifficultyManager>().enabled = false;
