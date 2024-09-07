@@ -72,6 +72,12 @@ public abstract class Enemy : MonoBehaviour
         if(target == null)
             return;
 
+        if(GameLogic.instance.isSceneChanging)
+        {
+            rb.velocity = Vector3.zero;
+            return;
+        }
+
         if (!target.GetComponent<Player>().GetAlive() || !isAlive)
         {
             if (path != null)

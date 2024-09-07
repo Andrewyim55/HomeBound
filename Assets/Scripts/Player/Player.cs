@@ -103,6 +103,14 @@ public class Player : MonoBehaviour
             return;
         }
 
+        if (GameLogic.instance.isSceneChanging)
+        {
+            rb.velocity = Vector3.zero;
+            animator.SetFloat("Speed", 0);
+            weapon.StopFire();
+            return;
+        }
+
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         // Basic WASD Movement
@@ -157,7 +165,7 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (!isAlive)
+        if (!isAlive || GameLogic.instance.isSceneChanging)
         {
             rb.velocity = Vector3.zero;
             return;

@@ -9,6 +9,7 @@ public class GameLogic : MonoBehaviour
 {
     [SerializeField] public AudioClip victoryClip;
     [SerializeField] private Animator anim;
+    [SerializeField] private AudioClip toBossSceneClip;
     public static GameLogic instance;
     public float gameTime;
     public float timeToBoss;
@@ -17,6 +18,7 @@ public class GameLogic : MonoBehaviour
     private bool isPaused = false;
     public bool isSettings = false;
     public bool isTutorial = false;
+    public bool isSceneChanging = false;
 
     private void Awake()
     {
@@ -70,6 +72,7 @@ public class GameLogic : MonoBehaviour
                 anim.SetTrigger("End");
                 yield return new WaitForSecondsRealtime(1f);
                 SetPaused(false);
+                isSceneChanging = false;
                 GetComponent<EnemySpawner>().enabled = true;
                 GetComponent<BreakablesSpawner>().enabled = true;
                 GetComponent<DifficultyManager>().enabled = true;
@@ -92,6 +95,7 @@ public class GameLogic : MonoBehaviour
                 GameObject.FindGameObjectWithTag("MainCamera").transform.position = new UnityEngine.Vector3(3.8f, -2.5f, -2);
                 anim.SetTrigger("End");
                 yield return new WaitForSecondsRealtime(1f);
+                isSceneChanging = false;
                 break;
             case 4:
                 isTutorial = true;
@@ -99,6 +103,7 @@ public class GameLogic : MonoBehaviour
                 yield return new WaitForSecondsRealtime(anim.GetCurrentAnimatorStateInfo(0).length);
                 SceneManager.LoadSceneAsync("Tutorial");
                 anim.SetTrigger("End");
+                isSceneChanging = false;
                 break;
         }
     }
@@ -147,10 +152,12 @@ public class GameLogic : MonoBehaviour
             }
         }
 
+
         if (gameTime >= timeToBoss && !isBossScene)
         {
+            isSceneChanging = true;
             isBossScene = true;
-            BossScene();
+            StartCoroutine(ToBossScene());
         }
     }
 
@@ -162,6 +169,14 @@ public class GameLogic : MonoBehaviour
     public bool GetPaused()
     {
         return isPaused;
+    }
+
+
+    IEnumerator ToBossScene()
+    {
+        SoundManager.instance.PlaySfx(toBossSceneClip, transform);
+        yield return new WaitForSeconds(toBossSceneClip.length + 1f);
+        BossScene();
     }
 
 }
