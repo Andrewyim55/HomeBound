@@ -28,6 +28,7 @@ public class GUI : MonoBehaviour
     [SerializeField] public AudioClip levelUpClip;
     [SerializeField] private GameObject pauseMenuUI;
     [SerializeField] private GameObject settingsUI;
+    [SerializeField] private Text objectiveText;
 
     private void Awake()
     {
@@ -48,6 +49,7 @@ public class GUI : MonoBehaviour
         deathScreenUI.SetActive(false);
         UpdatePlayerWeapon();
         UpdateAmmoCount();
+        objectiveText.text = GameLogic.instance.objective;
     }
     private void Update()
     {
@@ -100,6 +102,7 @@ public class GUI : MonoBehaviour
     }
     public void Resume()
     {
+        SoundManager.instance.bgmSource.Play();
         SoundManager.instance.playButtonSound();
         pauseMenuUI.SetActive(false);
         GameLogic.instance.SetPaused(false);
@@ -116,12 +119,13 @@ public class GUI : MonoBehaviour
     public void Pause()
     {
         SoundManager.instance.playButtonSound();
-
+        SoundManager.instance.bgmSource.Pause();
         pauseMenuUI.SetActive(true);
         GameLogic.instance.SetPaused(true);
     }
     public void Settings()
     {
+        SoundManager.instance.playButtonSound();
         pauseMenuUI.SetActive(false);
         settingsUI.SetActive(true);
         GameLogic.instance.isSettings = true;
