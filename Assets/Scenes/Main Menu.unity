@@ -1475,6 +1475,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5886902147009374890, guid: 546b67cd11c76fa4bb0d683dc893a8a3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 546b67cd11c76fa4bb0d683dc893a8a3, type: 3}
 --- !u!1 &511347292
@@ -1896,12 +1901,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 691397994}
   m_CullTransparentMesh: 0
---- !u!82 &718656773 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 855175706179752574, guid: 034acbe8e3f992245a39bdaaaf64ed5f,
-    type: 3}
-  m_PrefabInstance: {fileID: 2099954748}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &767620988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2340,10 +2339,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2677,37 +2676,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 8401738425922880016, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
-        type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8401738425922880016, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 8c5425ddb3835ee43bb12537673f4568,
-        type: 3}
-    - target: {fileID: 8401738425922880016, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8401738425922880016, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
-        type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8401738425922880016, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
-        type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8401738425922880016, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
-        type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8401738426888246681, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -2838,25 +2806,10 @@ PrefabInstance:
       propertyPath: MainUI
       value: 
       objectReference: {fileID: 1773326069}
-    - target: {fileID: 8401738427026339814, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
-        type: 3}
-      propertyPath: BGMSource
-      value: 
-      objectReference: {fileID: 718656773}
-    - target: {fileID: 8401738427026339814, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
-        type: 3}
-      propertyPath: SFXSource
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8401738427026339815, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
         type: 3}
       propertyPath: m_Name
       value: Settings UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 8401738427026339815, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8401738427146254319, guid: b1fb96a21e5e25344bcc5f5a8fba6576,
         type: 3}

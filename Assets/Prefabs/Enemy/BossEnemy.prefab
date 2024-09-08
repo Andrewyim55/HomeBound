@@ -558,11 +558,12 @@ MonoBehaviour:
   damagePopUpPrefab: {fileID: 1305485594197436244, guid: c730fd3f7896f6a4f9549c12feb48c07,
     type: 3}
   health: 600
-  dmg: 20
+  dmg: 10
   attackRange: 2.75
   moveSpeed: 2.5
   spawnWeight: 0
   attackWaitTime: 1
+  isAlive: 0
   firePoints:
   - {fileID: 1553874357}
   - {fileID: 2081244464}
@@ -590,7 +591,7 @@ MonoBehaviour:
   attackPoint: {fileID: 1146758321}
   attackDistance: 1
   meleeDistance: 1.28
-  bulletDmg: 10
+  bulletDmg: 4
   fireForce: 10
   shootingDistance: 5
   spawnDistance: 3
@@ -598,7 +599,7 @@ MonoBehaviour:
   chargeDistance: 3.75
   chargeSpeed: 6
   explostionEffect: {fileID: 193001968}
-  explostionDmg: 25
+  explostionDmg: 20
   explosionClip: {fileID: 8300000, guid: f43480232e584ad4ab7410fb3c7747a9, type: 3}
   summoningClip: {fileID: 8300000, guid: 95c9d6905eb837d48a645b419c842a45, type: 3}
   fireBallClip: {fileID: 8300000, guid: fc689125f9fc07640854de6c34283896, type: 3}

@@ -173,7 +173,7 @@ public class ReaperBoss : Enemy
                     }
                 }
 
-                if (Random.value < 0.5f)
+                if (Random.value < 0.7f)
                 {
                     StartCoroutine(ChargeAttack());
                     return;
@@ -311,11 +311,11 @@ public class ReaperBoss : Enemy
         isAttacking = true;
         SoundManager.instance.PlaySfx(explosionClip, transform);
         animator.SetTrigger("special");
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(0.5f);
         explostionEffect.GetComponent<Animator>().SetTrigger("explosion");
-        yield return new WaitForSeconds(explostionEffect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length / 3);
-        explostionEffect.GetComponent<Collider2D>().enabled = true;
         yield return new WaitForSeconds(explostionEffect.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length / 2);
+        explostionEffect.GetComponent<Collider2D>().enabled = true;
+        yield return new WaitForSeconds(0.5f);
         explostionEffect.GetComponent<Collider2D>().enabled = false;
         animator.ResetTrigger("special");
         StartCoroutine(AttackCoolDown());
